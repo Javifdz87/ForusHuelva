@@ -2,7 +2,9 @@ CREATE TABLE users(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    role BOOLEAN
+ 
 );
 CREATE TABLE clients(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -13,22 +15,36 @@ CREATE TABLE clients(
     town VARCHAR(255) NOT NULL,
     postal_code INT NOT NULL,
     province VARCHAR(255) NOT NULL,
-    role VARCHAR(255) NOT NULL
+    address VARCHAR(255) NOT NULL,
+    bank_account VARCHAR(255) NOT NULL,
+    role BOOLEAN
 );
 
-CREATE TABLE polizas(
+CREATE TABLE subscription_fees(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    n_poliza INT NOT NULL UNIQUE,
     importe DOUBLE(8, 2) NOT NULL,
-    monto DOUBLE(8, 2) NOT NULL,
-    rest DOUBLE(8, 2) NOT NULL,
-    start_date DATE NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    date_pay DATE NOT NULL,
     observation TEXT,
     client_id INT NOT NULL,
-    
+  
     FOREIGN KEY(client_id) REFERENCES clients(id) ON DELETE CASCADE
 );
+CREATE TABLE courts(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+    sport DATE NOT NULL
+);
+CREATE TABLE rental_fees(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    importe DOUBLE(8, 2) NOT NULL,
+    date_pay DATE NOT NULL,
+    date_time DATETIME NOT NULL,
+    client_id INT NOT NULL,
+    court_id INT NOT NULL,
+    FOREIGN KEY(client_id) REFERENCES clients(id) ON DELETE CASCADE,
+    FOREIGN KEY(court_id) REFERENCES courts(id) ON DELETE CASCADE
+);
+
 
 
 
