@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class rentalFeesModel extends Model implements Authenticatable
+class SubscriptionFeesModel extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
 
-    protected $table = 'rental_fees';
+    protected $table = 'subscription_fees';
     protected $primaryKey = 'id';
 
     public $timestamps = false;

@@ -4,9 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientsController;
-use App\Http\Controllers\PolizasController;
+use App\Http\Controllers\CourtsController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RentFeesController;
+use App\Http\Controllers\SubFeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,9 @@ Route::apiResource('/register', RegisterController::class);
 
 Route::apiResource('/clientes', ClientsController::class);
 
-Route::apiResource('/polizas', PolizasController::class);
+Route::apiResource('/courts', CourtsController::class);
 
+Route::apiResource('/rentfees', RentFeesController::class);
 
+Route::apiResource('/subfees', SubFeesController::class);
 
