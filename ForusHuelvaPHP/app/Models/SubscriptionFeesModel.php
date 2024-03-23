@@ -6,27 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class ClientsModel extends Model implements Authenticatable
+class rentalFeesModel extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
 
-    protected $table = 'clients';
+    protected $table = 'rental_fees';
     protected $primaryKey = 'id';
 
     public $timestamps = false;
 
     protected $fillable = [
         'id',
-        'name',
-        'last_Name',
-        'email',
-        'phone',
-        'town',
-        'postal_code',
-        'province',
-        'address',
-        'bank_account',
-        'role',
+        'importe',
+        'date_pay',
+        'observation',
+        'client_id',
     ];
-
 }

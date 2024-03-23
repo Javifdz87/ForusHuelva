@@ -20,6 +20,8 @@ class UsersModel extends Model implements Authenticatable
         'name',
         'email',
         'password',
+        'role',
+
     ];
 
 }

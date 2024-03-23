@@ -6,29 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class PolizasModel extends Model implements Authenticatable
+class RentalFeesModel extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
 
-    protected $table = 'polizas';
+    protected $table = 'rental_fees';
     protected $primaryKey = 'id';
 
     public $timestamps = false;
 
     protected $fillable = [
         'id',
-        'n_poliza',
         'importe',
-        'monto',
-        'rest',
-        'start_date',
-        'status',
-        'observation',
+        'date_pay',
+        'date_time',
         'client_id',
+        'court_id',
 
     ];
-    public function client()
-    {
-        return $this->belongsTo(ClientsModel::class);
-    }
 }
