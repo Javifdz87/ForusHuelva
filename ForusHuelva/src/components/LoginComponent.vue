@@ -29,7 +29,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
+                        <a class="nav-link" href="#">Cuenta</a>
                     </li>
                 </ul>
             </div>
@@ -197,8 +197,8 @@
                 
             </div>
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
+                <div class="col-lg-3 mb-3">
+                    <div class="card text-bg-dark ">
                         <img src="./icons/misiones.jpg" class="card-img" alt="...">
                         <div class="card-img-overlay">
                           <h5 class="card-title">Boxeo</h5>
