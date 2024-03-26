@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Agencia de Seguros</a>
+      <a class="navbar-brand" href="#">Forus Huelva</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -14,7 +14,10 @@
             <router-link to="/clientsTable" class="nav-link">Clientes</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/polizasTable" class="nav-link">Polizas</router-link>
+            <router-link to="/polizasTable" class="nav-link">Subscripciones</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/polizasTable" class="nav-link">Alquileres</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/search" class="nav-link">Filtrar Clientes</router-link>
