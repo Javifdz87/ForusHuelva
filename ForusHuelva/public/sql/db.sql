@@ -16,9 +16,8 @@ CREATE TABLE clients(
     postal_code INT NOT NULL,
     province VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    bank_account VARCHAR(255) NOT NULL,
-    role BOOLEAN
-);
+    bank_account VARCHAR(255) NOT NULL
+    );
 
 CREATE TABLE subscription_fees(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

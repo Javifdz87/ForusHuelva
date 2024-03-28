@@ -20,6 +20,9 @@
             <router-link to="/polizasTable" class="nav-link">Alquileres</router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/search" class="nav-link">Pistas</router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/search" class="nav-link">Filtrar Clientes</router-link>
           </li>
         </ul>
