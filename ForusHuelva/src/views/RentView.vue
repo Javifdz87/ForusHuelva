@@ -1,17 +1,17 @@
 <template>
     <NavComponent/>
-    <PolizasComponent/>
+    <RentComponent/>
   </template>
   
   <script>
   import NavComponent from '@/components/NavComponent.vue';
-  import PolizasComponent from '@/components/PolizasComponent.vue';
+  import RentComponent from '@/components/RentComponent.vue';
   
   export default{
-  name: 'polizasTable',
+  name: 'rentTable',
   components: {
     NavComponent,
-    PolizasComponent
+    RentComponent
 }
   }
   </script>

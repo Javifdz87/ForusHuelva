@@ -84,13 +84,7 @@
                   <label for="floatingInput">Id Cliente</label>
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="role" placeholder="name@example.com"
-                    v-model="selectedClient.role" />
-                  <label for="floatingInput">Tipo de CLiente</label>
-                </div>
-              </div>
+              
             </div>
 
             <div class="row">
@@ -150,7 +144,26 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="address" placeholder="name@example.com"
+                    v-model="selectedClient.address" />
+                  <label for="floatingInput">Dirección</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
+                    v-model="selectedClient.bank_account" />
+                  <label for="floatingInput">Cuenta Bancaria</label>
+                </div>
+              </div>
+            </div>
           </div>
+
+          
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -239,7 +252,7 @@
                 <div class="col-lg-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="address" placeholder="name@example.com"
-                      v-model="postal_code" required maxlength="5" />
+                      v-model="address" required maxlength="5" />
                     <label for="floatingInput">Dirección</label>
                   </div>
                 </div>
@@ -249,7 +262,7 @@
                 <div class="col-lg-12">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
-                      v-model="bank_account" required maxlength="5" />
+                      v-model="bank_account" required />
                     <label for="floatingInput">Cuenta corriente</label>
                   </div>
                 </div>
@@ -341,12 +354,19 @@
 
                   <div class="col-lg-8">
                     <div class="form-floating mb-3">
-                      <select class="form-select" id="status" v-model="selectedClient.role" required>
-                        <option value="" disabled selected>Elige el estado de la tarea</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="particular">Particular</option>
-                      </select>
-                      <label for="estado">Estado</label>
+                      <input type="text" class="form-control" id="address" placeholder="name@example.com"
+                        v-model="selectedClient.address" maxlength="5" />
+                      <label for="floatingInput">Dirección</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
+                        v-model="selectedClient.bank_account" required />
+                      <label for="floatingInput">Cuenta Corriente</label>
                     </div>
                   </div>
                 </div>
@@ -389,7 +409,8 @@ const phone = ref('')
 const town = ref('')
 const postal_code = ref('')
 const province = ref('')
-const role = ref('')
+const bank_account = ref('')
+const address = ref('')
 
 const showSuccess = () => {
   toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 })
@@ -517,7 +538,9 @@ const registrarCliente = async () => {
       town: town.value,
       postal_code: postalCodeValue, // Usar el valor convertido
       province: province.value,
-      role: role.value
+      bank_account: bank_account.value,
+      address: address.value,
+
     }
 
     console.log('Datos a enviar:', data)
@@ -531,7 +554,8 @@ const registrarCliente = async () => {
     town.value = ''
     postal_code.value = ''
     province.value = ''
-    role.value = ''
+    bank_account.value = ''
+    address.value = ''
     cerrarModalCrear()
     showSuccess()
 
@@ -549,13 +573,7 @@ const cerrarModalCrear = async () => {
   closeButton.click()
 }
 
-const cerrarModalPoliza = async () => {
-  const crearPolizaeModal = document.getElementById('nuevapoliza')
-  const closeButton = crearPolizaeModal.querySelector('[data-bs-dismiss="modal"]')
-  closeButton.click()
-}
 
-onMounted(obtenerClientes)
 onMounted(obtenerClientes)
 
 </script>

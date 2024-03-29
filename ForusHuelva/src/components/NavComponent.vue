@@ -14,10 +14,10 @@
             <router-link to="/clientsTable" class="nav-link">Clientes</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/polizasTable" class="nav-link">Subscripciones</router-link>
+            <router-link to="/subscriptionTable" class="nav-link">Subscripciones</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/polizasTable" class="nav-link">Alquileres</router-link>
+            <router-link to="/rentTable" class="nav-link">Alquileres</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/search" class="nav-link">Pistas</router-link>

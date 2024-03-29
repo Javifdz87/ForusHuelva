@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '@/views/LoginView.vue';
 import Register from '@/views/RegisterView.vue';
 import ClientsTable from '@/views/ClientsView.vue';
-import PolizasTable from '@/views/PolizasView.vue';
+import SubscriptionTable from '@/views/SubscriptionView.vue';
+import RentTable from '@/views/RentView.vue';
 import Home from '@/views/HomeView.vue';
 import Nav from '@/views/NavView.vue';
 import Search from '@/views/SearchView.vue'
@@ -34,9 +35,14 @@ const routes = [
     component: ClientsTable
   },
   {
-    path: '/polizasTable',
-    name: 'polizasTable',
-    component: PolizasTable
+    path: '/subscriptionTable',
+    name: 'subscriptionTable',
+    component: SubscriptionTable
+  },
+  {
+    path: '/rentTable',
+    name: 'rentTable',
+    component: RentTable
   },
   {
     path: '/nav',
