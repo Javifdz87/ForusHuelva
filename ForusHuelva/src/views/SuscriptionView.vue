@@ -1,17 +1,17 @@
 <template>
     <NavComponent/>
-    <SubscriptionComponent/>
+    <SuscriptionComponent/>
   </template>
   
   <script>
   import NavComponent from '@/components/NavComponent.vue';
-  import SubscriptionComponent from '@/components/SubscriptionComponent.vue';
+  import SuscriptionComponent from '@/components/SuscriptionComponent.vue';
   
   export default{
-  name: 'subscriptionTable',
+  name: 'suscriptionTable',
   components: {
     NavComponent,
-    SubscriptionComponent
+    SuscriptionComponent
 }
   }
   </script>

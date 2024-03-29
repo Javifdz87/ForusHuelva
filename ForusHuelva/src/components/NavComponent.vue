@@ -14,7 +14,7 @@
             <router-link to="/clientsTable" class="nav-link">Clientes</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/subscriptionTable" class="nav-link">Subscripciones</router-link>
+            <router-link to="/suscriptionTable" class="nav-link">Subscripciones</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/rentTable" class="nav-link">Alquileres</router-link>
