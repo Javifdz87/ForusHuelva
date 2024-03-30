@@ -4,6 +4,7 @@ import Register from '@/views/RegisterView.vue';
 import ClientsTable from '@/views/ClientsView.vue';
 import SuscriptionTable from '@/views/SuscriptionView.vue';
 import RentTable from '@/views/RentView.vue';
+import CourtsTable from '@/views/CourtsView.vue';
 import Home from '@/views/HomeView.vue';
 import Nav from '@/views/NavView.vue';
 import Search from '@/views/SearchView.vue'
@@ -43,6 +44,11 @@ const routes = [
     path: '/rentTable',
     name: 'rentTable',
     component: RentTable
+  },
+  {
+    path: '/courtsTable',
+    name: 'courtsTable',
+    component: CourtsTable
   },
   {
     path: '/nav',

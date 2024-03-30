@@ -45,7 +45,8 @@ CREATE TABLE rental_fees(
 );
 
 
-
+INSERT INTO subscription_fees(id, importe, date_pay, observation, client_id) VALUES 
+(1, 59.99, '2024-03-30', suscripcion, 1);
 
 INSERT INTO clients (id, name, last_Name, email, phone, town, postal_code, province, role) VALUES
 (1, 'Juan', 'García', 'juan@example.com', 123456789, 'Madrid', 28001, 'MAD', 'particular'),

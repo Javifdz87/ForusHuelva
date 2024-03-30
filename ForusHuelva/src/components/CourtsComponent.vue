@@ -4,77 +4,23 @@
       <Toast />
 
       <div class="col-lg-8 offset-lg-2">
-        <div class="collapse" id="collapseEdit">
-          <div class="card card-body">
-            <form @submit.prevent="pagarImporte">
-              <h1>Pagar Importe</h1>
-              <div class="row">
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                      v-model="selectedPoliza.n_poliza" readonly />
-                    <label for="floatingInput">Número de la póliza</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="importe" placeholder="name@example.com"
-                      :value="selectedPoliza.importe" readonly />
-                    <label for="floatingInput">Importe</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="resto" placeholder="name@example.com"
-                      v-model="selectedPoliza.rest" readonly />
-                    <label for="floatingInput">Resto del pago</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="cantidadPagar" placeholder="name@example.com"
-                      v-model="cantidadPagar" />
-                    <label for="floatingInput">Cantidad a pagar</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-12 mb-3">
-                  <button type="submit" class="btn btn-warning btn-block w-100">Pagar Póliza</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
         <div class="table-responsive-vertical p-3">
 
           <div class="row">
             <div class="d-flex justify-content-center">
               <h2>
-                Lista Alquileres
+                Lista Pistas
               </h2>
             </div>
-            <div class="d-flex justify-content-end">
-              <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
-                Nueva Poliza
-              </button>
-            </div>
           </div>
-          <DataTable :value="polizas" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
+          <DataTable :value="subs" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem">
-            <Column field="n_poliza" header="Número Poliza" sortable style="width: 5%"></Column>
+            <Column field="id" header="Número Poliza" sortable style="width: 5%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 11%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
             <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
-            <Column field="monto" header="Pagado" sortable style="width: 8%"></Column>
-            <Column field="start_date" header="Fecha Inicio" sortable style="width: 13%"></Column>
-            <Column field="status" header="Estado" sortable style="width: 11%">
-              <template #body="{ data }">
-                <Tag :value="data.status" :severity="getSeverity(data.status)" />
-              </template>
-            </Column>
-            <Column field="observation" header="Observaciones" sortable style="width: 15%"></Column>
+            <Column field="date_pay" header="Pagado" sortable style="width: 8%"></Column>
+            <Column field="observation" header="Fecha Inicio" sortable style="width: 13%"></Column> 
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
@@ -89,14 +35,6 @@
                   @click="selectPoliza(slotProps.data)">
                   M
                 </Button>
-                <Button
-                  v-if="slotProps.data.status !== 'cobrada' && slotProps.data.status !== 'pre anulada' && slotProps.data.status !== 'anulada' && slotProps.data.status !== 'liquidada'"
-                  class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEdit"
-                  aria-expanded="false" aria-controls="collapseEdit" @click="selectPoliza(slotProps.data)">
-                  Pagar
-                </Button>
-
-
               </template>
             </Column>
           </DataTable>
@@ -222,7 +160,7 @@
       </div>
     </div>
 
-    <!-- Modal Nueva Poliza -->
+    <!-- Modal Nueva Sub -->
     <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg"> <!-- Ajusta la clase modal-dialog -->
         <div class="modal-content">
@@ -409,24 +347,9 @@ const selectedPolizaInfo = ref({
   name: '',
   email: ''
 });
-// Función para obtener el color según el estado
-const getSeverity = (status) => {
-  switch (status) {
-    case 'cobrada':
-      return 'success';
-    case 'a cuenta':
-      return 'warning';
-    case 'liquidada':
-      return 'info';
-    case 'anulada':
-    case 'pre anulada':
-      return 'danger';
-    default:
-      return 'primary';
-  }
-};
 
-const polizas = ref([]);
+
+const subs = ref([]);
 const selectedPoliza = ref({});
 const cantidadPagar = ref(0);
 
@@ -438,10 +361,10 @@ const showSuccess = () => {
 };
 
 
-const obtenerPolizas = async () => {
+const obtenerSubs = async () => {
   try {
-    const respuesta = await api.get('/polizas');
-    polizas.value = respuesta.data;
+    const respuesta = await api.get('/subfees');
+    subs.value = respuesta.data;
 
   } catch (error) {
     console.error(error);
@@ -505,7 +428,7 @@ const editarPoliza = async () => {
       console.log('Póliza actualizada correctamente.');
       showSuccess();
       cerrarModalEditar();
-      obtenerPolizas();
+      obtenerSubs();
     } else {
       showError();
 
@@ -554,7 +477,7 @@ const pagarImporte = async () => {
       showSuccess();
       cerrarCollapse();
 
-      obtenerPolizas();
+      obtenerSubs();
     } else {
       console.error('Error al actualizar la póliza.');
     }
@@ -604,7 +527,7 @@ const crearPoliza = async () => {
     clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
     nombre.value = ''; // Reiniciar el nombre
     // Llamar a la función para obtener las pólizas después de crear una nueva póliza
-    obtenerPolizas();
+    obtenerSubs();
   } catch (error) {
     showError();
     console.error(error);
@@ -639,6 +562,6 @@ const cerrarCollapse = async () => {
 
 onMounted(() => {
   obtenerClientes();
-  obtenerPolizas();
+  obtenerSubs();
 });
 </script>
