@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/padel.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Padel</h5>
                             </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/tenis.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Tenis</h5>
                             </div>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/sala.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Futbol Sala</h5>
                             </div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/siete.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Futbol 7</h5>
                             </div>

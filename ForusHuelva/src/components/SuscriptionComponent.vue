@@ -4,49 +4,6 @@
       <Toast />
 
       <div class="col-lg-8 offset-lg-2">
-        <div class="collapse" id="collapseEdit">
-          <div class="card card-body">
-            <form @submit.prevent="pagarImporte">
-              <h1>Pagar Importe</h1>
-              <div class="row">
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                      v-model="selectedPoliza.n_poliza" readonly />
-                    <label for="floatingInput">Número de la póliza</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="importe" placeholder="name@example.com"
-                      :value="selectedPoliza.importe" readonly />
-                    <label for="floatingInput">Importe</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="resto" placeholder="name@example.com"
-                      v-model="selectedPoliza.rest" readonly />
-                    <label for="floatingInput">Resto del pago</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="cantidadPagar" placeholder="name@example.com"
-                      v-model="cantidadPagar" />
-                    <label for="floatingInput">Cantidad a pagar</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-12 mb-3">
-                  <button type="submit" class="btn btn-warning btn-block w-100">Pagar Póliza</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
         <div class="table-responsive-vertical p-3">
 
           <div class="row">
@@ -68,7 +25,7 @@
             <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
             <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
             <Column field="date_pay" header="Pagado" sortable style="width: 8%"></Column>
-            <Column field="observation" header="Fecha Inicio" sortable style="width: 13%"></Column> 
+            <Column field="observation" header="Observación" sortable style="width: 13%"></Column> 
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"

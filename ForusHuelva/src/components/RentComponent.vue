@@ -4,49 +4,6 @@
       <Toast />
 
       <div class="col-lg-8 offset-lg-2">
-        <div class="collapse" id="collapseEdit">
-          <div class="card card-body">
-            <form @submit.prevent="pagarImporte">
-              <h1>Pagar Importe</h1>
-              <div class="row">
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                      v-model="selectedPoliza.n_poliza" readonly />
-                    <label for="floatingInput">Número de la póliza</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="importe" placeholder="name@example.com"
-                      :value="selectedPoliza.importe" readonly />
-                    <label for="floatingInput">Importe</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="resto" placeholder="name@example.com"
-                      v-model="selectedPoliza.rest" readonly />
-                    <label for="floatingInput">Resto del pago</label>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="cantidadPagar" placeholder="name@example.com"
-                      v-model="cantidadPagar" />
-                    <label for="floatingInput">Cantidad a pagar</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-12 mb-3">
-                  <button type="submit" class="btn btn-warning btn-block w-100">Pagar Póliza</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
         <div class="table-responsive-vertical p-3">
 
           <div class="row">
@@ -57,24 +14,18 @@
             </div>
             <div class="d-flex justify-content-end">
               <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
-                Nueva Poliza
+                Nuevo Alquiler
               </button>
             </div>
           </div>
-          <DataTable :value="polizas" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
+          <DataTable :value="rent" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem">
-            <Column field="n_poliza" header="Número Poliza" sortable style="width: 5%"></Column>
-            <Column field="client.name" header="Nombre" sortable style="width: 11%"></Column>
-            <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
-            <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
-            <Column field="monto" header="Pagado" sortable style="width: 8%"></Column>
-            <Column field="start_date" header="Fecha Inicio" sortable style="width: 13%"></Column>
-            <Column field="status" header="Estado" sortable style="width: 11%">
-              <template #body="{ data }">
-                <Tag :value="data.status" :severity="getSeverity(data.status)" />
-              </template>
-            </Column>
-            <Column field="observation" header="Observaciones" sortable style="width: 15%"></Column>
+            <Column field="id" header="Id" sortable style="width: 12%"></Column>
+            <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
+            <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
+            <Column field="importe" header="Importe" sortable style="width: 14%"></Column>
+            <Column field="date_pay" header="Fecha de Pago" sortable style="width: 14%"></Column>
+            <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
@@ -409,24 +360,9 @@ const selectedPolizaInfo = ref({
   name: '',
   email: ''
 });
-// Función para obtener el color según el estado
-const getSeverity = (status) => {
-  switch (status) {
-    case 'cobrada':
-      return 'success';
-    case 'a cuenta':
-      return 'warning';
-    case 'liquidada':
-      return 'info';
-    case 'anulada':
-    case 'pre anulada':
-      return 'danger';
-    default:
-      return 'primary';
-  }
-};
 
-const polizas = ref([]);
+
+const rent = ref([]);
 const selectedPoliza = ref({});
 const cantidadPagar = ref(0);
 
@@ -438,10 +374,10 @@ const showSuccess = () => {
 };
 
 
-const obtenerPolizas = async () => {
+const obtenerRents = async () => {
   try {
-    const respuesta = await api.get('/polizas');
-    polizas.value = respuesta.data;
+    const respuesta = await api.get('/rentfees');
+    rent.value = respuesta.data;
 
   } catch (error) {
     console.error(error);
@@ -471,11 +407,11 @@ const eliminarPoliza = async () => {
     }
 
     const idPoliza = selectedPoliza.value.id;
-    const response = await api.delete(`/polizas/${idPoliza}`);
+    const response = await api.delete(`/rent/${idPoliza}`);
 
     if (response.status === 204) {
 
-      polizas.value = polizas.value.filter(cliente => cliente.id !== idPoliza);
+      rent.value = rent.value.filter(cliente => cliente.id !== idPoliza);
       cerrarModalBorrar();
       showSuccess();
 
@@ -494,7 +430,7 @@ const eliminarPoliza = async () => {
 const editarPoliza = async () => {
   try {
     const idPoliza = selectedPoliza.value.id;
-    const response = await api.put(`/polizas/${idPoliza}`, {
+    const response = await api.put(`/rent/${idPoliza}`, {
       importe: selectedPoliza.value.importe,
       start_date: selectedPoliza.value.start_date,
       status: selectedPoliza.value.status,
@@ -505,7 +441,7 @@ const editarPoliza = async () => {
       console.log('Póliza actualizada correctamente.');
       showSuccess();
       cerrarModalEditar();
-      obtenerPolizas();
+      obtenerRents();
     } else {
       showError();
 
@@ -530,7 +466,7 @@ const pagarImporte = async () => {
     const importePagado = cantidadPagar.value;
 
     // Obtener la información de la póliza desde la base de datos
-    const response = await api.get(`/polizas/${idPoliza}`);
+    const response = await api.get(`/rent/${idPoliza}`);
     const poliza = response.data;
 
     // Calcular el nuevo monto pagado
@@ -540,7 +476,7 @@ const pagarImporte = async () => {
     const nuevoResto = poliza.importe - nuevoMonto;
 
     // Actualizar la información de la póliza en la base de datos
-    const responseUpdate = await api.put(`/polizas/${idPoliza}`, {
+    const responseUpdate = await api.put(`/rent/${idPoliza}`, {
       monto: nuevoMonto,
       rest: nuevoResto,
       status: nuevoResto <= 0 ? 'cobrada' : 'a cuenta' // Actualizar el estado
@@ -554,7 +490,7 @@ const pagarImporte = async () => {
       showSuccess();
       cerrarCollapse();
 
-      obtenerPolizas();
+      obtenerRents();
     } else {
       console.error('Error al actualizar la póliza.');
     }
@@ -583,7 +519,7 @@ const crearPoliza = async () => {
   try {
     rest.value = importe.value;
 
-    await api.post('/polizas', {
+    await api.post('/rent', {
       importe: importe.value,
       monto: monto.value,
       rest: rest.value,
@@ -604,7 +540,7 @@ const crearPoliza = async () => {
     clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
     nombre.value = ''; // Reiniciar el nombre
     // Llamar a la función para obtener las pólizas después de crear una nueva póliza
-    obtenerPolizas();
+    obtenerRents();
   } catch (error) {
     showError();
     console.error(error);
@@ -639,6 +575,6 @@ const cerrarCollapse = async () => {
 
 onMounted(() => {
   obtenerClientes();
-  obtenerPolizas();
+  obtenerRents();
 });
 </script>

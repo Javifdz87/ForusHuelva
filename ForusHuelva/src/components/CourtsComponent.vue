@@ -13,15 +13,12 @@
               </h2>
             </div>
           </div>
-          <DataTable :value="subs" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
+          <DataTable :value="courts" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem">
-            <Column field="id" header="Número Poliza" sortable style="width: 5%"></Column>
-            <Column field="client.name" header="Nombre" sortable style="width: 11%"></Column>
-            <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
-            <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
-            <Column field="date_pay" header="Pagado" sortable style="width: 8%"></Column>
-            <Column field="observation" header="Fecha Inicio" sortable style="width: 13%"></Column> 
-            <Column header="Operaciones" style="width: 18%">
+            <Column field="id" header="Id" sortable style="width: 25%"></Column>
+            <Column field="name" header="Nombre" sortable style="width: 25%"></Column>
+            <Column field="sport" header="Email" sortable style="width: 25%"></Column>
+            <Column header="Operaciones" style="width: 25%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
                   @click="selectPoliza(slotProps.data)">
@@ -349,7 +346,7 @@ const selectedPolizaInfo = ref({
 });
 
 
-const subs = ref([]);
+const courts = ref([]);
 const selectedPoliza = ref({});
 const cantidadPagar = ref(0);
 
@@ -361,10 +358,10 @@ const showSuccess = () => {
 };
 
 
-const obtenerSubs = async () => {
+const obtenerCourts = async () => {
   try {
-    const respuesta = await api.get('/subfees');
-    subs.value = respuesta.data;
+    const respuesta = await api.get('/courts');
+    courts.value = respuesta.data;
 
   } catch (error) {
     console.error(error);
@@ -428,7 +425,7 @@ const editarPoliza = async () => {
       console.log('Póliza actualizada correctamente.');
       showSuccess();
       cerrarModalEditar();
-      obtenerSubs();
+      obtenerCourts();
     } else {
       showError();
 
@@ -477,7 +474,7 @@ const pagarImporte = async () => {
       showSuccess();
       cerrarCollapse();
 
-      obtenerSubs();
+      obtenerCourts();
     } else {
       console.error('Error al actualizar la póliza.');
     }
@@ -527,7 +524,7 @@ const crearPoliza = async () => {
     clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
     nombre.value = ''; // Reiniciar el nombre
     // Llamar a la función para obtener las pólizas después de crear una nueva póliza
-    obtenerSubs();
+    obtenerCourts();
   } catch (error) {
     showError();
     console.error(error);
@@ -562,6 +559,6 @@ const cerrarCollapse = async () => {
 
 onMounted(() => {
   obtenerClientes();
-  obtenerSubs();
+  obtenerCourts();
 });
 </script>

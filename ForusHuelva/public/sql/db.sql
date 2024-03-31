@@ -31,7 +31,7 @@ CREATE TABLE subscription_fees(
 CREATE TABLE courts(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(250) NOT NULL,
-    sport DATE NOT NULL
+    sport VARCHAR(40) NOT NULL
 );
 CREATE TABLE rental_fees(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -44,6 +44,20 @@ CREATE TABLE rental_fees(
     FOREIGN KEY(court_id) REFERENCES courts(id) ON DELETE CASCADE
 );
 
+INSERT INTO courts(id, name, sport) VALUES 
+(1, 'Pista 1P', 'Padel'),
+(2, 'Pista 2P', 'Padel'),
+(3, 'Pista 3P', 'Padel'),
+(4, 'Pista 4P', 'Padel'),
+(5, 'Pista 1T', 'Tenis'),
+(6, 'Pista 2T', 'Tenis'),
+(7, 'Pista 3T', 'Tenis'),
+(8, 'Pista 4T', 'Tenis'),
+(9, 'Pista 1S', 'Futbol Sala'),
+(10, 'Pista 2S', 'Futbol Sala'),
+(11, 'Pista 3S', 'Futbol Sala'),
+(12, 'Pista 1F', 'Futbol 7'),
+(13, 'Pista 2F', 'Futbol 7');
 
 INSERT INTO subscription_fees(id, importe, date_pay, observation, client_id) VALUES 
 (1, 59.99, '2024-03-30', suscripcion, 1);

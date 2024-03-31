@@ -65,11 +65,11 @@
                     <div class="accordion-body">
                         <form>
                             <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Name</label>
+                              <label for="exampleInputEmail1" class="form-label">Nombre</label>
                               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">last Name</label>
+                                <label for="exampleInputEmail1" class="form-label">Apellidos</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                               </div>
                               <div class="mb-3">
@@ -102,7 +102,7 @@
                               </div>
                              
                             <div class="mb-3">
-                              <label for="exampleInputPassword1" class="form-label">Password</label>
+                              <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                               <input type="password" class="form-control" id="exampleInputPassword1">
                             </div>
                            
@@ -156,7 +156,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/padel.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Padel</h5>
                             </div>
@@ -164,7 +164,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/tenis.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Tenis</h5>
                             </div>
@@ -172,7 +172,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/sala.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Futbol Sala</h5>
                             </div>
@@ -180,7 +180,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="card text-bg-dark">
-                            <img src="./icons/misiones.jpg" class="card-img" alt="...">
+                            <img src="./icons/siete.jpg" class="card-img" alt="...">
                             <div class="card-img-overlay">
                               <h5 class="card-title">Futbol 7</h5>
                             </div>
@@ -275,7 +275,7 @@
                 <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
             </div>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4 d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                           <h5 class="card-title">Subscripción 3 meses</h5>
@@ -285,7 +285,7 @@
                         </div>
                       </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                           <h5 class="card-title">Subscripción 6 meses</h5>
@@ -296,7 +296,7 @@
                         </div>
                       </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                           <h5 class="card-title">Subscripción 12 meses</h5>
