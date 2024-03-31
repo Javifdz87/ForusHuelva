@@ -16,15 +16,22 @@ class CourtsController extends Controller
 
     public function store(Request $request)
 {
- 
+    $court = CourtsModel::create($request->all());
+
+    return response()->json($court, 201);
 }
 
     public function update(Request $request, $id)
     {
+        $court = CourtsModel::findOrFail($id);
+        $court->update($request->all());
 
+        return response()->json($court, 200);
     }
 
     public function destroy($id)
     {
+        CourtsModel::destroy($id);
 
+        return response()->json(null, 204);
     }}

@@ -16,16 +16,23 @@ class SubFeesController extends Controller
 
     public function store(Request $request)
 {
+    $sub = SubscriptionFeesModel::create($request->all());
 
+    return response()->json($sub, 201);
 }
 
     public function update(Request $request, $id)
     {
+        $sub = SubscriptionFeesModel::findOrFail($id);
+        $sub->update($request->all());
 
+        return response()->json($sub, 200);
     }
 
     public function destroy($id)
     {
+        SubscriptionFeesModel::destroy($id);
 
+        return response()->json(null, 204);
     }
 }

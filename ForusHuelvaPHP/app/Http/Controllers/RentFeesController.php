@@ -16,16 +16,23 @@ class RentFeesController extends Controller
 
     public function store(Request $request)
 {
+    $rent = rentalFeesModel::create($request->all());
 
+    return response()->json($rent, 201);
 }
 
     public function update(Request $request, $id)
     {
+        $rent = rentalFeesModel::findOrFail($id);
+        $rent->update($request->all());
 
+        return response()->json($rent, 200);
     }
 
     public function destroy($id)
     {
- 
+        rentalFeesModel::destroy($id);
+
+        return response()->json(null, 204);
     }
 }
