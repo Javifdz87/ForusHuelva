@@ -29,4 +29,9 @@ class ClientsModel extends Model implements Authenticatable
         'role',
     ];
 
+    public function sub()
+    {
+        return $this->hasMany(SubscriptionFeesModel::class);
+    }
+
 }

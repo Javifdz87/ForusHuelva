@@ -22,4 +22,9 @@ class SubscriptionFeesModel extends Model implements Authenticatable
         'observation',
         'client_id',
     ];
+
+    public function client()
+    {
+        return $this->belongsTo(ClientsModel::class);
+    }
 }

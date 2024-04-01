@@ -93,77 +93,45 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
                     v-model="selectedPoliza.id" readonly />
-                  <label for="floatingInput">Id de la póliza</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                    v-model="selectedPoliza.start_date" readonly />
-                  <label for="floatingInput">Fecha de Inicio</label>
+                  <label for="floatingInput">Id</label>
                 </div>
               </div>
             </div>
-
             <div class="row">
+
               <div class="col-lg-6">
-                <!-- Campo Nombre -->
-                <div class="form-floating mb-3" v-if="selectedPoliza.client && selectedPoliza.client.name !== undefined">
-                  <input type="text" class="form-control" id="nombre" placeholder="name@example.com"
-                    v-model="selectedPoliza.client.name" readonly />
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
+                    v-model="selectedPoliza.name" readonly />
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6">
-                <!-- Campo Email -->
-                <div class="form-floating mb-3" v-if="selectedPoliza.client && selectedPoliza.client.email !== undefined">
-                  <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                    v-model="selectedPoliza.client.email" readonly />
-                  <label for="floatingInput">Email</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="importe" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
                     v-model="selectedPoliza.importe" readonly />
                   <label for="floatingInput">Importe</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="pagado" placeholder="name@example.com"
-                    v-model="selectedPoliza.monto" readonly />
-                  <label for="floatingInput">Cantidad Pagada</label>
+                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
+                    v-model="selectedPoliza.date_pay" readonly />
+                  <label for="floatingInput">Pagado</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="resto" placeholder="name@example.com"
-                    v-model="selectedPoliza.rest" readonly />
-                  <label for="floatingInput">Resto del Pago</label>
+                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
+                    v-model="selectedPoliza.date_time" readonly />
+                  <label for="floatingInput">Hora de Alquiler</label>
                 </div>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="status" placeholder="name@example.com"
-                    v-model="selectedPoliza.status" readonly />
-                  <label for="floatingInput">Estado de la poliza</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="observation" placeholder="name@example.com"
-                    v-model="selectedPoliza.observation" readonly />
-                  <label for="floatingInput">Observaciones</label>
-                </div>
-              </div>
-            </div>
+
           </div>
 
           <div class="modal-footer">
