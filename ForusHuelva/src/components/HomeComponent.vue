@@ -51,81 +51,21 @@
             </div>
         </div>
 
-        <div class="row py-5">
+        <div class="row py-5">   
             <div class="col-lg-12">
                 <h2 class="display-4">Más actividades dentro del recinto</h2>
-                
+                <ul class="list-group">
+                    <li class="list-group-item">Boxeo</li>
+                    <li class="list-group-item">Natación</li>
+                    <li class="list-group-item">Sala de entrenamiento</li>
+                    <li class="list-group-item">Aquafitness</li>
+                    <li class="list-group-item">Yoga</li>
+                    <li class="list-group-item">Ciclo Indoor</li>
+                    <li class="list-group-item">Pilates</li>
+                    <li class="list-group-item">Body Pump</li>
+                </ul>
             </div>
-            <div class="row">
-                <div class="col-lg-3 mb-3">
-                    <div class="card text-bg-dark ">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Boxeo</h5>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Natación</h5>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Clases Tenis</h5>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Card title</h5>
-                        </div>
-                      </div>
-                </div>
-                
-            </div>
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Card title</h5>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Card title</h5>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Card title</h5>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card text-bg-dark">
-                        <img src="./icons/misiones.jpg" class="card-img" alt="...">
-                        <div class="card-img-overlay">
-                          <h5 class="card-title">Card title</h5>
-                        </div>
-                      </div>
-                </div>
-                
-            </div>
+          
         </div>
 
 
