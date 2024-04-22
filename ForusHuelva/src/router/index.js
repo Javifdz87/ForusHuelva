@@ -8,6 +8,8 @@ import CourtsTable from '@/views/CourtsView.vue';
 import Home from '@/views/HomeView.vue';
 import Nav from '@/views/NavView.vue';
 import Search from '@/views/SearchView.vue'
+import NewClient from '@/views/NewClientView.vue';
+
 
 
 
@@ -60,6 +62,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  }, 
+  {
+    path: '/newclient',
+    name: 'newclient',
+    component: NewClient
   }, 
 ];
 

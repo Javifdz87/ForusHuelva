@@ -11,12 +11,14 @@ CREATE TABLE clients(
     name VARCHAR(255) NOT NULL,
     last_Name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
+    dni VARCHAR(255) NOT NULL UNIQUE,
     phone INT NOT NULL UNIQUE,
     town VARCHAR(255) NOT NULL,
     postal_code INT NOT NULL,
     province VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    bank_account VARCHAR(255) NOT NULL
+    bank_account VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
     );
 
 CREATE TABLE subscription_fees(

@@ -67,51 +67,8 @@
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <form>
-                            <div class="mb-3">
-                              <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Apellidos</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email </label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Phone</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Población</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Codigo postal</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Provincia</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Dirección</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Cuenta bancaria</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                              </div>
-                             
-                            <div class="mb-3">
-                              <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1">
-                            </div>
-                           
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </form>
+                        <a class="navbar-brand" href="/newclient"><button type="submit" class="btn btn-primary btn-block">Registrar Cliente</button></a>
+
                     </div>
                   </div>
                 </div>
