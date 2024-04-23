@@ -3,7 +3,7 @@
     <div class="row mt-5">
       <Toast />
 
-      <div class="col-lg-8 offset-lg-2">
+      <div class="col-lg-8 offset-lg-2 mt-5">
         <div class="table-responsive-vertical p-3">
 
           <div class="row">

@@ -3,7 +3,7 @@
     <Toast />
 
     <div class="row mt-5">
-      <div class="col-lg-8 offset-lg-2">
+      <div class="col-lg-8 offset-lg-2 mt-5">
         <div class="table-responsive-vertical p-3">
           <div class="row">
             <div class="d-flex justify-content-center">
@@ -204,14 +204,21 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-4">
                   <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="email" placeholder="name@example.com" v-model="email"
                       required />
                     <label for="floatingInput">Email</label>
                   </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-4">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="dni" placeholder="name@example.com" v-model="dni"
+                      required />
+                    <label for="floatingInput">DNI</label>
+                  </div>
+                </div>
+                <div class="col-lg-4">
                   <div class="form-floating mb-3">
                     <input type="phone" class="form-control" id="phone" placeholder="name@example.com" v-model="phone"
                       required maxlength="9" />
@@ -267,6 +274,16 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="name@example.com"
+                      v-model="password" required />
+                    <label for="floatingInput">Contraseña</label>
+                  </div>
+                </div>
+              </div>
+
 
               <div class="row">
                 <div class="col-lg-12 mb-3">
@@ -402,15 +419,17 @@ const clientes = ref([])
 const provincias = ref([])
 
 const selectedClient = ref({})
-const name = ref('')
-const last_Name = ref('')
-const email = ref('')
-const phone = ref('')
-const town = ref('')
-const postal_code = ref('')
-const province = ref('')
-const bank_account = ref('')
-const address = ref('')
+  const name = ref('')
+  const last_Name = ref('')
+  const dni = ref('')
+  const email = ref('')
+  const phone = ref('')
+  const town = ref('')
+  const postal_code = ref('')
+  const province = ref('')
+  const bank_account = ref('')
+  const address = ref('')
+  const password = ref('')
 
 const showSuccess = () => {
   toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 })
@@ -533,6 +552,7 @@ const registrarCliente = async () => {
     const data = {
       name: name.value,
       last_Name: last_Name.value,
+      dni: dni.value,
       email: email.value,
       phone: phoneValue, // Usar el valor convertido
       town: town.value,
@@ -540,6 +560,7 @@ const registrarCliente = async () => {
       province: province.value,
       bank_account: bank_account.value,
       address: address.value,
+      password: password.value,
 
     }
 
@@ -549,6 +570,7 @@ const registrarCliente = async () => {
     await api.post('/clientes', data)
     name.value = ''
     last_Name.value = ''
+    dni.value = ''
     email.value = ''
     phone.value = ''
     town.value = ''
@@ -556,6 +578,7 @@ const registrarCliente = async () => {
     province.value = ''
     bank_account.value = ''
     address.value = ''
+    password.value = '' 
     cerrarModalCrear()
     showSuccess()
 

@@ -9,6 +9,7 @@ import Home from '@/views/HomeView.vue';
 import Nav from '@/views/NavView.vue';
 import Search from '@/views/SearchView.vue'
 import NewClient from '@/views/NewClientView.vue';
+import PanelClient from '@/views/PanelClientView.vue';
 
 
 
@@ -68,6 +69,12 @@ const routes = [
     name: 'newclient',
     component: NewClient
   }, 
+  {
+    path: '/PanelClient',
+    name: 'panelClient',
+    component: PanelClient
+  }, 
+  
 ];
 
 const router = createRouter({

@@ -20,13 +20,14 @@ class ClientsModel extends Model implements Authenticatable
         'name',
         'last_Name',
         'email',
+        'dni',
         'phone',
         'town',
         'postal_code',
         'province',
         'address',
         'bank_account',
-        'role',
+        'password',
     ];
 
     public function sub()
