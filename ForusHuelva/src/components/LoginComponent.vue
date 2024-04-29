@@ -37,9 +37,6 @@
           <li class="nav-item">
             <router-link to="/register" class="nav-link">Registrar</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/" class="nav-link text-danger">Cerrar Sesión</router-link>
-          </li>
           
         </ul>
       </div>
@@ -58,84 +55,12 @@
       </div>
     </div>
 
-
-    <div class="row py-5">
-      <div class="col-lg-12">
-        <h2 class="display-4">Para disfrutar de todo el contenido de nuestro gimnasio deberás registrarte</h2>
-      </div>
-      <div class="accordion" id="accordionExample">
-
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Crear Cuenta
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <router-link to="/newclient"><button type="submit"
-                  class="btn btn-primary btn-block">Registrar Cliente</button></router-link>
-
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              ¿Ya tienes cuenta?
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <Toast />
-
-              <div class="row justify-content-center mt-5">
-                <div class="col-md-6">
-                  <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
-                  <form @submit.prevent="login">
-                    <div class="mb-3">
-                      <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                          v-model="email" required />
-                        <label for="floatingInput">Email</label>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="name@example.com"
-                          v-model="password" required />
-                        <label for="floatingInput">Contraseña</label>
-                      </div>
-
-                    </div>
-                    <div class="mb-3">
-
-                      <a class="navbar-brand" href="/home"><button type="submit"
-                          class="btn btn-primary btn-block">Iniciar sesión</button></a> <br>
-                      email: admin@gmail.com <br>
-                      contraseña: admin
-                    </div>
-
-                  </form>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
     <div class="row py-5">
       <div class="col-lg-12">
         <h2 class="display-4">Contamos con alquiler de equipamiento deportivo</h2>
         <div class="row">
           <div class="col-lg-3">
-            <div class="card text-bg-dark">
+            <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="./icons/padel.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Padel</h5>
@@ -143,7 +68,7 @@
             </div>
           </div>
           <div class="col-lg-3">
-            <div class="card text-bg-dark">
+            <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="./icons/tenis.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Tenis</h5>
@@ -151,7 +76,7 @@
             </div>
           </div>
           <div class="col-lg-3">
-            <div class="card text-bg-dark">
+            <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="./icons/sala.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Futbol Sala</h5>
@@ -159,7 +84,7 @@
             </div>
           </div>
           <div class="col-lg-3">
-            <div class="card text-bg-dark">
+            <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="./icons/siete.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Futbol 7</h5>
@@ -201,7 +126,7 @@
               <h5 class="card-title">Subscripción 3 meses</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">59,99€</h6>
               <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-              <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning">Pagar</button></a>
+              <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalLogin">Pagar</button></a>
             </div>
           </div>
         </div>
@@ -211,7 +136,7 @@
               <h5 class="card-title">Subscripción 6 meses</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">105,99€</h6>
               <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-              <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning">Pagar</button>
+              <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalLogin">Pagar</button>
               </a>
             </div>
           </div>
@@ -222,11 +147,47 @@
               <h5 class="card-title">Subscripción 12 meses</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">219,99€</h6>
               <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-              <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning">Pagar</button></a>
+              <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalLogin">Pagar</button></a>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="row py-5">
+      <div class="col-lg-12">
+        <hr>
+      </div>
+      <div class="row justify-content-center mt-5">
+                <div class="col-md-6">
+                  <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
+                  <form @submit.prevent="login">
+                    <div class="mb-3">
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                          v-model="email" required />
+                        <label for="floatingInput">Email</label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="name@example.com"
+                          v-model="password" required />
+                        <label for="floatingInput">Contraseña</label>
+                      </div>
+
+                    </div>
+                    <div class="mb-3">
+
+                      <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+          <router-link to="/newclient" class="d-block mt-3 text-center">¿Aún no tienes cuenta?</router-link>
+          <p class="text-muted">Credenciales de prueba:<br> Email: admin@gmail.com <br> Contraseña: admin</p>
+
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
     </div>
   </div>
 
@@ -249,6 +210,24 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Oops!!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Necesitas Iniciar Sesión
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script setup>
