@@ -164,14 +164,14 @@
                     <div class="mb-3">
                       <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                          v-model="email" required />
+                          v-model="email"/>
                         <label for="floatingInput">Email</label>
                       </div>
                     </div>
                     <div class="mb-3">
                       <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="password" placeholder="name@example.com"
-                          v-model="password" required />
+                          v-model="password"/>
                         <label for="floatingInput">Contraseña</label>
                       </div>
 
@@ -199,7 +199,7 @@
           <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Facebook</a></li>
             <li class="list-inline-item"><a href="#">Twitter</a></li>
-            <li class="list-inline-item"><a href="#">Instagram</a></li>
+            <li class="list-inline-item"><a href="https://www.instagram.com/forus_es/?hl=es">Instagram</a></li>
           </ul>
         </div>
       </div>
@@ -214,16 +214,12 @@
   <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Oops!!</h5>
+      <div class="modal-header bg-warning">
+        <h4 class="modal-title" id="exampleModalLabel">Inicio de sesion necesario</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Necesitas Iniciar Sesión
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <p>Necesitas Iniciar Sesión para poder usar esta opción.</p>
       </div>
     </div>
   </div>
