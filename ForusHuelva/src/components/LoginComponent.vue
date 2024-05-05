@@ -34,9 +34,7 @@
           <li class="nav-item">
             <router-link to="/PanelClient" class="nav-link">Usuario</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/register" class="nav-link">Registrar</router-link>
-          </li>
+        
           
         </ul>
       </div>
