@@ -141,12 +141,12 @@
       </div>
     </div>
 
-    <!-- Modal Nueva Poliza -->
+    <!-- Modal Nueva Rent -->
     <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg"> <!-- Ajusta la clase modal-dialog -->
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Nueva Poliza</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Nuevo Alquiler</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -154,7 +154,7 @@
               <Toast />
 
               <div class="row justify-content-center m-3">
-                <form @submit.prevent="crearPoliza">
+                <form @submit.prevent="crearAlquiler">
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
@@ -187,29 +187,42 @@
                       <div class="form-floating mb-3">
                         <input type="date" class="form-control" id="fechaInicio" placeholder="name@example.com"
                           v-model="start_date" required />
-                        <label for="fechaInicio">Fecha de Inicio</label>
+                        <label for="fechaInicio">hora y fecha</label>
                       </div>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-6">
                       <div class="form-floating mb-3">
                         <select v-model="status" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige el estado de la tarea</option>
-                          <option value="cobrada">cobrada</option>
-                          <option value="a cuenta">a cuenta</option>
-                          <option value="liquidada">liquidada</option>
-                          <option value="anulada">anulada</option>
-                          <option value="pre anulada">pre anulada</option>
+                          <option value="" disabled selected>Elige el deporte</option>
+                          <option value="cobrada">Padel</option>
+                          <option value="a cuenta">Futbol Sala</option>
+                          <option value="liquidada">Futbol Sala 7</option>
+                          <option value="anulada">Tenis</option>
                         </select>
-                        <label for="floatingInput">Estado</label>
+                        <label for="floatingInput">Deporte</label>
                       </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <input type="text" v-model="observation" class="form-control" placeholder="name@example.com" />
-                        <label for="floatingInput">Observaciones</label>
+                        <input type="date" class="form-control" id="fechaInicio" placeholder="name@example.com"
+                           required />
+                        <label for="fechaInicio">Fecha de Pago</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-floating mb-3">
+                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
+                          <option value="" disabled selected>Elige pista</option>
+                          
+                        </select>
+                        <label for="floatingInput">Pista</label>
                       </div>
                     </div>
                   </div>
@@ -483,7 +496,7 @@ const cerrarModalBorrar = async () => {
   closeButton.click();
 };
 
-const crearPoliza = async () => {
+const crearAlquiler = async () => {
   try {
     rest.value = importe.value;
 
@@ -530,8 +543,8 @@ const actualizarNombre = () => {
 }
 
 const cerrarModalCrear = async () => {
-  const crearPolizaModal = document.getElementById('dardealta')
-  const closeButton = crearPolizaModal.querySelector('[data-bs-dismiss="modal"]')
+  const crearAlquilerModal = document.getElementById('dardealta')
+  const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]')
   closeButton.click()
 }
 

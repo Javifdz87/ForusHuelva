@@ -57,7 +57,7 @@
           <div class="row">
             <div class="col-lg-3">
               <div class="card text-bg-dark">
-                <img src="./icons/padel.jpg" class="card-img" alt="...">
+                <img src="/img/padel.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Padel</h5>
                 </div>
@@ -65,7 +65,7 @@
             </div>
             <div class="col-lg-3">
               <div class="card text-bg-dark">
-                <img src="./icons/tenis.jpg" class="card-img" alt="...">
+                <img src="/img/tenis.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Tenis</h5>
                 </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="col-lg-3">
               <div class="card text-bg-dark">
-                <img src="./icons/sala.jpg" class="card-img" alt="...">
+                <img src="/img/sala.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Futbol Sala</h5>
                 </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="col-lg-3">
               <div class="card text-bg-dark">
-                <img src="./icons/siete.jpg" class="card-img" alt="...">
+                <img src="/img/siete.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Futbol 7</h5>
                 </div>
@@ -179,90 +179,55 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com" readonly />
-                  <label for="floatingInput">Id Cliente</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                    <select id="" class="form-select" required>
-                      <option value="" disabled selected>Selecciona tu precio</option>
-                      <option value="59,99">59,99€</option>
-                      <option value="105.99">105,99€</option>
-                      <option value="219.99">219,99€</option>
+            <div class="container">
+              <Toast />
 
-                    </select>
-                    <label for="province">Provincias</label>
+              <div class="row justify-content-center m-3">
+                <form @submit.prevent="crearSub">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-floating mb-3">
+                        <input type="input" class="form-control" id="email" v-model="email" placeholder="email"
+                          required />
+                        <label for="cliente">Email</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-floating mb-3">
+                        <input type="input" class="form-control" id="nombre" v-model="name" placeholder="Nombre"
+                          required />
+                        <label for="nombre">Nombre</label>
+                      </div>
+                    </div>
                   </div>
-              </div>
-            </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-floating mb-3">
+                        <select v-model="observation" id="subscription" class="form-control"
+                          placeholder="name@example.com" required @change="updateImporte">
+                          <option value="" disabled selected>Elige el tipo de suscripción</option>
+                          <option value="3 meses">3 meses</option>
+                          <option value="6 meses">6 meses</option>
+                          <option value="12 meses">12 meses</option>
+                        </select>
+                        <label for="floatingInput">Estado</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-floating mb-3">
+                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
+                          id="importe" required readonly />
+                        <label for="floatingInput">Importe</label>
+                      </div>
+                    </div>
+                  </div>
 
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="name" placeholder="name@example.com" readonly />
-                  <label for="floatingInput">Nombre</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="last_Name" placeholder="name@example.com" readonly />
-                  <label for="floatingInput">Apellido</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="email" placeholder="name@example.com" readonly />
-                  <label for="floatingInput">Email</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="phone" placeholder="name@example.com" readonly />
-                  <label for="floatingInput">Telefóno</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="town" placeholder="name@example.com"/>
-                  <label for="floatingInput">Localidad</label>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="postal_code" placeholder="name@example.com"/>
-                  <label for="floatingInput">Codigo Postal</label>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="province" placeholder="name@example.com" />
-                  <label for="floatingInput">Provincia</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="address" placeholder="name@example.com" />
-                  <label for="floatingInput">Dirección</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"/>
-                  <label for="floatingInput">Cuenta Bancaria</label>
-                </div>
+                  <div class="row">
+                    <div class="col-lg-12 mb-3">
+                      <button type="submit" class="btn btn-primary btn-block w-100">Crear Suscripción</button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -275,7 +240,7 @@
 </div>
   </template>
   
-  <script setup>
+<script setup>
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
   import { ref } from 'vue';
@@ -283,7 +248,62 @@
   import Toast from 'primevue/toast'
   import NewClientComponent from '../components/NewClientComponent.vue';
   
+  const observation = ref('')
+  const importe = ref('')
+  const name = ref('')
+  const email = ref('')
+
+
   const toast = useToast()
+
+  const updateImporte = () => {
+  var subscription = observation.value;
+
+  switch (subscription) {
+    case "3 meses":
+      importe.value = 59.99; // Valor para 3 meses
+      break;
+    case "6 meses":
+      importe.value = 105.99; // Valor para 6 meses
+      break;
+    case "12 meses":
+      importe.value = 219.99; // Valor para 12 meses
+      break;
+    default:
+      importe.value = ""; // Valor predeterminado si no se selecciona nada
+  }
+}
+const showError = () => {
+  toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
+};
+const showSuccess = () => {
+  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
+};
+
+const crearSub = async () => {
+  try {
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    await api.post('/subfees', {
+      importe: importe.value,
+      date_pay: currentDate, // Establecer la fecha actual
+      observation: observation.value,
+      email: email.value // Asignar el ID del cliente
+    });
+
+    cerrarModalCrear();
+    showSuccess();
+    importe.value = ''; // Vaciar el campo de importe
+    name.value = ''; // Reiniciar el estado
+    observation.value = ''; // Vaciar el campo de observaciones
+    email.value = ''; // Reiniciar el cliente seleccionado
+    obtenerSubs();
+  } catch (error) {
+    showError();
+    console.error(error);
+  }
+};
+
 
   </script>
   

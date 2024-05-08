@@ -20,10 +20,10 @@
             :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem">
             <Column field="name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="last_Name" header="Apellidos" sortable style="width: 14%"></Column>
+            <Column field="dni" header="DNI" sortable style="width: 14%"></Column>
             <Column field="phone" header="Teléfono" sortable style="width: 14%"></Column>
             <Column field="town" header="Localidad" sortable style="width: 14%"></Column>
             <Column field="address" header="Dirección" sortable style="width: 14%"></Column>
-            <Column field="province" header="Provincia" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 16%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
@@ -82,6 +82,13 @@
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
                     v-model="selectedClient.id" />
                   <label for="floatingInput">Id Cliente</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="dni" placeholder="name@example.com"
+                    v-model="selectedClient.dni" />
+                  <label for="floatingInput">DNI</label>
                 </div>
               </div>
               
