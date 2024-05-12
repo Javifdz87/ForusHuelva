@@ -11,24 +11,30 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Nosotros</a>
+              <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Planes</a>
+              <a class="nav-link" href="#planes">Planes</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Servicios
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Gimnasio</a></li>
-                <li><a class="dropdown-item" href="#">Pistas deportivas</a></li>
+                <li><a class="dropdown-item" href="#gimnasio">Gimnasio</a></li>
+                <li><a class="dropdown-item" href="#pistas">Pistas deportivas</a></li>
               </ul>
             </li>
-            <li class="nav-item">
-  
-          <a class="nav-link" href="#">Usuario</a>
-          </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Usuario
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
+                <li><a class="dropdown-item" href="#">Cambiar Pago</a></li>
+                <li><a class="dropdown-item" href="#">Cambiar Contraseña</a></li>
+              </ul>
+            </li>
             <li class="nav-item">
               <router-link to="/" class="nav-link text-danger">Cerrar Sesión</router-link>
             </li>
@@ -39,9 +45,9 @@
   
     </nav>
   
-    <div class="container py-5 mt-5">
+    <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" >
           <h1 class="display-1">Forus Huelva</h1>
           <h2 class="display-4">¿Quiénes somos?</h2>
   
@@ -51,7 +57,7 @@
       </div>
   
   
-      <div class="row py-5">
+      <div class="row py-5" id="pistas">
         <div class="col-lg-12">
           <h2 class="display-4">Elija que pistas quiere alquilar.</h2>
           <div class="row">
@@ -92,7 +98,7 @@
         </div>
       </div>
   
-      <div class="row py-5">
+      <div class="row py-5" id="gimnasio">
         <div class="col-lg-12">
           <h2 class="display-4">Más actividades dentro del recinto</h2>
           <ul class="list-group">
@@ -110,7 +116,7 @@
       </div>
   
   
-      <div class="row py-5">
+      <div class="row py-5" id="planes">
         <div class="col-lg-12">
           <h2 class="display-4">Nuestros planes de subscripción</h2>
           <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
@@ -252,8 +258,7 @@
   const importe = ref('')
   const name = ref('')
   const email = ref('')
-
-
+  
   const toast = useToast()
 
   const updateImporte = () => {
@@ -288,7 +293,7 @@ const crearSub = async () => {
       importe: importe.value,
       date_pay: currentDate, // Establecer la fecha actual
       observation: observation.value,
-      email: email.value // Asignar el ID del cliente
+      client_id: email.value // Asignar el ID del cliente
     });
 
     cerrarModalCrear();

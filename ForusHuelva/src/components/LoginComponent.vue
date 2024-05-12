@@ -14,27 +14,20 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Nosotros</a>
+            <a class="nav-link" href="#nosotros">Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Planes</a>
+            <a class="nav-link" href="#planes">Planes</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Servicios
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Gimnasio</a></li>
-              <li><a class="dropdown-item" href="#">Pistas deportivas</a></li>
+              <li><a class="dropdown-item" href="#gimnasio">Gimnasio</a></li>
+              <li><a class="dropdown-item" href="#pistas">Pistas deportivas</a></li>
             </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Cuenta</a>
-          </li>
-          <li class="nav-item">
-            <router-link to="/PanelClient" class="nav-link">Usuario</router-link>
-          </li>
-        
+          </li>      
           
         </ul>
       </div>
@@ -42,7 +35,7 @@
 
   </nav>
 
-  <div class="container py-5 mt-5">
+  <div class="container py-5 mt-5" id="nosotros">
     <div class="row">
       <div class="col-lg-12">
         <h1 class="display-1">Forus Huelva</h1>
@@ -53,7 +46,7 @@
       </div>
     </div>
 
-    <div class="row py-5">
+    <div class="row py-5" id="pistas">
       <div class="col-lg-12">
         <h2 class="display-4">Contamos con alquiler de equipamiento deportivo</h2>
         <div class="row">
@@ -94,7 +87,7 @@
       </div>
     </div>
 
-    <div class="row py-5">
+    <div class="row py-5" id="gimnasio">
       <div class="col-lg-12">
         <h2 class="display-4">Más actividades dentro del recinto</h2>
         <ul class="list-group">
@@ -112,7 +105,7 @@
     </div>
 
 
-    <div class="row py-5">
+    <div class="row py-5" id="planes">
       <div class="col-lg-12">
         <h2 class="display-4">Nuestros planes de subscripción</h2>
         <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
@@ -259,8 +252,12 @@ async function login() {
 
     if (response.status === 200) {
       console.log('Inicio de sesión exitoso');
-      if (router) {
+
+      // Verificar el rol del usuario y redirigir en consecuencia
+      if (response.data.user.role === 1) {
         router.push('/home');
+      } else {
+        router.push('/PanelClient');
       }
     }
   } catch (error) {

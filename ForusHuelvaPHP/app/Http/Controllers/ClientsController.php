@@ -15,11 +15,19 @@ class ClientsController extends Controller
     }
 
     public function store(Request $request)
-{
-    $cliente = ClientsModel::create($request->all());
+    {
+        // Obtenemos todos los datos del request
+        $data = $request->all();
 
-    return response()->json($cliente, 201);
-}
+        // Encriptamos la contraseña con bcrypt
+        $data['password'] = bcrypt($data['password']);
+
+        // Creamos el cliente
+        $cliente = ClientsModel::create($data);
+
+        return response()->json($cliente, 201);
+    }
+
 
     public function update(Request $request, $id)
     {

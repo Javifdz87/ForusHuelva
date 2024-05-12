@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
+    <div class="container-fluid container">
       <a class="navbar-brand" href="/home"><h2>Forus Huelva</h2></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <router-link to="/clientsTable" class="nav-link">Clientes</router-link>
           </li>
@@ -25,10 +25,10 @@
           <li class="nav-item">
             <router-link to="/register" class="nav-link">Registrar</router-link>
           </li>
+          <li class="nav-item">
+              <router-link to="/" class="nav-link text-danger">Cerrar Sesión</router-link>
+            </li>
         </ul>
-      </div>
-      <div class="ml-auto">
-        <router-link to="/" class="nav-link text-danger">Cerrar Sesión</router-link>
       </div>
     </div>
   </nav>

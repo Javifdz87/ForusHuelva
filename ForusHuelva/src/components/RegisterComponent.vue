@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
+      <div class="row justify-content-center ">
+        <div class="col-md-6 mt-5">
           <h1 class="text-center mb-4">Registro</h1>
           <form @submit.prevent="registerUser">
             <div class="mb-3">

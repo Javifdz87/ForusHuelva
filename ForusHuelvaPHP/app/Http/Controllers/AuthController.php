@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersModel;
+use App\Models\ClientsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,14 +22,20 @@ class AuthController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        // Buscar al usuario por su correo electrónico
+        // Buscar al usuario por su correo electrónico en la tabla UsersModel
         $user = UsersModel::where('email', $email)->first();
+
+        // Si no se encuentra el usuario en UsersModel, buscar en ClientsModel
+        if (!$user) {
+            $user = ClientsModel::where('email', $email)->first();
+        }
 
         // Verificar si se encontró al usuario y si la contraseña es correcta
         if ($user && Hash::check($password, $user->password)) {
             // Autenticación exitosa, el usuario existe y las credenciales son válidas
             Auth::login($user);
-            return response()->json(['user' => $user], 200);
+            // Devolver el usuario junto con el campo role en la respuesta JSON
+            return response()->json(['user' => $user, 'role' => $user instanceof UsersModel], 200);
         } else {
             // Autenticación fallida, las credenciales son incorrectas
             return response()->json(['error' => 'Credenciales incorrectas'], 401);
