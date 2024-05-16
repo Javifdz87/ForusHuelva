@@ -20,10 +20,6 @@
             <Column field="sport" header="Deporte" sortable style="width: 25%"></Column>
             <Column header="Operaciones" style="width: 25%">
               <template #body="slotProps">
-                <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
-                  @click="selectPoliza(slotProps.data)">
-                  X
-                </Button>
                 <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#vista"
                   @click="selectPoliza(slotProps.data)">
                   O
@@ -39,25 +35,6 @@
       </div>
     </div>
 
-    <!-- Modales -->
-
-    <!-- Modal Eliminar -->
-    <div class="modal fade" id="eliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">Se va a eliminar toda la fila.</div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" @click="eliminarPoliza">Si</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Modal Vista -->
     <div class="modal fade" id="vista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

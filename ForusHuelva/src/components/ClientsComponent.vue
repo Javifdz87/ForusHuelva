@@ -221,7 +221,7 @@
                 <div class="col-lg-4">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="dni" placeholder="name@example.com" v-model="dni"
-                      required />
+                      required maxlength="9"/>
                     <label for="floatingInput">DNI</label>
                   </div>
                 </div>

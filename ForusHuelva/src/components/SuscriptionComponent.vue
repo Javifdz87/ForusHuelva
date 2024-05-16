@@ -196,6 +196,8 @@
                       </div>
                     </div>
                   </div>
+                  <input type="hidden" v-model="date_end" />
+                  
 
                   <div class="row">
                     <div class="col-lg-12 mb-3">
@@ -301,6 +303,8 @@ const name = ref('')
 const observation = ref('')
 const clientes = ref([])
 const clienteSeleccionado = ref('')
+const date_end = ref(''); // Variable para la fecha de caducidad
+
 
 const updateImporte = () => {
   var subscription = observation.value;
@@ -308,17 +312,26 @@ const updateImporte = () => {
   switch (subscription) {
     case "3 meses":
       importe.value = 59.99; // Valor para 3 meses
+      calculateExpiryDate(3);
       break;
     case "6 meses":
       importe.value = 105.99; // Valor para 6 meses
+      calculateExpiryDate(6);
       break;
     case "12 meses":
       importe.value = 219.99; // Valor para 12 meses
+      calculateExpiryDate(12);
       break;
     default:
       importe.value = ""; // Valor predeterminado si no se selecciona nada
   }
 }
+
+const calculateExpiryDate = (months) => {
+  const currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() + months);
+  date_end.value = currentDate.toISOString().split('T')[0];
+};
 
 const selectedSubInfo = ref({
   name: '',
@@ -439,12 +452,16 @@ const cerrarModalBorrar = async () => {
 const crearSub = async () => {
   try {
     const currentDate = new Date().toISOString().split('T')[0];
+    const status = "activo";
+
 
     await api.post('/subfees', {
       importe: importe.value,
       date_pay: currentDate, // Establecer la fecha actual
+      date_end: date_end.value, // Establecer la fecha de caducidad calculada
       observation: observation.value,
-      client_id: clienteSeleccionado.value // Asignar el ID del cliente
+      client_id: clienteSeleccionado.value, // Asignar el ID del cliente
+      status: status // Establecer el estado como "activo"
     });
 
     cerrarModalCrear();
@@ -453,6 +470,7 @@ const crearSub = async () => {
     name.value = ''; // Reiniciar el estado
     observation.value = ''; // Vaciar el campo de observaciones
     clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
+    date_end.value = ''; // Reiniciar la fecha de caducidad
     obtenerSubs();
   } catch (error) {
     showError();

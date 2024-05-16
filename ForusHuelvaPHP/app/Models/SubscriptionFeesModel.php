@@ -19,6 +19,8 @@ class SubscriptionFeesModel extends Model implements Authenticatable
         'id',
         'importe',
         'date_pay',
+        'date_end',
+        'status',
         'observation',
         'client_id',
     ];

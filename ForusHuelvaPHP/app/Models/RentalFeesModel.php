@@ -19,6 +19,7 @@ class RentalFeesModel extends Model implements Authenticatable
         'id',
         'importe',
         'date_pay',
+        'date_day',
         'date_time',
         'client_id',
         'court_id',

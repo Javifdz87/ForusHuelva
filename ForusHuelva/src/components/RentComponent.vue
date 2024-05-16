@@ -23,8 +23,8 @@
             <Column field="id" header="Id" sortable style="width: 12%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
-            <Column field="importe" header="Importe" sortable style="width: 14%"></Column>
-            <Column field="date_pay" header="Fecha de Pago" sortable style="width: 14%"></Column>
+            <Column field="sport" header="Deporte" sortable style="width: 14%"></Column>
+            <Column field="date_day" header="Fecha de Juego" sortable style="width: 14%"></Column>
             <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
@@ -178,24 +178,7 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
-                          required />
-                        <label for="floatingInput">Importe</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="fechaInicio" placeholder="name@example.com"
-                          v-model="start_date" required />
-                        <label for="fechaInicio">hora y fecha</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
+                        <select v-model="sport" class="form-control" placeholder="name@example.com" required>
                           <option value="" disabled selected>Elige el deporte</option>
                           <option value="cobrada">Padel</option>
                           <option value="a cuenta">Futbol Sala</option>
@@ -209,18 +192,48 @@
                       <div class="form-floating mb-3">
                         <input type="date" class="form-control" id="fechaInicio" placeholder="name@example.com"
                            required />
-                        <label for="fechaInicio">Fecha de Pago</label>
+                        <label for="fechaInicio">Elije el dia de juego</label>
                       </div>
                     </div>
                   </div>
                   
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-floating mb-3">
+                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
+                          <option value="" disabled selected>Elige la Hora</option>
+                          <option value="10:00">10:00</option>
+                          <option value="11:00">11:00</option>
+                          <option value="12:00">12:00</option>
+                          <option value="13:00">13:00</option>
+                          <option value="14:00">14:00</option>
+                          <option value="15:00">15:00</option>
+                          <option value="16:00">16:00</option>
+                          <option value="17:00">17:00</option>
+                          <option value="18:00">18:00</option>
+                          <option value="19:00">19:00</option>
+                          <option value="20:00">20:00</option>
+                          <option value="21:00">21:00</option>
+                          <option value="22:00">22:00</option>
+                        </select>
+                        <label for="floatingInput">Hora</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-floating mb-3">
+                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
+                          readonly value="12"/>
+                        <label for="floatingInput">Importe</label>
+                      </div>
+                    </div>
+                  </div>                  
 
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-floating mb-3">
-                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
+                        <select v-model="court" class="form-control" placeholder="name@example.com" required>
                           <option value="" disabled selected>Elige pista</option>
-                          
+                          <option value="pista 1">Pista 1</option>
                         </select>
                         <label for="floatingInput">Pista</label>
                       </div>
@@ -258,7 +271,7 @@
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="importe" placeholder="name@example.com"
-                          v-model="selectedPoliza.importe" required />
+                          v-model="selectedPoliza.importe" readonly />
                         <label for="floatingInput">Importe</label>
                       </div>
                     </div>
@@ -341,7 +354,6 @@ const selectedPolizaInfo = ref({
   name: '',
   email: ''
 });
-
 
 const rent = ref([]);
 const selectedPoliza = ref({});

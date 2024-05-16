@@ -52,7 +52,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/img/padel.jpg" class="card-img" alt="...">
+              <img src="/images/padel.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Padel</h5>
               </div>
@@ -60,7 +60,7 @@
           </div>
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/img/tenis.jpg" class="card-img" alt="...">
+              <img src="/images/tenis.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Tenis</h5>
               </div>
@@ -68,7 +68,7 @@
           </div>
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/img/sala.jpg" class="card-img" alt="...">
+              <img src="/images/sala.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Futbol Sala</h5>
               </div>
@@ -76,7 +76,7 @@
           </div>
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/img/siete.jpg" class="card-img" alt="...">
+              <img src="/images/siete.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Futbol 7</h5>
               </div>
