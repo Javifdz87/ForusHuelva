@@ -1,4 +1,19 @@
 <template>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <h2>Forus Huelva</h2>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        
+      </div>
+    </div>
+
+  </nav>
       <Toast />
 
     <div class="container mt-5">
@@ -108,6 +123,8 @@
                   <button type="submit" class="btn btn-primary btn-block w-100">
                     Registrar Cliente
                   </button>
+                  <router-link to="/" class="d-block mt-3 text-center">Volver</router-link>
+
                 </div>
               </div>
             </form>

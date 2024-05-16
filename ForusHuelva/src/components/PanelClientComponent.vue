@@ -27,7 +27,7 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Usuario
+                Ajustes
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
@@ -48,18 +48,71 @@
     <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
         <div class="col-lg-12" >
-          <h1 class="display-1">Forus Huelva</h1>
-          <h2 class="display-4">¿Quiénes somos?</h2>
-  
-          <p class="lead">Bienvenido al gimnasio más grande de toda la provincia, con pistas y una amplia sala
-            de entrenamiento.</p>
+          <h1 class="display-1">Bienvenido Usuario</h1>
+        </div>
+      </div>
+
+      <div class="row py-5" id="planes">
+        <div class="col-lg-12">
+          <h2 class="display-5">Nuestros planes de suscripción</h2>
+          <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Subscripción 3 meses</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">59,99€</h6>
+                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
+                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub" id="precio1">Pagar</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Subscripción 6 meses</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">105,99€</h6>
+                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
+                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">Subscripción 12 meses</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">219,99€</h6>
+                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
+                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button></a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   
   
+      <div class="row py-5" id="gimnasio">
+        <div class="col-lg-12">
+          <h2 class="display-5">Más actividades dentro del recinto con nuestra suscripción.</h2>
+          <ul class="list-group">
+            <li class="list-group-item">Boxeo</li>
+            <li class="list-group-item">Natación</li>
+            <li class="list-group-item">Sala de entrenamiento</li>
+            <li class="list-group-item">Aquafitness</li>
+            <li class="list-group-item">Yoga</li>
+            <li class="list-group-item">Ciclo Indoor</li>
+            <li class="list-group-item">Pilates</li>
+            <li class="list-group-item">Body Pump</li>
+          </ul>
+        </div>
+  
+      </div>
+  
       <div class="row py-5" id="pistas">
         <div class="col-lg-12">
-          <h2 class="display-4">Elija que pistas quiere alquilar.</h2>
+          <h4 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h4>
           <div class="row">
             <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
@@ -94,64 +147,6 @@
               </div>
             </div>
   
-          </div>
-        </div>
-      </div>
-  
-      <div class="row py-5" id="gimnasio">
-        <div class="col-lg-12">
-          <h2 class="display-4">Más actividades dentro del recinto</h2>
-          <ul class="list-group">
-            <li class="list-group-item">Boxeo</li>
-            <li class="list-group-item">Natación</li>
-            <li class="list-group-item">Sala de entrenamiento</li>
-            <li class="list-group-item">Aquafitness</li>
-            <li class="list-group-item">Yoga</li>
-            <li class="list-group-item">Ciclo Indoor</li>
-            <li class="list-group-item">Pilates</li>
-            <li class="list-group-item">Body Pump</li>
-          </ul>
-        </div>
-  
-      </div>
-  
-  
-      <div class="row py-5" id="planes">
-        <div class="col-lg-12">
-          <h2 class="display-4">Nuestros planes de subscripción</h2>
-          <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Subscripción 3 meses</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">59,99€</h6>
-                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub" id="precio1">Pagar</button></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Subscripción 6 meses</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">105,99€</h6>
-                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Subscripción 12 meses</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">219,99€</h6>
-                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button></a>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -194,19 +189,15 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
-                          <option value="" disabled selected>Selecciona un cliente</option>
-                          <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-                            {{ cliente.email }}
-                          </option>
-                        </select>
+                        <input type="input" class="form-control" id="email" v-model="email" placeholder="name@example.com"
+                          readonly />
                         <label for="cliente">Email</label>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
                         <input type="input" class="form-control" id="nombre" v-model="nombre" placeholder="name@example.com"
-                          required />
+                          readonly />
                         <label for="nombre">Nombre</label>
                       </div>
                     </div>

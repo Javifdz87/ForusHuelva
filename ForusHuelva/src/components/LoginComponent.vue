@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#nosotros">Nosotros</a>
@@ -42,9 +42,46 @@
         <h2 class="display-4">¿Quiénes somos?</h2>
 
         <p class="lead">Bienvenido al gimnasio más grande de toda la provincia, con pistas y una amplia sala
-          de entrenamiento.</p>
+          de entrenamiento, donde primero tendras que iniciar sesión para empezar a usar nuestra aplicación, tenemos una forma muy facil de crear un nuevo usuario.</p>
       </div>
     </div>
+    <div class="row py-5">
+      <div class="col-lg-12">
+        <hr>
+      </div>
+      <div class="row justify-content-center mt-5">
+                <div class="col-md-6">
+                  <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
+                  <form @submit.prevent="login">
+                    <div class="mb-3">
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                          v-model="email"/>
+                        <label for="floatingInput">Email</label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="name@example.com"
+                          v-model="password"/>
+                        <label for="floatingInput">Contraseña</label>
+                      </div>
+
+                    </div>
+                    <div class="mb-3">
+
+                      <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+          <router-link to="/newclient" class="d-block mt-3 text-center">¿Aún no tienes cuenta?</router-link>
+          <p class="text-muted">Credenciales de prueba:<br> Email: admin@gmail.com <br> Contraseña: admin</p>
+
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+    </div>
+    <hr>
 
     <div class="row py-5" id="pistas">
       <div class="col-lg-12">
@@ -143,42 +180,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row py-5">
-      <div class="col-lg-12">
-        <hr>
-      </div>
-      <div class="row justify-content-center mt-5">
-                <div class="col-md-6">
-                  <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
-                  <form @submit.prevent="login">
-                    <div class="mb-3">
-                      <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                          v-model="email"/>
-                        <label for="floatingInput">Email</label>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="password" placeholder="name@example.com"
-                          v-model="password"/>
-                        <label for="floatingInput">Contraseña</label>
-                      </div>
-
-                    </div>
-                    <div class="mb-3">
-
-                      <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
-          <router-link to="/newclient" class="d-block mt-3 text-center">¿Aún no tienes cuenta?</router-link>
-          <p class="text-muted">Credenciales de prueba:<br> Email: admin@gmail.com <br> Contraseña: admin</p>
-
-                    </div>
-
-                  </form>
-
-                </div>
-              </div>
     </div>
   </div>
 
