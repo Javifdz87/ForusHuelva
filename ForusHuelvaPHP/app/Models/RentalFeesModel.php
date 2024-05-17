@@ -25,4 +25,14 @@ class RentalFeesModel extends Model implements Authenticatable
         'court_id',
 
     ];
+
+    public function client()
+    {
+        return $this->belongsTo(ClientsModel::class);
+    }
+
+    public function sport()
+    {
+        return $this->belongsTo(SportsModel::class);
+    }
 }

@@ -6,20 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class CourtsModel extends Model implements Authenticatable
+class SportsModel extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
 
-    protected $table = 'courts';
+    protected $table = 'sports';
     protected $primaryKey = 'id';
 
     public $timestamps = false;
 
     protected $fillable = [
         'id',
-        'name',
-        'sport_id',
+        'sport',
+    
     ];
 
-
+    public function rent()
+    {
+        return $this->hasMany(RentalFeesModel::class);
+    }
 }

@@ -9,7 +9,7 @@ class RentFeesController extends Controller
 {
     public function index()
     {
-        $rentals = rentalFeesModel::with('client:id,name,email')->get();;
+        $rentals = rentalFeesModel::with('client:id,name,email', 'sport:sport')->get();;
 
         return response()->json($rentals);
     }

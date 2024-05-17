@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class CourtsModel extends Model implements Authenticatable
+class TimeModel extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
 
-    protected $table = 'courts';
+    protected $table = 'date_time';
     protected $primaryKey = 'id';
 
     public $timestamps = false;
 
     protected $fillable = [
         'id',
-        'name',
         'sport_id',
+        'date_time',
+       
+
     ];
-
-
 }

@@ -23,31 +23,23 @@
             <Column field="id" header="Id" sortable style="width: 12%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
-            <Column field="sport" header="Deporte" sortable style="width: 14%"></Column>
+            <Column field="sport.sport" header="Deporte" sortable style="width: 14%"></Column>
             <Column field="date_day" header="Fecha de Juego" sortable style="width: 14%"></Column>
             <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
-                  @click="selectPoliza(slotProps.data)">
+                  @click="selectRent(slotProps.data)">
                   X
                 </Button>
                 <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#vista"
-                  @click="selectPoliza(slotProps.data)">
+                  @click="selectRent(slotProps.data)">
                   O
                 </Button>
                 <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editarPoliza"
-                  @click="selectPoliza(slotProps.data)">
+                  @click="selectRent(slotProps.data)">
                   M
                 </Button>
-                <Button
-                  v-if="slotProps.data.status !== 'cobrada' && slotProps.data.status !== 'pre anulada' && slotProps.data.status !== 'anulada' && slotProps.data.status !== 'liquidada'"
-                  class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEdit"
-                  aria-expanded="false" aria-controls="collapseEdit" @click="selectPoliza(slotProps.data)">
-                  Pagar
-                </Button>
-
-
               </template>
             </Column>
           </DataTable>
@@ -92,7 +84,7 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedPoliza.id" readonly />
+                     readonly />
                   <label for="floatingInput">Id</label>
                 </div>
               </div>
@@ -102,14 +94,14 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                    v-model="selectedPoliza.name" readonly />
+                     readonly />
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedPoliza.importe" readonly />
+                     readonly />
                   <label for="floatingInput">Importe</label>
                 </div>
               </div>
@@ -118,14 +110,14 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                    v-model="selectedPoliza.date_pay" readonly />
+                     readonly />
                   <label for="floatingInput">Pagado</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedPoliza.date_time" readonly />
+                   readonly />
                   <label for="floatingInput">Hora de Alquiler</label>
                 </div>
               </div>
@@ -141,189 +133,101 @@
       </div>
     </div>
 
-    <!-- Modal Nueva Rent -->
-    <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg"> <!-- Ajusta la clase modal-dialog -->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Nuevo Alquiler</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <Toast />
-
-              <div class="row justify-content-center m-3">
-                <form @submit.prevent="crearAlquiler">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
-                          <option value="" disabled selected>Selecciona un cliente</option>
-                          <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-                            {{ cliente.email }}
-                          </option>
-                        </select>
-                        <label for="cliente">Email</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre"
-                          required />
-                        <label for="nombre">Nombre</label>
-                      </div>
-                    </div>
+<!-- Modal Nueva Rent -->
+<div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Alquiler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <Toast />
+          <div class="row justify-content-center m-3">
+            <form @submit.prevent="crearAlquiler">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
+                      <option value="" disabled selected>Selecciona un cliente</option>
+                      <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
+                        {{ cliente.email }}
+                      </option>
+                    </select>
+                    <label for="cliente">Email</label>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="sport" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige el deporte</option>
-                          <option value="cobrada">Padel</option>
-                          <option value="a cuenta">Futbol Sala</option>
-                          <option value="liquidada">Futbol Sala 7</option>
-                          <option value="anulada">Tenis</option>
-                        </select>
-                        <label for="floatingInput">Deporte</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="fechaInicio" placeholder="name@example.com"
-                           required />
-                        <label for="fechaInicio">Elije el dia de juego</label>
-                      </div>
-                    </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
+                    <label for="nombre">Nombre</label>
                   </div>
-                  
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige la Hora</option>
-                          <option value="10:00">10:00</option>
-                          <option value="11:00">11:00</option>
-                          <option value="12:00">12:00</option>
-                          <option value="13:00">13:00</option>
-                          <option value="14:00">14:00</option>
-                          <option value="15:00">15:00</option>
-                          <option value="16:00">16:00</option>
-                          <option value="17:00">17:00</option>
-                          <option value="18:00">18:00</option>
-                          <option value="19:00">19:00</option>
-                          <option value="20:00">20:00</option>
-                          <option value="21:00">21:00</option>
-                          <option value="22:00">22:00</option>
-                        </select>
-                        <label for="floatingInput">Hora</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
-                          readonly value="12"/>
-                        <label for="floatingInput">Importe</label>
-                      </div>
-                    </div>
-                  </div>                  
-
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-floating mb-3">
-                        <select v-model="court" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige pista</option>
-                          <option value="pista 1">Pista 1</option>
-                        </select>
-                        <label for="floatingInput">Pista</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-12 mb-3">
-                      <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <select id="sport" v-model="DeporteSeleccionado" @change="actualizarHorasYPistas" class="form-select">
+                      <option value="" disabled selected>Selecciona un deporte</option>
+                      <option v-for="sport in sports" :key="sport.id" :value="sport.id">
+                        {{ sport.sport }}
+                      </option>
+                    </select>
+                    <label for="floatingInput">Deporte</label>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
+                    <label for="fechaInicio">Elije el día de juego</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <select id="time" v-model="timeSeleccionado" class="form-select">
+                      <option value="" disabled selected>Selecciona una hora</option>
+                      <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
+                        {{ time.date_time }}
+                      </option>
+                    </select>
+                    <label for="floatingInput">Hora</label>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" placeholder="Importe" v-model="importe" readonly />
+                    <label for="floatingInput">Importe</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-floating mb-3">
+                    <select id="pista" v-model="pistaSeleccionada" class="form-select">
+                      <option value="" disabled selected>Selecciona una pista</option>
+                      <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
+                        {{ pista.name }}
+                      </option>
+                    </select>
+                    <label for="floatingInput">Pista</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 mb-3">
+                  <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Modal editar Cliente -->
-    <div class="modal fade" id="editarPoliza" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <h5 class="modal-title" id="exampleModalLabel">Editar Poliza</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <div class="row justify-content-center m-3">
-                <h2 class="card-title text-center mb-4">Editar Poliza</h2>
-
-                <form @submit.prevent="editarPoliza">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="importe" placeholder="name@example.com"
-                          v-model="selectedPoliza.importe" readonly />
-                        <label for="floatingInput">Importe</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="start_date" placeholder="name@example.com"
-                          v-model="selectedPoliza.start_date" required />
-                        <label for="floatingInput">Fecha de Inicio</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-7">
-                      <div class="form-floating mb-3">
-                        <select name="" class="form-control" id="status" placeholder="name@example.com"
-                          v-model="selectedPoliza.status" required>
-                          <option value="cobrada">cobrada</option>
-                          <option value="a cuenta">a cuenta</option>
-                          <option value="liquidada">liquidada</option>
-                          <option value="anulada">anulada </option>
-                          <option value="pre anulada">pre anulada </option>
-
-
-                        </select>
-                        <label for="floatingInput">Estado</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-5">
-                      <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="observation" placeholder="name@example.com"
-                          v-model="selectedPoliza.observation" />
-                        <label for="floatingInput">Observaciones</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-12 mb-3">
-                      <button type="submit" class="btn btn-warning btn-block w-100">Editar Poliza</button>
-
-                    </div>
-                  </div>
-
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  </div>
+</div>
 
   </div>
 </template>
@@ -338,26 +242,31 @@ import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
 import Tag from 'primevue/tag';
 import { useRouter } from 'vue-router';
-const router = useRouter();
 const toast = useToast();
-const importe = ref('')
-const monto = ref(0.0)
-const rest = ref('') // Declarar rest como una referencia independiente
-const start_date = ref('')
-const status = ref('')
-const observation = ref('')
-const clientes = ref([])
-const clienteSeleccionado = ref('')
-const nombre = ref('') // Modelo para el nombre
+const importe = ref(12);
+const date_day = ref('');
+const date_time = ref('');
+const clientes = ref([]);
+const pistas = ref([]);
+const times = ref([]);
+const sports = ref([]);
+const clienteSeleccionado = ref('');
+const DeporteSeleccionado = ref('');
+const nombre = ref('');
+const filteredPistas = ref([]);
+const filteredTimes = ref([]);
+const timeSeleccionado = ref('');
+const pistaSeleccionada = ref('');
 
-const selectedPolizaInfo = ref({
+
+
+const selectedRentInfo = ref({
   name: '',
   email: ''
 });
 
 const rent = ref([]);
-const selectedPoliza = ref({});
-const cantidadPagar = ref(0);
+const selectedRent = ref({});
 
 const showError = () => {
   toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
@@ -378,19 +287,22 @@ const obtenerRents = async () => {
 }
 
 
-
-const selectPoliza = (poliza) => {
-  selectedPoliza.value = poliza;
+const selectRent = (rent) => {
+  selectedRent.value = subs;
   // Verificar si la información del cliente está definida
-  if (poliza.client && poliza.client.name !== undefined && poliza.client.email !== undefined) {
-    selectedPolizaInfo.value.name = poliza.client.name;
-    selectedPolizaInfo.value.email = poliza.client.email;
+  if (rent.client && rent.client.name !== undefined && rent.client.email !== undefined && rent.sport && rent.sport.sport !== undefined) {
+    selectedRentInfo.value.name = rent.client.name;
+    selectedRentInfo.value.email = rent.client.email;
+    selectedRentInfo.value.sport = rent.sport.sport;
   } else {
-    // Si la información del cliente no está definida, restablecer la variable selectedPolizaInfo
-    selectedPolizaInfo.value.name = '';
-    selectedPolizaInfo.value.email = '';
+    // Si la información del cliente no está definida, restablecer la variable selectedRentInfo
+    selectedRentInfo.value.name = '';
+    selectedRentInfo.value.email = '';
+    selectedRentInfo.value.sport = '';
   }
 };
+
+
 
 const eliminarPoliza = async () => {
   try {
@@ -420,77 +332,7 @@ const eliminarPoliza = async () => {
   }
 };
 
-const editarPoliza = async () => {
-  try {
-    const idPoliza = selectedPoliza.value.id;
-    const response = await api.put(`/rent/${idPoliza}`, {
-      importe: selectedPoliza.value.importe,
-      start_date: selectedPoliza.value.start_date,
-      status: selectedPoliza.value.status,
-      observation: selectedPoliza.value.observation
-    });
 
-    if (response.status === 200) {
-      console.log('Póliza actualizada correctamente.');
-      showSuccess();
-      cerrarModalEditar();
-      obtenerRents();
-    } else {
-      showError();
-
-      console.error('Error al editar la póliza.');
-    }
-  } catch (error) {
-    showError();
-
-    console.error('Error al editar la póliza:', error);
-  }
-};
-const pagarImporte = async () => {
-  try {
-    if (!selectedPoliza.value || !selectedPoliza.value.importe) {
-      console.error('Seleccione una póliza y especifique el importe a pagar.');
-      return;
-    }
-
-    const idPoliza = selectedPoliza.value.id;
-
-    // Obtener el importe proporcionado desde el formulario
-    const importePagado = cantidadPagar.value;
-
-    // Obtener la información de la póliza desde la base de datos
-    const response = await api.get(`/rent/${idPoliza}`);
-    const poliza = response.data;
-
-    // Calcular el nuevo monto pagado
-    const nuevoMonto = poliza.monto + importePagado;
-
-    // Calcular el nuevo resto
-    const nuevoResto = poliza.importe - nuevoMonto;
-
-    // Actualizar la información de la póliza en la base de datos
-    const responseUpdate = await api.put(`/rent/${idPoliza}`, {
-      monto: nuevoMonto,
-      rest: nuevoResto,
-      status: nuevoResto <= 0 ? 'cobrada' : 'a cuenta' // Actualizar el estado
-    });
-
-    if (responseUpdate.status === 200) {
-      console.log('Póliza actualizada correctamente.');
-      // Limpiar el valor de cantidadPagar después de pagar
-      cantidadPagar.value = 0;
-      // Actualizar la lista de pólizas
-      showSuccess();
-      cerrarCollapse();
-
-      obtenerRents();
-    } else {
-      console.error('Error al actualizar la póliza.');
-    }
-  } catch (error) {
-    console.error('Error al pagar la póliza:', error);
-  }
-};
 
 const cerrarModalEditar = async () => {
   const editarPolizaModal = document.getElementById("editarPoliza");
@@ -510,40 +352,63 @@ const cerrarModalBorrar = async () => {
 
 const crearAlquiler = async () => {
   try {
-    rest.value = importe.value;
+    const currentDate = new Date().toISOString().split('T')[0];
 
-    await api.post('/rent', {
-      importe: importe.value,
-      monto: monto.value,
-      rest: rest.value,
-      start_date: start_date.value,
-      status: status.value,
-      observation: observation.value,
-      client_id: clienteSeleccionado.value
+    await api.post('/rentfees', {
+      importe: 12,
+      date_pay: currentDate,
+      date_day: date_day.value,
+      date_time: timeSeleccionado.value,
+      client_id: clienteSeleccionado.value,
+      court_id: pistaSeleccionada.value
     });
 
     cerrarModalCrear();
     showSuccess();
-    importe.value = ''; // Vaciar el campo de importe
-    monto.value = 0.0; // Reiniciar el monto a 0
-    rest.value = ''; // Vaciar el campo de resto
-    start_date.value = ''; // Reiniciar la fecha de inicio
-    status.value = ''; // Reiniciar el estado
-    observation.value = ''; // Vaciar el campo de observaciones
-    clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
-    nombre.value = ''; // Reiniciar el nombre
-    // Llamar a la función para obtener las pólizas después de crear una nueva póliza
+    date_day.value = '';
+    date_time.value = '';
+    clienteSeleccionado.value = '';
+    nombre.value = '';
+    DeporteSeleccionado.value = '';
+    timeSeleccionado.value = '';
+    pistaSeleccionada.value = '';
+
     obtenerRents();
   } catch (error) {
     showError();
     console.error(error);
   }
 };
-
 const obtenerClientes = async () => {
   try {
     const respuesta = await api.get('/clientes')
     clientes.value = respuesta.data
+  } catch (error) {
+  }
+}
+
+const obtenerPistas = async () => {
+  try {
+    const respuesta = await api.get('/courts')
+    pistas.value = respuesta.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const obtenerHoras = async () => {
+  try {
+    const respuesta = await api.get('/times')
+    times.value = respuesta.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const obtenerDeportes = async () => {
+  try {
+    const respuesta = await api.get('/sports')
+    sports.value = respuesta.data
   } catch (error) {
     console.log(error)
   }
@@ -554,20 +419,23 @@ const actualizarNombre = () => {
   nombre.value = cliente ? cliente.name : ''
 }
 
+const actualizarHorasYPistas = () => {
+  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
+  filteredTimes.value = times.value.filter(time => time.sport_id === DeporteSeleccionado.value);
+};
+
 const cerrarModalCrear = async () => {
   const crearAlquilerModal = document.getElementById('dardealta')
   const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]')
   closeButton.click()
 }
 
-const cerrarCollapse = async () => {
-  const collapseElement = document.getElementById("collapseEdit");
-  const collapse = new bootstrap.Collapse(collapseElement);
-  collapse.hide();
-};
 
 onMounted(() => {
   obtenerClientes();
   obtenerRents();
+  obtenerPistas();
+  obtenerHoras();
+  obtenerDeportes();
 });
 </script>

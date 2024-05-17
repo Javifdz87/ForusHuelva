@@ -20,6 +20,11 @@ CREATE TABLE clients(
     bank_account VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
     );
+    
+    CREATE TABLE sports(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    sport VARCHAR(255) NOT NULL
+    );
 
 CREATE TABLE subscription_fees(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +40,8 @@ CREATE TABLE subscription_fees(
 CREATE TABLE courts(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(250) NOT NULL,
-    sport VARCHAR(40) NOT NULL
+    sport_id INT NOT NULL,
+    FOREIGN KEY(sport_id) REFERENCES sports(id) ON DELETE CASCADE
 );
 CREATE TABLE rental_fees(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -51,73 +57,80 @@ CREATE TABLE rental_fees(
 
 CREATE TABLE date_time(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    sport VARCHAR(20),  
-    date_time VARCHAR(10)
+    sport_id INT NOT NULL,  
+    date_time VARCHAR(10),
+    FOREIGN KEY(sport_id) REFERENCES sports(id) ON DELETE CASCADE 
 );
 
-INSERT INTO date_time(id, sport, date_time) VALUES 
-(1, 'Futbol Sala', '10:00'),
-(2, 'Futbol Sala', '11:00'),
-(3, 'Futbol Sala', '12:00'),
-(4, 'Futbol Sala', '13:00'),
-(5, 'Futbol Sala', '14:00'),
-(6, 'Futbol Sala', '15:00'),
-(7, 'Futbol Sala', '16:00'),
-(8, 'Futbol Sala', '17:00'),
-(9, 'Futbol Sala', '18:00'),
-(10,'Futbol Sala', '19:00'),
-(11,'Futbol Sala', '20:00'),
-(12,'Futbol Sala', '21:00'),
-(13,'Futbol Sala', '22:00'),
-(14, 'Futbol 7', '10:00'),
-(15, 'Futbol 7', '11:00'),
-(16, 'Futbol 7', '12:00'),
-(17, 'Futbol 7', '13:00'),
-(18, 'Futbol 7', '14:00'),
-(19, 'Futbol 7', '15:00'),
-(20, 'Futbol 7', '16:00'),
-(21, 'Futbol 7', '17:00'),
-(22, 'Futbol 7', '18:00'),
-(23,'Futbol 7', '19:00'),
-(24,'Futbol 7', '20:00'),
-(25,'Futbol 7', '21:00'),
-(26,'Futbol 7', '22:00'),
-(27, 'Padel', '10:00'),
-(28, 'Padel', '11:30'),
-(29, 'Padel', '13:00'),
-(30, 'Padel', '14:30'),
-(31, 'Padel', '16:00'),
-(32, 'Padel', '17:30'),
-(33, 'Padel', '19:00'),
-(34, 'Padel', '20:30'),
-(35, 'Padel', '22:00'),
-(36, 'Tenis', '10:00'),
-(37, 'Tenis', '11:30'),
-(38, 'Tenis', '13:00'),
-(39, 'Tenis', '14:30'),
-(40, 'Tenis', '16:00'),
-(41, 'Tenis', '17:30'),
-(42, 'Tenis', '19:00'),
-(43, 'Tenis', '20:30'),
-(44, 'Tenis', '22:00');
+INSERT INTO date_time(id, sport_id, date_time) VALUES 
+(1, '3', '10:00'),
+(2, '3', '11:00'),
+(3, '3', '12:00'),
+(4, '3', '13:00'),
+(5, '3', '14:00'),
+(6, '3', '15:00'),
+(7, '3', '16:00'),
+(8, '3', '17:00'),
+(9, '3', '18:00'),
+(10,'3', '19:00'),
+(11,'3', '20:00'),
+(12,'3', '21:00'),
+(13,'3', '22:00'),
+(14, '4', '10:00'),
+(15, '4', '11:00'),
+(16, '4', '12:00'),
+(17, '4', '13:00'),
+(18, '4', '14:00'),
+(19, '4', '15:00'),
+(20, '4', '16:00'),
+(21, '4', '17:00'),
+(22, '4', '18:00'),
+(23,'4', '19:00'),
+(24,'4', '20:00'),
+(25,'4', '21:00'),
+(26,'4', '22:00'),
+(27, '1', '10:00'),
+(28, '1', '11:30'),
+(29, '1', '13:00'),
+(30, '1', '14:30'),
+(31, '1', '16:00'),
+(32, '1', '17:30'),
+(33, '1', '19:00'),
+(34, '1', '20:30'),
+(35, '1', '22:00'),
+(36, '2', '10:00'),
+(37, '2', '11:30'),
+(38, '2', '13:00'),
+(39, '2', '14:30'),
+(40, '2', '16:00'),
+(41, '2', '17:30'),
+(42, '2', '19:00'),
+(43, '2', '20:30'),
+(44, '2', '22:00');
 
-INSERT INTO courts(id, name, sport) VALUES 
-(1, 'Pista 1P', 'Padel'),
-(2, 'Pista 2P', 'Padel'),
-(3, 'Pista 3P', 'Padel'),
-(4, 'Pista 4P', 'Padel'),
-(5, 'Pista 1T', 'Tenis'),
-(6, 'Pista 2T', 'Tenis'),
-(7, 'Pista 3T', 'Tenis'),
-(8, 'Pista 4T', 'Tenis'),
-(9, 'Pista 1S', 'Futbol Sala'),
-(10, 'Pista 2S', 'Futbol Sala'),
-(11, 'Pista 3S', 'Futbol Sala'),
-(12, 'Pista 1F', 'Futbol 7'),
-(13, 'Pista 2F', 'Futbol 7');
+INSERT INTO courts(id, name, sport_id) VALUES 
+(1, 'Pista 1P', '1'),
+(2, 'Pista 2P', '1'),
+(3, 'Pista 3P', '1'),
+(4, 'Pista 4P', '1'),
+(5, 'Pista 1T', '2'),
+(6, 'Pista 2T', '2'),
+(7, 'Pista 3T', '2'),
+(8, 'Pista 4T', '2'),
+(9, 'Pista 1S', '3'),
+(10, 'Pista 2S', '3'),
+(11, 'Pista 3S', '3'),
+(12, 'Pista 1F', '4'),
+(13, 'Pista 2F', '4');
 
 INSERT INTO subscription_fees(id, importe, date_pay, observation, client_id) VALUES 
 (1, 59.99, '2024-03-30', suscripcion, 1);
+
+INSERT INTO sports(id, sport) VALUES 
+(1, 'Padel'),
+(2, 'Tenis'),
+(3, 'Futbol Sala'),
+(4, 'Futbol 7');
 
 INSERT INTO clients (id, name, last_Name, email, phone, town, postal_code, province, role) VALUES
 (1, 'Juan', 'García', 'juan@example.com', 123456789, 'Madrid', 28001, 'MAD', 'particular'),

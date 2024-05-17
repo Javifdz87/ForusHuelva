@@ -55,7 +55,7 @@
       <div class="row py-5" id="planes">
         <div class="col-lg-12">
           <h2 class="display-5">Nuestros planes de suscripción</h2>
-          <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
+          <p class="lead">Si aún no tienes un plan de suscripción es tan facil como pulsar un botón.</p>
         </div>
         <div class="row">
           <div class="col-lg-4 d-flex justify-content-center">
@@ -288,130 +288,174 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-            <div class="container">
-              <Toast />
-
-              <div class="row justify-content-center m-3">
-                <form @submit.prevent="crearSub">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="email" v-model="email" placeholder="email"
-                          required />
-                        <label for="cliente">Email</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="nombre" v-model="name" placeholder="Nombre"
-                          required />
-                        <label for="nombre">Nombre</label>
-                      </div>
-                    </div>
+        <div class="container">
+          <Toast />
+          <div class="row justify-content-center m-3">
+            <form @submit.prevent="crearSub">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" v-model="email" placeholder="email" required />
+                    <label for="cliente">Email</label>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="observation" id="subscription" class="form-control"
-                          placeholder="name@example.com" required @change="updateImporte">
-                          <option value="" disabled selected>Elige el tipo de suscripción</option>
-                          <option value="3 meses">3 meses</option>
-                          <option value="6 meses">6 meses</option>
-                          <option value="12 meses">12 meses</option>
-                        </select>
-                        <label for="floatingInput">Estado</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
-                          id="importe" required readonly />
-                        <label for="floatingInput">Importe</label>
-                      </div>
-                    </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombre" v-model="name" placeholder="Nombre" required />
+                    <label for="nombre">Nombre</label>
                   </div>
-
-                  <div class="row">
-                    <div class="col-lg-12 mb-3">
-                      <button type="submit" class="btn btn-primary btn-block w-100">Crear Suscripción</button>
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <select v-model="observation" id="subscription" class="form-control" required @change="updateImporte">
+                      <option value="" disabled selected>Elige el tipo de suscripción</option>
+                      <option value="3 meses">3 meses</option>
+                      <option value="6 meses">6 meses</option>
+                      <option value="12 meses">12 meses</option>
+                    </select>
+                    <label for="floatingInput">Estado</label>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" v-model="importe" id="importe" required readonly />
+                    <label for="floatingInput">Importe</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" v-model="bank_account" placeholder="Cuenta Bancaria" readonly />
+                    <label for="floatingInput">Cuenta Bancaria</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" v-model="password" id="password" required />
+                    <label for="floatingInput">Password</label>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" v-model="date_end" />
+              <div class="row">
+                <div class="col-lg-12 mb-3">
+                  <button type="submit" class="btn btn-primary btn-block w-100">Crear Suscripción</button>
+                </div>
+              </div>
+            </form>
           </div>
+        </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-warning">Pagar</button>
+        <button type="submit" class="btn btn-warning">Pagar</button>
       </div>
     </div>
   </div>
 </div>
   </template>
   
-<script setup>
+  <script setup>
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
   import { ref } from 'vue';
   import { useToast } from 'primevue/usetoast'
   import Toast from 'primevue/toast'
-  import NewClientComponent from '../components/NewClientComponent.vue';
   
-  const observation = ref('')
-  const importe = ref('')
-  const name = ref('')
-  const email = ref('')
+  const observation = ref('');
+  const importe = ref('');
+  const name = ref('');
+  const email = ref('');
+  const password = ref('');
+  const bank_account = ref('');
+  const clienteSeleccionado = ref('');
+  const date_end = ref(''); // Variable para la fecha de caducidad
   
-  const toast = useToast()
-
+  const toast = useToast();
+  
   const updateImporte = () => {
-  var subscription = observation.value;
-
-  switch (subscription) {
-    case "3 meses":
-      importe.value = 59.99; // Valor para 3 meses
-      break;
-    case "6 meses":
-      importe.value = 105.99; // Valor para 6 meses
-      break;
-    case "12 meses":
-      importe.value = 219.99; // Valor para 12 meses
-      break;
-    default:
-      importe.value = ""; // Valor predeterminado si no se selecciona nada
-  }
-}
-const showError = () => {
-  toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
-};
-const showSuccess = () => {
-  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
-};
-
-const crearSub = async () => {
-  try {
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    await api.post('/subfees', {
-      importe: importe.value,
-      date_pay: currentDate, // Establecer la fecha actual
-      observation: observation.value,
-      client_id: email.value // Asignar el ID del cliente
-    });
-
-    cerrarModalCrear();
-    showSuccess();
-    importe.value = ''; // Vaciar el campo de importe
-    name.value = ''; // Reiniciar el estado
-    observation.value = ''; // Vaciar el campo de observaciones
-    email.value = ''; // Reiniciar el cliente seleccionado
-    obtenerSubs();
-  } catch (error) {
-    showError();
-    console.error(error);
-  }
-};
-
-
-  </script>
+    var subscription = observation.value;
   
+    switch (subscription) {
+      case "3 meses":
+        importe.value = 59.99; // Valor para 3 meses
+        calculateExpiryDate(3);
+        break;
+      case "6 meses":
+        importe.value = 105.99; // Valor para 6 meses
+        calculateExpiryDate(6);
+        break;
+      case "12 meses":
+        importe.value = 219.99; // Valor para 12 meses
+        calculateExpiryDate(12);
+        break;
+      default:
+        importe.value = ""; // Valor predeterminado si no se selecciona nada
+    }
+  };
+  
+  const showError = () => {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
+  };
+  
+  const showSuccess = () => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
+  };
+  
+  const calculateExpiryDate = (months) => {
+    const currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth() + months);
+    date_end.value = currentDate.toISOString().split('T')[0];
+  };
+  
+  const verifyClient = async (email, password) => {
+    try {
+      const response = await api.post('/client', { email, password });
+      if (response.data.success) {
+        return response.data.clientId;
+      } else {
+        showError();
+        return null;
+      }
+    } catch (error) {
+      showError();
+      console.error(error);
+      return null;
+    }
+  };
+  
+  const crearSub = async () => {
+    try {
+      const clientId = await verifyClient(email.value, password.value);
+      if (!clientId) return;
+  
+      const currentDate = new Date().toISOString().split('T')[0];
+      const status = "activo";
+  
+      await api.post('/subfees', {
+        importe: importe.value,
+        date_pay: currentDate, // Establecer la fecha actual
+        date_end: date_end.value, // Establecer la fecha de caducidad calculada
+        observation: observation.value,
+        client_id: clientId, // Asignar el ID del cliente
+        status: status // Establecer el estado como "activo"
+      });
+  
+      cerrarModalCrear();
+      showSuccess();
+      importe.value = ''; // Vaciar el campo de importe
+      name.value = ''; // Reiniciar el estado
+      observation.value = ''; // Vaciar el campo de observaciones
+      clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
+      date_end.value = ''; // Reiniciar la fecha de caducidad
+    } catch (error) {
+      showError();
+      console.error(error);
+    }
+  };
+  </script>

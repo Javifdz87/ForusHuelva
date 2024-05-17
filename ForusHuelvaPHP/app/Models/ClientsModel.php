@@ -35,4 +35,9 @@ class ClientsModel extends Model implements Authenticatable
         return $this->hasMany(SubscriptionFeesModel::class);
     }
 
+    public function rent()
+    {
+        return $this->hasMany(RentalFeesModel::class);
+    }
+
 }

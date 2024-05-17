@@ -8,7 +8,9 @@ use App\Http\Controllers\CourtsController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentFeesController;
+use App\Http\Controllers\SportsController;
 use App\Http\Controllers\SubFeesController;
+use App\Http\Controllers\TimeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +41,10 @@ Route::apiResource('/courts', CourtsController::class);
 Route::apiResource('/rentfees', RentFeesController::class);
 
 Route::apiResource('/subfees', SubFeesController::class);
+
+Route::apiResource('/times', TimeController::class);
+
+Route::apiResource('/sports', SportsController::class);
+
+
 
