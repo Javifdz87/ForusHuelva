@@ -254,7 +254,6 @@ async function login() {
     if (response.status === 200) {
       console.log('Inicio de sesión exitoso');
 
-      // Verificar el rol del usuario y redirigir en consecuencia
       if (response.data.user.role === 1) {
         router.push('/home');
       } else {

@@ -20,7 +20,7 @@ CREATE TABLE clients(
     bank_account VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
     );
-    
+
     CREATE TABLE sports(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sport VARCHAR(255) NOT NULL
@@ -148,28 +148,6 @@ INSERT INTO clients (id, name, last_Name, email, phone, town, postal_code, provi
 (13, 'Javier', 'Gómez', 'javier@example.com', 111111111, 'A Coruña', 15001, 'COR', 'particular'),
 (14, 'Ana', 'Hernández', 'ana@example.com', 121212121, 'Santander', 39001, 'SAN', 'particular'),
 (15, 'Luis', 'Jiménez', 'luis@example.com', 131313131, 'Toledo', 45001, 'TOL', 'particular');
-
-
--- Póliza para Juan García
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1234, 150.00, 0.00, 150.00, '2024-02-25', 'cobrada', 'Póliza de seguro de hogar', 1);
-
--- Póliza para María López
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1235, 200.00, 0.00, 200.00, '2024-02-25', 'a cuenta', 'Póliza de seguro de automóvil', 2);
-
--- Póliza para Empresa A S.L.
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1236, 1000.00, 0.00, 1000.00, '2024-02-25', 'liquidada', 'Póliza de seguro de responsabilidad civil', 3);
-
--- Póliza para Empresa B S.A.
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1237, 800.00, 0.00, 800.00, '2024-02-25', 'anulada', 'Póliza de seguro de flota de vehículos', 4);
-
--- Póliza para Pedro Martínez
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1238, 120.00, 0.00, 120.00, '2024-02-25', 'pre anulada', 'Póliza de seguro de salud', 5);
-
--- Póliza para Laura González
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1239, 180.00, 0.00, 180.00, '2024-02-25', 'a cuenta', 'Póliza de seguro de vida', 6);
-
--- Póliza para Antonio Fernández
-INSERT INTO polizas (n_poliza, importe, monto, rest, start_date, status, observation, client_id) VALUES (1240, 250.00, 0.00, 250.00, '2024-02-25', 'cobrada', 'Póliza de seguro de viaje', 7);
 
 
 

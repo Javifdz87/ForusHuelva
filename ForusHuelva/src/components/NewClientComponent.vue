@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="dni" placeholder="name@example.com" v-model="dni"
+                    <input type="text" class="form-control" id="dni" placeholder="name@example.com" v-model="dni" maxlength="9"
                       required />
                     <label for="floatingInput">DNI</label>
                   </div>
