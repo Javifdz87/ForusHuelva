@@ -89,7 +89,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/images/padel.jpg" class="card-img" alt="...">
+              <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Padel</h5>
               </div>
@@ -97,7 +97,7 @@
           </div>
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/images/tenis.jpg" class="card-img" alt="...">
+              <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Tenis</h5>
               </div>
@@ -105,7 +105,7 @@
           </div>
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/images/sala.jpg" class="card-img" alt="...">
+              <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Futbol Sala</h5>
               </div>
@@ -113,7 +113,7 @@
           </div>
           <div class="col-lg-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
-              <img src="/images/siete.jpg" class="card-img" alt="...">
+              <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/siete.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
                 <h5 class="card-title">Futbol 7</h5>
               </div>

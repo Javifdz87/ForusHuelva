@@ -11,6 +11,9 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
+              <a class="nav-link" href="#nosotros">Rutinas</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
             <li class="nav-item">
@@ -116,7 +119,7 @@
           <div class="row">
             <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
-                <img src="/images/padel.jpg" class="card-img" alt="...">
+                <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Padel</h5>
                 </div>
@@ -124,7 +127,7 @@
             </div>
             <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
-                <img src="/images/tenis.jpg" class="card-img" alt="...">
+                <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Tenis</h5>
                 </div>
@@ -132,7 +135,7 @@
             </div>
             <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
-                <img src="/images/sala.jpg" class="card-img" alt="...">
+                <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Futbol Sala</h5>
                 </div>
@@ -140,7 +143,7 @@
             </div>
             <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
-                <img src="/images/siete.jpg" class="card-img" alt="...">
+                <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/siete.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
                   <h5 class="card-title">Futbol 7</h5>
                 </div>
@@ -174,111 +177,94 @@
 
         <!-- Modales -->
         <div class="modal fade" id="modalRent" tabindex="-1" aria-labelledby="modalRent" aria-hidden="true">
-      <div class="modal-dialog modal-lg"> <!-- Ajusta la clase modal-dialog -->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalRent">Nuevo Alquiler</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <Toast />
-
-              <div class="row justify-content-center m-3">
-                <form @submit.prevent="crearAlquiler">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="email" v-model="email" placeholder="name@example.com"
-                          readonly />
-                        <label for="cliente">Email</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="nombre" v-model="nombre" placeholder="name@example.com"
-                          readonly />
-                        <label for="nombre">Nombre</label>
-                      </div>
-                    </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Alquiler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <Toast />
+          <div class="row justify-content-center m-3">
+            <form @submit.prevent="crearAlquiler">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="email_sub" v-model="email" placeholder="email" required />
+                    <label for="cliente">Email</label>
                   </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige el deporte</option>
-                          <option value="cobrada">Padel</option>
-                          <option value="a cuenta">Futbol Sala</option>
-                          <option value="liquidada">Futbol Sala 7</option>
-                          <option value="anulada">Tenis</option>
-                        </select>
-                        <label for="floatingInput">Deporte</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="date" class="form-control" id="fechaInicio" placeholder="name@example.com"
-                           required />
-                        <label for="fechaInicio">Elije el dia de juego</label>
-                      </div>
-                    </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombre_sub" v-model="nombre" placeholder="Nombre" required />
+                    <label for="nombre">Nombre</label>
                   </div>
-                  
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige la Hora</option>
-                          <option value="10:00">10:00</option>
-                          <option value="11:00">11:00</option>
-                          <option value="12:00">12:00</option>
-                          <option value="13:00">13:00</option>
-                          <option value="14:00">14:00</option>
-                          <option value="15:00">15:00</option>
-                          <option value="16:00">16:00</option>
-                          <option value="17:00">17:00</option>
-                          <option value="18:00">18:00</option>
-                          <option value="19:00">19:00</option>
-                          <option value="20:00">20:00</option>
-                          <option value="21:00">21:00</option>
-                          <option value="22:00">22:00</option>
-                        </select>
-                        <label for="floatingInput">Hora</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
-                          readonly />
-                        <label for="floatingInput">Importe</label>
-                      </div>
-                    </div>
-                  </div>                  
-
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-floating mb-3">
-                        <select v-model="status" class="form-control" placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige pista</option>
-                          
-                        </select>
-                        <label for="floatingInput">Pista</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-12 mb-3">
-                      <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
-                    </div>
-                  </div>
-                </form>
+                </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <select id="sport" v-model="DeporteSeleccionado" @change="actualizarHorasYPistas" class="form-select">
+                      <option value="" disabled selected>Selecciona un deporte</option>
+                      <option v-for="sport in sports" :key="sport.id" :value="sport.id">
+                        {{ sport.sport }}
+                      </option>
+                    </select>
+                    <label for="floatingInput">Deporte</label>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
+                    <label for="fechaInicio">Elije el día de juego</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <select id="time" v-model="timeSeleccionado" class="form-select">
+                      <option value="" disabled selected>Selecciona una hora</option>
+                      <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
+                        {{ time.date_time }}
+                      </option>
+                    </select>
+                    <label for="floatingInput">Hora</label>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" placeholder="Importe" v-model="importe_rent" value="12" readonly />
+                    <label for="floatingInput">Importe</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-floating mb-3">
+                    <select id="pista" v-model="pistaSeleccionada" class="form-select">
+                      <option value="" disabled selected>Selecciona una pista</option>
+                      <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
+                        {{ pista.name }}
+                      </option>
+                    </select>
+                    <label for="floatingInput">Pista</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 mb-3">
+                  <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <div class="modal fade" id="modalSub" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
   <div class="modal-dialog">
@@ -360,10 +346,11 @@
 </div>
   </template>
   
-  <script setup>
+<script setup>
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
+
   import { useToast } from 'primevue/usetoast'
   import Toast from 'primevue/toast'
   
@@ -373,8 +360,21 @@
   const email = ref('');
   const password = ref('');
   const bank_account = ref('');
-  const clienteSeleccionado = ref('');
   const date_end = ref(''); // Variable para la fecha de caducidad
+  const importe_rent = ref('');
+
+  const date_day = ref('');
+const date_time = ref('');
+const clientes = ref([]);
+const pistas = ref([]);
+const times = ref([]);
+const sports = ref([]);
+const DeporteSeleccionado = ref('');
+const nombre = ref('');
+const filteredPistas = ref([]);
+const filteredTimes = ref([]);
+const timeSeleccionado = ref('');
+const pistaSeleccionada = ref('');
   
   const toast = useToast();
   
@@ -438,7 +438,7 @@
       const status = "activo";
   
       await api.post('/subfees', {
-        importe: importe.value,
+        importe: 1,
         date_pay: currentDate, // Establecer la fecha actual
         date_end: date_end.value, // Establecer la fecha de caducidad calculada
         observation: observation.value,
@@ -458,4 +458,79 @@
       console.error(error);
     }
   };
+
+  const crearAlquiler = async () => {
+  try {
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    await api.post('/rentfees', {
+      importe: 12,
+      date_pay: currentDate,
+      date_day: date_day.value,
+      date_time: timeSeleccionado.value,
+      client_id: 1,
+      court_id: pistaSeleccionada.value
+    });
+
+    cerrarModalCrear();
+    showSuccess();
+    date_day.value = '';
+    date_time.value = '';
+    clienteSeleccionado.value = '';
+    nombre.value = '';
+    DeporteSeleccionado.value = '';
+    timeSeleccionado.value = '';
+    pistaSeleccionada.value = '';
+
+    obtenerRents();
+  } catch (error) {
+    showError();
+    console.error(error);
+  }
+};
+
+const obtenerPistas = async () => {
+  try {
+    const respuesta = await api.get('/courts')
+    pistas.value = respuesta.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const obtenerHoras = async () => {
+  try {
+    const respuesta = await api.get('/times')
+    times.value = respuesta.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const obtenerDeportes = async () => {
+  try {
+    const respuesta = await api.get('/sports')
+    sports.value = respuesta.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const actualizarHorasYPistas = () => {
+  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
+  filteredTimes.value = times.value.filter(time => time.sport_id === DeporteSeleccionado.value);
+};
+
+const cerrarModalCrear = async () => {
+  const crearAlquilerModal = document.getElementById('dardealta')
+  const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]')
+  closeButton.click()
+}
+
+
+onMounted(() => {
+  obtenerPistas();
+  obtenerHoras();
+  obtenerDeportes();
+});
   </script>
