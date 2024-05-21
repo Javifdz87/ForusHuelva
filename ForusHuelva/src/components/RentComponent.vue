@@ -70,68 +70,79 @@
       </div>
     </div>
 
-    <!-- Modal Vista -->
-    <div class="modal fade" id="vista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-info">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">Vista Poliza</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
+   <!-- Modal Vista -->
+<div class="modal fade" id="vista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h5 class="modal-title text-light" id="staticBackdropLabel">Vista Alquiler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <Toast />
+          <div class="row justify-content-center m-3">
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                     readonly />
-                  <label for="floatingInput">Id</label>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                     readonly />
-                  <label for="floatingInput">Nombre</label>
+                  <input type="text" class="form-control" id="email" v-model="selectedRent.email" placeholder="email" readonly />
+                  <label for="email">Email</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                     readonly />
-                  <label for="floatingInput">Importe</label>
+                  <input type="text" class="form-control" id="nombre" v-model="selectedRent.name" placeholder="Nombre" readonly />
+                  <label for="nombre">Nombre</label>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                     readonly />
-                  <label for="floatingInput">Pagado</label>
+                  <input type="text" class="form-control" id="deporte" v-model="selectedRent.sport" placeholder="deporte" readonly />
+                  <label for="deporte">Deporte</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                   readonly />
-                  <label for="floatingInput">Hora de Alquiler</label>
+                  <input type="text" class="form-control" id="fechaInicio" v-model="selectedRent.date_day" placeholder="Elije el día de juego" readonly />
+                  <label for="fechaInicio">Elije el día de juego</label>
                 </div>
               </div>
             </div>
-
-
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="hora" v-model="selectedRent.date_time" placeholder="hora" readonly />
+                  <label for="hora">Hora</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="importe" v-model="selectedRent.importe" placeholder="Importe" readonly />
+                  <label for="importe">Importe</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="pista" v-model="selectedRent.court" placeholder="Pista" readonly />
+                  <label for="pista">Pista</label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
+  </div>
+</div>
+
 
 <!-- Modal Nueva Rent -->
 <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -262,7 +273,8 @@ const pistaSeleccionada = ref('');
 
 const selectedRentInfo = ref({
   name: '',
-  email: ''
+  email: '',
+  sport: '',
 });
 
 const rent = ref([]);
@@ -272,81 +284,64 @@ const showError = () => {
   toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
 };
 const showSuccess = () => {
-  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
+  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
 };
-
 
 const obtenerRents = async () => {
   try {
     const respuesta = await api.get('/rentfees');
     rent.value = respuesta.data;
-
   } catch (error) {
     console.error(error);
   }
-}
-
+};
 
 const selectRent = (rent) => {
-  selectedRent.value = subs;
-  // Verificar si la información del cliente está definida
-  if (rent.client && rent.client.name !== undefined && rent.client.email !== undefined && rent.sport && rent.sport.sport !== undefined) {
+  selectedRent.value = rent;
+  if (rent.client && rent.client.name && rent.client.email && rent.sport && rent.sport.sport) {
     selectedRentInfo.value.name = rent.client.name;
     selectedRentInfo.value.email = rent.client.email;
     selectedRentInfo.value.sport = rent.sport.sport;
   } else {
-    // Si la información del cliente no está definida, restablecer la variable selectedRentInfo
     selectedRentInfo.value.name = '';
     selectedRentInfo.value.email = '';
     selectedRentInfo.value.sport = '';
   }
 };
 
-
-
 const eliminarPoliza = async () => {
   try {
-    if (!selectedPoliza.value) {
+    if (!selectedRent.value) {
       console.error('No hay cliente seleccionado para eliminar.');
       return;
     }
 
-    const idPoliza = selectedPoliza.value.id;
+    const idPoliza = selectedRent.value.id;
     const response = await api.delete(`/rent/${idPoliza}`);
 
     if (response.status === 204) {
-
       rent.value = rent.value.filter(cliente => cliente.id !== idPoliza);
       cerrarModalBorrar();
       showSuccess();
-
     } else {
       showError();
-
       console.error('Error al eliminar el cliente.');
     }
   } catch (error) {
     showError();
-
     console.error('Error al eliminar el cliente:', error);
   }
 };
 
-
-
 const cerrarModalEditar = async () => {
   const editarPolizaModal = document.getElementById("editarPoliza");
-  const closeButton = editarPolizaModal.querySelector(
-    '[data-bs-dismiss="modal"]'
-  );
+  const closeButton = editarPolizaModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
 const cerrarModalBorrar = async () => {
   const borrarPolizaModal = document.getElementById("eliminar");
-  const closeButton = borrarPolizaModal.querySelector(
-    '[data-bs-dismiss="modal"]'
-  );
+  const closeButton = borrarPolizaModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
@@ -360,7 +355,7 @@ const crearAlquiler = async () => {
       date_day: date_day.value,
       date_time: timeSeleccionado.value,
       client_id: clienteSeleccionado.value,
-      court_id: pistaSeleccionada.value
+      court_id: pistaSeleccionada.value,
     });
 
     cerrarModalCrear();
@@ -379,45 +374,47 @@ const crearAlquiler = async () => {
     console.error(error);
   }
 };
+
 const obtenerClientes = async () => {
   try {
-    const respuesta = await api.get('/clientes')
-    clientes.value = respuesta.data
+    const respuesta = await api.get('/clientes');
+    clientes.value = respuesta.data;
   } catch (error) {
+    console.error(error);
   }
-}
+};
 
 const obtenerPistas = async () => {
   try {
-    const respuesta = await api.get('/courts')
-    pistas.value = respuesta.data
+    const respuesta = await api.get('/courts');
+    pistas.value = respuesta.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const obtenerHoras = async () => {
   try {
-    const respuesta = await api.get('/times')
-    times.value = respuesta.data
+    const respuesta = await api.get('/times');
+    times.value = respuesta.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const obtenerDeportes = async () => {
   try {
-    const respuesta = await api.get('/sports')
-    sports.value = respuesta.data
+    const respuesta = await api.get('/sports');
+    sports.value = respuesta.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const actualizarNombre = () => {
-  const cliente = clientes.value.find((cli) => cli.id === clienteSeleccionado.value)
-  nombre.value = cliente ? cliente.name : ''
-}
+  const cliente = clientes.value.find(cli => cli.id === clienteSeleccionado.value);
+  nombre.value = cliente ? cliente.name : '';
+};
 
 const actualizarHorasYPistas = () => {
   filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
@@ -425,11 +422,10 @@ const actualizarHorasYPistas = () => {
 };
 
 const cerrarModalCrear = async () => {
-  const crearAlquilerModal = document.getElementById('dardealta')
-  const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]')
-  closeButton.click()
-}
-
+  const crearAlquilerModal = document.getElementById('dardealta');
+  const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]');
+  closeButton.click();
+};
 
 onMounted(() => {
   obtenerClientes();

@@ -97,7 +97,6 @@
               </div>
             </div>
             <div class="row">
-
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
@@ -271,7 +270,7 @@
 
                   <div class="row">
                     <div class="col-lg-12 mb-3">
-                      <button type="submit" class="btn btn-primary btn-block w-100">Editar Suscripción</button>
+                      <button type="submit" class="btn btn-warning btn-block w-100">Editar Suscripción</button>
                     </div>
                   </div>
                 </form>
@@ -417,6 +416,11 @@ const editarSub = async () => {
 
     if (response.status === 200) {
       console.log('Póliza actualizada correctamente.');
+      importe.value = ''; // Vaciar el campo de importe
+      name.value = ''; // Reiniciar el estado
+      observation.value = ''; // Vaciar el campo de observaciones
+      clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
+      date_end.value = ''; // Reiniciar la fecha de caducidad
       showSuccess();
       cerrarModalEditar();
       obtenerSubs();

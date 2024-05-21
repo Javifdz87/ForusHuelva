@@ -80,14 +80,14 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedClient.id" />
+                    v-model="selectedClient.id" readonly/>
                   <label for="floatingInput">Id Cliente</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="dni" placeholder="name@example.com"
-                    v-model="selectedClient.dni" />
+                    v-model="selectedClient.dni" readonly/>
                   <label for="floatingInput">DNI</label>
                 </div>
               </div>
@@ -98,14 +98,14 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="name" placeholder="name@example.com"
-                    v-model="selectedClient.name" />
+                    v-model="selectedClient.name" readonly/>
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="last_Name" placeholder="name@example.com"
-                    v-model="selectedClient.last_Name" />
+                    v-model="selectedClient.last_Name" readonly/>
                   <label for="floatingInput">Apellido</label>
                 </div>
               </div>
@@ -115,14 +115,14 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="email" placeholder="name@example.com"
-                    v-model="selectedClient.email" />
+                    v-model="selectedClient.email" readonly/>
                   <label for="floatingInput">Email</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="phone" placeholder="name@example.com"
-                    v-model="selectedClient.phone" />
+                    v-model="selectedClient.phone" readonly/>
                   <label for="floatingInput">Telefóno</label>
                 </div>
               </div>
@@ -132,21 +132,21 @@
               <div class="col-lg-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="town" placeholder="name@example.com"
-                    v-model="selectedClient.town" />
+                    v-model="selectedClient.town" readonly/>
                   <label for="floatingInput">Localidad</label>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="postal_code" placeholder="name@example.com"
-                    v-model="selectedClient.postal_code" />
+                    v-model="selectedClient.postal_code" readonly/>
                   <label for="floatingInput">Codigo Postal</label>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="province" placeholder="name@example.com"
-                    v-model="selectedClient.province" />
+                    v-model="selectedClient.province" readonly/>
                   <label for="floatingInput">Provincia</label>
                 </div>
               </div>
@@ -156,21 +156,19 @@
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="address" placeholder="name@example.com"
-                    v-model="selectedClient.address" />
+                    v-model="selectedClient.address" readonly/>
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
-                    v-model="selectedClient.bank_account" />
+                    v-model="selectedClient.bank_account" readonly/>
                   <label for="floatingInput">Cuenta Bancaria</label>
                 </div>
               </div>
             </div>
           </div>
-
-          
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -179,7 +177,7 @@
       </div>
     </div>
 
-    <!-- Modal Nueva cliente -->
+    <!-- Modal Nuevo cliente -->
 <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -266,7 +264,7 @@
                 <div class="col-lg-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="address" placeholder="name@example.com"
-                      v-model="address" required maxlength="5" />
+                      v-model="address" required />
                     <label for="floatingInput">Dirección</label>
                   </div>
                 </div>
@@ -276,7 +274,7 @@
                 <div class="col-lg-12">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
-                      v-model="bank_account" required />
+                      v-model="bank_account" required maxlength="16"/>
                     <label for="floatingInput">Cuenta corriente</label>
                   </div>
                 </div>
@@ -309,105 +307,95 @@
 
     <!-- Modal editar Cliente -->
     <div class="modal fade" id="editarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row justify-content-center m-3">
-              <h2 class="card-title text-center mb-4">Editar Cliente</h2>
-              <form @submit.prevent="editarCliente">
-                <div class="row">
-                  <div class="col-lg-3">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="name" placeholder="name@example.com"
-                        v-model="selectedClient.name" required />
-                      <label for="floatingInput">Nombre</label>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="last_name" placeholder="name@example.com"
-                        v-model="selectedClient.last_Name" required />
-                      <label for="floatingInput">Apellidos</label>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="email" placeholder="name@example.com"
-                        v-model="selectedClient.email" required />
-                      <label for="floatingInput">Email</label>
-                    </div>
-                  </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center m-3">
+          <h2 class="card-title text-center mb-4">Editar Cliente</h2>
+          <form @submit.prevent="editarCliente">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="name" placeholder="Nombre" v-model="selectedClient.name" required />
+                  <label for="name">Nombre</label>
                 </div>
-
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="form-floating mb-3">
-                      <input type="phone" class="form-control" id="phone" placeholder="name@example.com"
-                        v-model="selectedClient.phone" required maxlength="9" />
-                      <label for="floatingInput">Teléfono</label>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="town" placeholder="name@example.com"
-                        v-model="selectedClient.town" required />
-                      <label for="floatingInput">Localidad</label>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="form-floating mb-3">
-                      <input type="number" class="form-control" id="postal_code" placeholder="name@example.com"
-                        v-model="selectedClient.postal_code" maxlength="5" />
-                      <label for="floatingInput">Código Postal</label>
-                    </div>
-                  </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" required />
+                  <label for="last_name">Apellidos</label>
                 </div>
-
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="province" placeholder="name@example.com"
-                        v-model="selectedClient.province" required />
-                      <label for="floatingInput">Provincia</label>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-8">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="address" placeholder="name@example.com"
-                        v-model="selectedClient.address" maxlength="5" />
-                      <label for="floatingInput">Dirección</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
-                        v-model="selectedClient.bank_account" required />
-                      <label for="floatingInput">Cuenta Corriente</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-12">
-                    <button type="submit" class="btn btn-warning btn-block w-100">
-                      Editar Cliente
-                    </button>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
-          </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" placeholder="Email" v-model="selectedClient.email" required />
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="dni" placeholder="DNI" v-model="selectedClient.dni" required maxlength="9" />
+                  <label for="dni">DNI</label>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="phone" placeholder="Teléfono" v-model="selectedClient.phone" required maxlength="9" />
+                  <label for="phone">Teléfono</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="town" placeholder="Localidad" v-model="selectedClient.town" required />
+                  <label for="town">Localidad</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" required maxlength="5" />
+                  <label for="postal_code">Código Postal</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="province" class="form-select" v-model="selectedClient.province" required>
+                    <option value="" disabled selected>Selecciona una provincia</option>
+                    <option v-for="provincia in provincias" :key="provincia.cod" :value="provincia.nombre">
+                      {{ provincia.nombre }}
+                    </option>
+                  </select>
+                  <label for="province">Provincias</label>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="address" placeholder="Dirección" v-model="selectedClient.address" required />
+                  <label for="address">Dirección</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 mb-3">
+                <button type="submit" class="btn btn-warning btn-block w-100">Editar Cliente</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
 
   </div>
 </template>
@@ -507,30 +495,68 @@ const eliminarCliente = async () => {
 const editarCliente = async () => {
   try {
     if (!selectedClient.value) {
-      console.error('No hay cliente seleccionado para editar.')
-      return
+      console.error('No hay cliente seleccionado para editar.');
+      return;
     }
 
-    const idCliente = selectedClient.value.id
-    const response = await api.put(`/clientes/${idCliente}`, selectedClient.value)
+    // Convertir phone y postal_code a números enteros
+    const phoneValue = parseInt(selectedClient.value.phone, 10);
+    const postalCodeValue = parseInt(selectedClient.value.postal_code, 10);
+
+    // Verificar si la conversión fue exitosa
+    if (isNaN(phoneValue) || isNaN(postalCodeValue)) {
+      throw new Error('El formato de phone o postal_code no es válido');
+    }
+
+    const idCliente = selectedClient.value.id;
+    const data = {
+      name: selectedClient.value.name,
+      last_Name: selectedClient.value.last_Name,
+      dni: selectedClient.value.dni,
+      email: selectedClient.value.email,
+      phone: phoneValue, // Usar el valor convertido
+      town: selectedClient.value.town,
+      postal_code: postalCodeValue, // Usar el valor convertido
+      province: selectedClient.value.province,
+      address: selectedClient.value.address,
+    };
+
+    console.log('Datos a enviar:', data);
+
+    const response = await api.put(`/clientes/${idCliente}`, data); // Enviar `data` en la solicitud `PUT`
 
     if (response.status === 200) {
-      console.log('Cliente actualizado correctamente.')
-      showSuccess()
-      cerrarModalEditar()
-      // Actualizar la lista de clientes después de la edición
-      obtenerClientes()
-    } else {
-      showError()
+      console.log('Cliente actualizado correctamente.');
 
-      console.error('Error al editar el cliente.')
+      // Limpiar los campos del formulario
+      selectedClient.value = {
+        name: '',
+        last_Name: '',
+        dni: '',
+        email: '',
+        phone: '',
+        town: '',
+        postal_code: '',
+        province: '',
+        address: ''
+      };
+
+      cerrarModalEditar(); // Cerrar el modal de edición
+      showSuccess(); // Mostrar mensaje de éxito
+      obtenerClientes(); // Actualizar la lista de clientes
+    } else {
+      console.error('Error al editar el cliente.');
+      showError(); // Mostrar mensaje de error
     }
   } catch (error) {
-    showError()
-
-    console.error('Error al editar el cliente:', error)
+    console.error('Error al editar el cliente:', error);
+    showError(); // Mostrar mensaje de error
   }
-}
+};
+
+
+
+
 
 const cerrarModalEditar = async () => {
   const editarClienteModal = document.getElementById('editarCliente')
