@@ -19,7 +19,8 @@
             </div>
           </div>
           <DataTable :value="rent" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
-            tableStyle="min-width: 50rem">
+            tableStyle="min-width: 50rem" :filters="filters"
+      :globalFilterFields="['client.name', 'client.email', 'court.sport_id', 'date_day', 'date_time']">
             <Column field="id" header="Id" sortable style="width: 12%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
@@ -42,6 +43,12 @@
                 </Button>
               </template>
             </Column>
+            <template #header>
+        <div class="flex justify-content-end">
+            <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+        </div>
+      </template>
+      <template #empty>No hay clientes encontrados.</template>
           </DataTable>
 
 
@@ -244,10 +251,14 @@ import Column from 'primevue/column';
 import Button from 'primevue/button';
 import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
+import InputText from 'primevue/inputtext'
+
 import Tag from 'primevue/tag';
 import { useRouter } from 'vue-router';
 const toast = useToast();
 const importe = ref(12);
+const filters = ref({ global: { value: '' } })
+
 
 const date_day = ref('');
 const date_time = ref('');

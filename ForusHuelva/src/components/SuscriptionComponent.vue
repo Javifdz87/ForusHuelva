@@ -19,7 +19,8 @@
             </div>
           </div>
           <DataTable :value="subs" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
-            tableStyle="min-width: 50rem">
+            tableStyle="min-width: 50rem" :filters="filters"
+      :globalFilterFields="['client.name', 'client.email', 'importe', 'date_pay', 'observation']">
             <Column field="id" header="Id" sortable style="width: 5%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 11%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
@@ -42,6 +43,12 @@
                 </Button>
               </template>
             </Column>
+            <template #header>
+        <div class="flex justify-content-end">
+            <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+        </div>
+      </template>
+      <template #empty>No hay clientes encontrados.</template>
           </DataTable>
 
 
@@ -302,6 +309,8 @@ import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
 import Tag from 'primevue/tag';
 import { useRouter } from 'vue-router';
+import InputText from 'primevue/inputtext'
+
 const router = useRouter();
 const toast = useToast();
 const importe = ref('')
@@ -312,6 +321,7 @@ const clientes = ref([])
 const clienteSeleccionado = ref('')
 const date_end = ref(''); // Variable para la fecha de caducidad
 
+const filters = ref({ global: { value: '' } })
 
 const updateImporte = () => {
   var subscription = observation.value;
