@@ -23,7 +23,7 @@
             <Column field="id" header="Id" sortable style="width: 12%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
-            <Column field="sport.sport" header="Deporte" sortable style="width: 14%"></Column>
+            <Column field="court.sport_id" header="Deporte" sortable style="width: 14%"></Column>
             <Column field="date_day" header="Fecha de Juego" sortable style="width: 14%"></Column>
             <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 18%">
@@ -86,13 +86,13 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="email" v-model="selectedRent.email" placeholder="email" readonly />
+                  <input type="text" class="form-control" id="email" v-model="selectedRent.client.email" placeholder="email" readonly />
                   <label for="email">Email</label>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="nombre" v-model="selectedRent.name" placeholder="Nombre" readonly />
+                  <input type="text" class="form-control" id="nombre" v-model="selectedRent.client.name" placeholder="Nombre" readonly />
                   <label for="nombre">Nombre</label>
                 </div>
               </div>
@@ -100,7 +100,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="deporte" v-model="selectedRent.sport" placeholder="deporte" readonly />
+                  <input type="text" class="form-control" id="deporte" v-model="selectedRent.court.sport_id" placeholder="deporte" readonly />
                   <label for="deporte">Deporte</label>
                 </div>
               </div>
@@ -128,7 +128,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="pista" v-model="selectedRent.court" placeholder="Pista" readonly />
+                  <input type="text" class="form-control" id="pista" v-model="selectedRent.court.name" placeholder="Pista" readonly />
                   <label for="pista">Pista</label>
                 </div>
               </div>
@@ -153,89 +153,82 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="container">
-          <Toast />
-          <div class="row justify-content-center m-3">
+    <div class="container">
+        <Toast />
+        <div class="row justify-content-center m-3">
             <form @submit.prevent="crearAlquiler">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
-                      <option value="" disabled selected>Selecciona un cliente</option>
-                      <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-                        {{ cliente.email }}
-                      </option>
-                    </select>
-                    <label for="cliente">Email</label>
-                  </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
+                                <option value="" disabled selected>Selecciona un cliente</option>
+                                <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
+                                    {{ cliente.email }}
+                                </option>
+                            </select>
+                            <label for="cliente">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
+                            <label for="nombre">Nombre</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
-                    <label for="nombre">Nombre</label>
-                  </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <select id="sport" v-model="DeporteSeleccionado" @change="actualizarPistas" class="form-select">
+                                <option value="" disabled selected>Selecciona un deporte</option>
+                                <option v-for="sport in sports" :key="sport.id" :value="sport.id">
+                                    {{ sport.sport }}
+                                </option>
+                            </select>
+                            <label for="floatingInput">Deporte</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
+                            <label for="fechaInicio">Elije el día de juego</label>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <select id="sport" v-model="DeporteSeleccionado" @change="actualizarHorasYPistas" class="form-select">
-                      <option value="" disabled selected>Selecciona un deporte</option>
-                      <option v-for="sport in sports" :key="sport.id" :value="sport.id">
-                        {{ sport.sport }}
-                      </option>
-                    </select>
-                    <label for="floatingInput">Deporte</label>
-                  </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <select id="pista" v-model="pistaSeleccionada" @change="actualizarHorasDisponibles" class="form-select">
+                                <option value="" disabled selected>Selecciona una pista</option>
+                                <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
+                                    {{ pista.name }}
+                                </option>
+                            </select>
+                            <label for="floatingInput">Pista</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-floating mb-3">
+                            <select id="time" v-model="timeSeleccionado" class="form-select">
+                                <option value="" disabled selected>Selecciona una hora</option>
+                                <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
+                                    {{ time.date_time }}
+                                </option>
+                            </select>
+                            <label for="floatingInput">Hora</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
-                    <label for="fechaInicio">Elije el día de juego</label>
-                  </div>
+                <div class="row">
+                    <div class="col-lg-12 mb-3">
+                        <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <select id="time" v-model="timeSeleccionado" class="form-select">
-                      <option value="" disabled selected>Selecciona una hora</option>
-                      <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
-                        {{ time.date_time }}
-                      </option>
-                    </select>
-                    <label for="floatingInput">Hora</label>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" placeholder="Importe" v-model="importe" readonly />
-                    <label for="floatingInput">Importe</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="form-floating mb-3">
-                    <select id="pista" v-model="pistaSeleccionada" class="form-select">
-                      <option value="" disabled selected>Selecciona una pista</option>
-                      <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
-                        {{ pista.name }}
-                      </option>
-                    </select>
-                    <label for="floatingInput">Pista</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 mb-3">
-                  <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
-                </div>
-              </div>
             </form>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
+
     </div>
   </div>
 </div>
@@ -255,6 +248,7 @@ import Tag from 'primevue/tag';
 import { useRouter } from 'vue-router';
 const toast = useToast();
 const importe = ref(12);
+
 const date_day = ref('');
 const date_time = ref('');
 const clientes = ref([]);
@@ -274,11 +268,24 @@ const pistaSeleccionada = ref('');
 const selectedRentInfo = ref({
   name: '',
   email: '',
-  sport: '',
 });
 
 const rent = ref([]);
-const selectedRent = ref({});
+const selectedRent = ref({
+  id: '',
+  client: {
+    email: '',
+    name: ''
+  },
+  court: {
+    id: '',
+    name: ''
+  },
+  date_day: '',
+  date_time: '',
+  importe: ''
+});
+
 
 const showError = () => {
   toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
@@ -298,16 +305,19 @@ const obtenerRents = async () => {
 
 const selectRent = (rent) => {
   selectedRent.value = rent;
-  if (rent.client && rent.client.name && rent.client.email && rent.sport && rent.sport.sport) {
+  if (rent.client && rent.client.name && rent.client.email && rent.sport && rent.sport.name && rent.court && rent.court.name) {
     selectedRentInfo.value.name = rent.client.name;
     selectedRentInfo.value.email = rent.client.email;
-    selectedRentInfo.value.sport = rent.sport.sport;
+    selectedRentInfo.value.sport = rent.sport.name;
+    selectedRentInfo.value.court = rent.court.name;
   } else {
     selectedRentInfo.value.name = '';
     selectedRentInfo.value.email = '';
     selectedRentInfo.value.sport = '';
+    selectedRentInfo.value.court = '';
   }
 };
+
 
 const eliminarPoliza = async () => {
   try {
@@ -317,7 +327,7 @@ const eliminarPoliza = async () => {
     }
 
     const idPoliza = selectedRent.value.id;
-    const response = await api.delete(`/rent/${idPoliza}`);
+    const response = await api.delete(`/rentfees/${idPoliza}`);
 
     if (response.status === 204) {
       rent.value = rent.value.filter(cliente => cliente.id !== idPoliza);
@@ -416,9 +426,19 @@ const actualizarNombre = () => {
   nombre.value = cliente ? cliente.name : '';
 };
 
-const actualizarHorasYPistas = () => {
-  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
-  filteredTimes.value = times.value.filter(time => time.sport_id === DeporteSeleccionado.value);
+const actualizarPistas = () => {
+    // Filtrar pistas disponibles para el deporte seleccionado
+    filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
+};
+const actualizarHorasDisponibles = () => {
+    // Filtrar horas disponibles para la pista y el día seleccionado
+    filteredTimes.value = times.value.filter(time => {
+        // Verificar si la hora está disponible para la pista seleccionada y el día seleccionado
+        const horaDisponible = !rent.value.some(rent => {
+            return rent.date_day === date_day.value && rent.date_time === time.date_time && rent.court_id === pistaSeleccionada.value;
+        });
+        return horaDisponible;
+    });
 };
 
 const cerrarModalCrear = async () => {

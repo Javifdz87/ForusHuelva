@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 class RentFeesController extends Controller
 {
     public function index()
-    {
-        $rentals = RentalFeesModel::with('client:id,name,email', 'sport:sport')->get();;
+{
+    $rent = RentalFeesModel::with('client:id,name,email', 'sport:id,sport', 'court:id,name,sport_id')->get();
+    
 
-        return response()->json($rentals);
-    }
+    return response()->json($rent);
+}
+
 
     public function store(Request $request)
 {

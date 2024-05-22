@@ -72,72 +72,86 @@
 
     <!-- Modal Vista -->
     <div class="modal fade" id="vista" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-info">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">Vista Sub</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h5 class="modal-title text-light" id="staticBackdropLabel">Vista Sub</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="id" placeholder="name@example.com"
+                v-model="selectedSub.id" readonly />
+              <label for="floatingInput">Id</label>
+            </div>
           </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedSub.id" readonly />
-                  <label for="floatingInput">Id</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" placeholder="name@example.com"
-                    v-model="selectedSub.email" readonly />
-                  <label for="floatingInput">Email</label>
-                </div>
-              </div>
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="email" placeholder="name@example.com"
+                v-model="selectedSub.client.email" readonly />
+              <label for="floatingInput">Email</label>
             </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                    v-model="selectedSub.name" readonly />
-                  <label for="floatingInput">Nombre</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedSub.importe" readonly />
-                  <label for="floatingInput">Importe</label>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="start_date" placeholder="name@example.com"
-                    v-model="selectedSub.date_pay" readonly />
-                  <label for="floatingInput">Pagado</label>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="id" placeholder="name@example.com"
-                    v-model="selectedSub.observation" readonly />
-                  <label for="floatingInput">Observación</label>
-                </div>
-              </div>
-            </div>
-
-
           </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="name" placeholder="name@example.com"
+                v-model="selectedSub.client.name" readonly />
+              <label for="floatingInput">Nombre</label>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="importe" placeholder="name@example.com"
+                v-model="selectedSub.importe" readonly />
+              <label for="floatingInput">Importe</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="name" placeholder="name@example.com"
+                v-model="selectedSub.date_end" readonly />
+              <label for="floatingInput">Fecha expiración</label>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="importe" placeholder="name@example.com"
+                v-model="selectedSub.status" readonly />
+              <label for="floatingInput">Estado</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="date_pay" placeholder="name@example.com"
+                v-model="selectedSub.date_pay" readonly />
+              <label for="floatingInput">Pagado</label>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="observation" placeholder="name@example.com"
+                v-model="selectedSub.observation" readonly />
+              <label for="floatingInput">Observación</label>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
+  </div>
+</div>
 
     <!-- Modal Nueva Sub -->
     <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -156,21 +170,19 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre"
-                          class="form-select">
-                          <option value="" disabled selected>Selecciona un cliente</option>
-                          <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-                            {{ cliente.email }}
-                          </option>
-                        </select>
+                        <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
+                      <option value="" disabled selected>Selecciona un cliente</option>
+                      <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
+                        {{ cliente.email }}
+                      </option>
+                    </select>
                         <label for="cliente">Email</label>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="nombre" v-model="name" placeholder="Nombre"
-                          required />
-                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
+                    <label for="nombre">Nombre</label>
                       </div>
                     </div>
                   </div>
@@ -228,20 +240,15 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre"
-                          class="form-select">
-                          <option value="" disabled selected>Selecciona un cliente</option>
-                          <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-                            {{ cliente.email }}
-                          </option>
-                        </select>
+                        <input type="text" class="form-control" id="email" placeholder="name@example.com"
+                    v-model="selectedSub.client.email" readonly />
                         <label for="cliente">Email</label>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-floating mb-3">
-                        <input type="input" class="form-control" id="nombre" v-model="name" placeholder="Nombre"
-                          required />
+                        <input type="text" class="form-control" id="name" placeholder="name@example.com"
+                v-model="selectedSub.client.name" readonly />
                         <label for="nombre">Nombre</label>
                       </div>
                     </div>
@@ -299,6 +306,7 @@ const router = useRouter();
 const toast = useToast();
 const importe = ref('')
 const name = ref('')
+const nombre = ref('');
 const observation = ref('')
 const clientes = ref([])
 const clienteSeleccionado = ref('')
@@ -339,8 +347,16 @@ const selectedSubInfo = ref({
 
 
 const subs = ref([]);
-const selectedSub = ref({});
-
+const selectedSub = ref({
+  id: '',
+  client: {
+    name: '',
+    email: ''
+  },
+  importe: '',
+  date_pay: '',
+  observation: ''
+});
 const showError = () => {
   toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
 };
@@ -453,12 +469,43 @@ const cerrarModalBorrar = async () => {
   closeButton.click();
 };
 
+const verificarSuscripcionActiva = async (client_id) => {
+  try {
+    console.log(`Verificando suscripción activa para el cliente con ID: ${client_id}`);
+    const response = await api.get(`/subfees?status=activo`);
+    console.log('Respuesta de la verificación:', response.data);
+    
+    // Filtrar las suscripciones activas solo para el cliente seleccionado
+    const suscripcionesActivasCliente = response.data.filter(sub => sub.client_id === client_id);
+    const tieneSuscripcion = suscripcionesActivasCliente.length > 0;
+    
+    console.log(`Resultado de la verificación para el cliente con ID ${client_id}: ${tieneSuscripcion}`);
+    return tieneSuscripcion;
+  } catch (error) {
+    console.error('Error al verificar suscripción activa:', error);
+    return false;
+  }
+};
+
+
+
 const crearSub = async () => {
   try {
     const currentDate = new Date().toISOString().split('T')[0];
     const status = "activo";
+    
+    console.log(`Iniciando creación de suscripción para el cliente con ID: ${clienteSeleccionado.value}`);
+    
+    // Verificar si el cliente ya tiene una suscripción activa
+    const tieneSuscripcionActiva = await verificarSuscripcionActiva(clienteSeleccionado.value);
+    if (tieneSuscripcionActiva) {
+      showError('El cliente ya tiene una suscripción activa.');
+      console.log('No se puede crear una nueva suscripción porque el cliente ya tiene una activa.');
+      return;
+    }
 
-
+    console.log('No se encontró una suscripción activa, procediendo a crear una nueva suscripción.');
+    
     await api.post('/subfees', {
       importe: importe.value,
       date_pay: currentDate, // Establecer la fecha actual
@@ -470,6 +517,8 @@ const crearSub = async () => {
 
     cerrarModalCrear();
     showSuccess();
+    console.log('Suscripción creada exitosamente.');
+    // Reiniciar los valores
     importe.value = ''; // Vaciar el campo de importe
     name.value = ''; // Reiniciar el estado
     observation.value = ''; // Vaciar el campo de observaciones
@@ -478,9 +527,11 @@ const crearSub = async () => {
     obtenerSubs();
   } catch (error) {
     showError();
-    console.error(error);
+    console.error('Error al crear la suscripción:', error);
   }
 };
+
+
 
 const obtenerClientes = async () => {
   try {
@@ -492,9 +543,9 @@ const obtenerClientes = async () => {
 }
 
 const actualizarNombre = () => {
-  const cliente = clientes.value.find((cli) => cli.id === clienteSeleccionado.value)
-  nombre.value = cliente ? cliente.name : ''
-}
+  const cliente = clientes.value.find(cli => cli.id === clienteSeleccionado.value);
+  nombre.value = cliente ? cliente.name : '';
+};
 
 const cerrarModalCrear = async () => {
   const crearSubModal = document.getElementById('dardealta')

@@ -21,5 +21,12 @@ class CourtsModel extends Model implements Authenticatable
         'sport_id',
     ];
 
-
+    public function rent()
+    {
+        return $this->hasMany(RentalFeesModel::class);
+    }
+    public function sport()
+    {
+        return $this->belongsTo(SportsModel::class);
+    }
 }

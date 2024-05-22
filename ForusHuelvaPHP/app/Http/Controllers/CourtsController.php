@@ -9,7 +9,7 @@ class CourtsController extends Controller
 {
     public function index()
     {
-        $courts = CourtsModel::all();
+        $courts = CourtsModel::with('sport:id,sport')->get();
 
         return response()->json($courts);
     }

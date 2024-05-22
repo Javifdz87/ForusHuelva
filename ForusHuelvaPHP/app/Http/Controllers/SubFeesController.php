@@ -9,7 +9,7 @@ class SubFeesController extends Controller
 {
     public function index()
     {
-        $subs = SubscriptionFeesModel::with('client:id,name,email')->get();;
+        $subs = SubscriptionFeesModel::with('client:id,name,email')->get();
 
         return response()->json($subs);
     }

@@ -25,4 +25,9 @@ class SportsModel extends Model implements Authenticatable
     {
         return $this->hasMany(RentalFeesModel::class);
     }
+
+    public function court()
+    {
+        return $this->hasMany(CourtsModel::class);
+    }
 }
