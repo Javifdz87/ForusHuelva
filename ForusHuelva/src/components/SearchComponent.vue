@@ -1,28 +1,52 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mb-5">
     <Toast />
+<div class="row mt-5">
+  <h2>Selección de Cliente y Pólizas</h2>
 
-    <h2>Selección de Cliente y Pólizas</h2>
-    <div class="row g-3">
-      <div class="col-md-4">
+</div>
+    <div class="row g-3 mt-3">
+      <div class="col-lg-4">
         <label for="rangoId" class="form-label">Rango de ID del Cliente:</label>
         <div class="card flex justify-content-center">
           <Slider v-model="rangoId" range :max="100" class="w-14rem" />
           <div class="mt-2">{{ rangoId }}</div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4">
+        <label for="fechaInicio" class="form-label">Estado</label>
+        <select id="subscription" class="form-control">
+          <option value="" disabled selected>Elige el tipo de Suscripción</option>
+          <option value="3 meses">Activo</option>
+          <option value="6 meses">Cancelado</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label for="fechaFin" class="form-label">Suscripción</label>
+        <select id="subscription" class="form-control">
+          <option value="" disabled selected>Elige el tipo de suscripción</option>
+          <option value="3 meses">3 meses</option>
+          <option value="6 meses">6 meses</option>
+          <option value="12 meses">12 meses</option>
+        </select>
+           </div>
+    </div>
+    <div class="row g-3 mt-3">
+      <div class="col-lg-6">
         <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
         <input type="date" id="fechaInicio" v-model="fechaInicio" class="form-control">
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-6">
         <label for="fechaFin" class="form-label">Fecha de Fin:</label>
         <input type="date" id="fechaFin" v-model="fechaFin" class="form-control">
-      </div>
-      <div class="col-12">
+           </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
         <Button @click="generarListado" class="btn btn-primary">Generar Listado</Button>
       </div>
     </div>
+
 
     <div v-if="filteredPolizas.length > 0">
       <h3>Listado de Clientes con Pólizas</h3>
