@@ -40,6 +40,13 @@
                   @click="selectClient(slotProps.data)">
                   M
                 </Button>
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">:</button>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <li><a class="dropdown-item" href="#">Añadir Suscripción</a></li>
+                      <li><a class="dropdown-item" href="#">Añadir Alquiler</a></li>
+                    </ul>
+                </div>
               </template>
             </Column>
             <template #header>
