@@ -17,7 +17,7 @@
         <select id="estado" v-model="estado" class="form-control">
           <option value="" disabled selected>Elige el estado de Suscripción</option>
           <option value="activo">Activo</option>
-          <option value="cancelado">Cancelado</option>
+          <option value="cancelada">Cancelado</option>
         </select>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
