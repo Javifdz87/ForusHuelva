@@ -84,14 +84,14 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="id" placeholder="name@example.com"
                     v-model="selectedClient.id" readonly/>
                   <label for="floatingInput">Id Cliente</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="dni" placeholder="name@example.com"
                     v-model="selectedClient.dni" readonly/>
@@ -102,14 +102,14 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="name" placeholder="name@example.com"
                     v-model="selectedClient.name" readonly/>
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="last_Name" placeholder="name@example.com"
                     v-model="selectedClient.last_Name" readonly/>
@@ -119,14 +119,14 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="email" placeholder="name@example.com"
                     v-model="selectedClient.email" readonly/>
                   <label for="floatingInput">Email</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="phone" placeholder="name@example.com"
                     v-model="selectedClient.phone" readonly/>
@@ -136,21 +136,21 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="town" placeholder="name@example.com"
                     v-model="selectedClient.town" readonly/>
                   <label for="floatingInput">Localidad</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="postal_code" placeholder="name@example.com"
                     v-model="selectedClient.postal_code" readonly/>
                   <label for="floatingInput">Codigo Postal</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="province" placeholder="name@example.com"
                     v-model="selectedClient.province" readonly/>
@@ -160,14 +160,14 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="address" placeholder="name@example.com"
                     v-model="selectedClient.address" readonly/>
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
                     v-model="selectedClient.bank_account" readonly/>
@@ -199,14 +199,14 @@
           <div class="row justify-content-center m-3">
             <form @submit.prevent="registrarCliente">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="name" placeholder="name@example.com" v-model="name"
                       required />
                     <label for="floatingInput">Nombre</label>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="last_name" placeholder="name@example.com"
                       v-model="last_Name" required />
@@ -216,21 +216,21 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="email" placeholder="name@example.com" v-model="email"
                       required />
                     <label for="floatingInput">Email</label>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="dni" placeholder="name@example.com" v-model="dni"
                       required maxlength="9"/>
                     <label for="floatingInput">DNI</label>
                   </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
                     <input type="phone" class="form-control" id="phone" placeholder="name@example.com" v-model="phone"
                       required maxlength="9" />
@@ -240,14 +240,14 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="town" placeholder="name@example.com" v-model="town"
                       required />
                     <label for="floatingInput">Localidad</label>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="postal_code" placeholder="name@example.com"
                       v-model="postal_code" required maxlength="5" />
@@ -257,7 +257,7 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
                     <select id="province" class="form-select" v-model="province" required>
                       <option value="" disabled selected>Selecciona una provincia</option>
@@ -268,7 +268,7 @@
                     <label for="province">Provincias</label>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="address" placeholder="name@example.com"
                       v-model="address" required />
@@ -278,7 +278,7 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
                       v-model="bank_account" required maxlength="16"/>
@@ -287,7 +287,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="password" placeholder="name@example.com"
                       v-model="password" required />
@@ -298,7 +298,7 @@
 
 
               <div class="row">
-                <div class="col-lg-12 mb-3">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                   <button type="submit" class="btn btn-primary btn-block w-100">
                     Registrar Cliente
                   </button>
@@ -325,13 +325,13 @@
           <h2 class="card-title text-center mb-4">Editar Cliente</h2>
           <form @submit.prevent="editarCliente">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="name" placeholder="Nombre" v-model="selectedClient.name" required />
                   <label for="name">Nombre</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" required />
                   <label for="last_name">Apellidos</label>
@@ -339,19 +339,19 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="email" class="form-control" id="email" placeholder="Email" v-model="selectedClient.email" required />
                   <label for="email">Email</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="dni" placeholder="DNI" v-model="selectedClient.dni" required maxlength="9" />
                   <label for="dni">DNI</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="phone" placeholder="Teléfono" v-model="selectedClient.phone" required maxlength="9" />
                   <label for="phone">Teléfono</label>
@@ -359,13 +359,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="town" placeholder="Localidad" v-model="selectedClient.town" required />
                   <label for="town">Localidad</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" required maxlength="5" />
                   <label for="postal_code">Código Postal</label>
@@ -373,7 +373,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <select id="province" class="form-select" v-model="selectedClient.province" required>
                     <option value="" disabled selected>Selecciona una provincia</option>
@@ -384,7 +384,7 @@
                   <label for="province">Provincias</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="address" placeholder="Dirección" v-model="selectedClient.address" required />
                   <label for="address">Dirección</label>
@@ -392,7 +392,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-12 mb-3">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                 <button type="submit" class="btn btn-warning btn-block w-100">Editar Cliente</button>
               </div>
             </div>

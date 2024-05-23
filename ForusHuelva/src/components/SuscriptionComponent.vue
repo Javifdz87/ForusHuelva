@@ -25,7 +25,7 @@
             <Column field="client.name" header="Nombre" sortable style="width: 11%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
             <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
-            <Column field="date_pay" header="Pagado" sortable style="width: 8%"></Column>
+            <Column field="status" header="Estado" sortable style="width: 8%"></Column>
             <Column field="observation" header="Tipo de pago" sortable style="width: 13%"></Column>
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
@@ -88,14 +88,14 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="id" placeholder="name@example.com"
                 v-model="selectedSub.id" readonly />
               <label for="floatingInput">Id</label>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="email" placeholder="name@example.com"
                 v-model="selectedSub.client.email" readonly />
@@ -104,14 +104,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="name" placeholder="name@example.com"
                 v-model="selectedSub.client.name" readonly />
               <label for="floatingInput">Nombre</label>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="importe" placeholder="name@example.com"
                 v-model="selectedSub.importe" readonly />
@@ -120,14 +120,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="name" placeholder="name@example.com"
                 v-model="selectedSub.date_end" readonly />
               <label for="floatingInput">Fecha expiración</label>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="importe" placeholder="name@example.com"
                 v-model="selectedSub.status" readonly />
@@ -136,14 +136,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="date_pay" placeholder="name@example.com"
                 v-model="selectedSub.date_pay" readonly />
               <label for="floatingInput">Pagado</label>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="observation" placeholder="name@example.com"
                 v-model="selectedSub.observation" readonly />
@@ -175,7 +175,7 @@
               <div class="row justify-content-center m-3">
                 <form @submit.prevent="crearSub">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
                       <option value="" disabled selected>Selecciona un cliente</option>
@@ -186,7 +186,7 @@
                         <label for="cliente">Email</label>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
                     <label for="nombre">Nombre</label>
@@ -194,7 +194,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <select v-model="observation" id="subscription" class="form-control"
                           placeholder="name@example.com" required @change="updateImporte">
@@ -206,7 +206,7 @@
                         <label for="floatingInput">Estado</label>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
                           id="importe" required readonly />
@@ -218,7 +218,7 @@
                   
 
                   <div class="row">
-                    <div class="col-lg-12 mb-3">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                       <button type="submit" class="btn btn-primary btn-block w-100">Crear Suscripción</button>
                     </div>
                   </div>
@@ -245,14 +245,14 @@
 
                 <form @submit.prevent="editarSub">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="email" placeholder="name@example.com"
                     v-model="selectedSub.client.email" readonly />
                         <label for="cliente">Email</label>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="name" placeholder="name@example.com"
                 v-model="selectedSub.client.name" readonly />
@@ -261,7 +261,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <select v-model="observation" id="subscription" class="form-control"
                           placeholder="name@example.com" required @change="updateImporte">
@@ -273,7 +273,7 @@
                         <label for="floatingInput">Estado</label>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                       <div class="form-floating mb-3">
                         <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
                           id="importe" required readonly />
@@ -283,7 +283,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-12 mb-3">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                       <button type="submit" class="btn btn-warning btn-block w-100">Editar Suscripción</button>
                     </div>
                   </div>
@@ -313,15 +313,15 @@ import InputText from 'primevue/inputtext'
 
 const router = useRouter();
 const toast = useToast();
-const importe = ref('')
-const name = ref('')
+const importe = ref('');
+const name = ref('');
 const nombre = ref('');
-const observation = ref('')
-const clientes = ref([])
-const clienteSeleccionado = ref('')
+const observation = ref('');
+const clientes = ref([]);
+const clienteSeleccionado = ref('');
 const date_end = ref(''); // Variable para la fecha de caducidad
 
-const filters = ref({ global: { value: '' } })
+const filters = ref({ global: { value: '' } });
 
 const updateImporte = () => {
   var subscription = observation.value;
@@ -342,7 +342,7 @@ const updateImporte = () => {
     default:
       importe.value = ""; // Valor predeterminado si no se selecciona nada
   }
-}
+};
 
 const calculateExpiryDate = (months) => {
   const currentDate = new Date();
@@ -355,7 +355,6 @@ const selectedSubInfo = ref({
   email: ''
 });
 
-
 const subs = ref([]);
 const selectedSub = ref({
   id: '',
@@ -367,34 +366,30 @@ const selectedSub = ref({
   date_pay: '',
   observation: ''
 });
-const showError = () => {
-  toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
-};
-const showSuccess = () => {
-  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
+
+const showError = (message) => {
+  toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
 
+const showSuccess = (message) => {
+  toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
 
 const obtenerSubs = async () => {
   try {
     const respuesta = await api.get('/subfees');
     subs.value = respuesta.data;
-
   } catch (error) {
     console.error(error);
   }
-}
-
-
+};
 
 const selectSub = (subs) => {
   selectedSub.value = subs;
-  // Verificar si la información del cliente está definida
   if (subs.client && subs.client.name !== undefined && subs.client.email !== undefined) {
     selectedSubInfo.value.name = subs.client.name;
     selectedSubInfo.value.email = subs.client.email;
   } else {
-    // Si la información del cliente no está definida, restablecer la variable selectedSubInfo
     selectedSubInfo.value.name = '';
     selectedSubInfo.value.email = '';
   }
@@ -411,19 +406,14 @@ const eliminarSub = async () => {
     const response = await api.delete(`/subfees/${idSub}`);
 
     if (response.status === 204) {
-
       subs.value = subs.value.filter(cliente => cliente.id !== idSub);
       cerrarModalBorrar();
-      showSuccess();
-
+      showSuccess('Suscripción eliminada correctamente.');
     } else {
-      showError();
-
-      console.error('Error al eliminar el cliente.');
+      showError('Error al eliminar el cliente.');
     }
   } catch (error) {
-    showError();
-
+    showError('Error al eliminar el cliente.');
     console.error('Error al eliminar el cliente:', error);
   }
 };
@@ -435,137 +425,109 @@ const editarSub = async () => {
     const idSub = selectedSub.value.id;
     const response = await api.put(`/subfees/${idSub}`, {
       importe: importe.value,
-      date_pay: currentDate, // Establecer la fecha actual
+      date_pay: currentDate,
       observation: observation.value,
-      client_id: clienteSeleccionado.value // Asignar el ID del cliente
+      client_id: clienteSeleccionado.value
     });
 
     if (response.status === 200) {
-      console.log('Póliza actualizada correctamente.');
-      importe.value = ''; // Vaciar el campo de importe
-      name.value = ''; // Reiniciar el estado
-      observation.value = ''; // Vaciar el campo de observaciones
-      clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
-      date_end.value = ''; // Reiniciar la fecha de caducidad
-      showSuccess();
+      importe.value = '';
+      name.value = '';
+      observation.value = '';
+      clienteSeleccionado.value = '';
+      date_end.value = '';
+      showSuccess('Suscripción actualizada correctamente.');
       cerrarModalEditar();
       obtenerSubs();
     } else {
-      showError();
-
-      console.error('Error al editar la póliza.');
+      showError('Error al editar la suscripción.');
     }
   } catch (error) {
-    showError();
-
-    console.error('Error al editar la póliza:', error);
+    showError('Error al editar la suscripción.');
+    console.error('Error al editar la suscripción:', error);
   }
 };
 
-
-const cerrarModalEditar = async () => {
+const cerrarModalEditar = () => {
   const editarSubModal = document.getElementById("editarSub");
-  const closeButton = editarSubModal.querySelector(
-    '[data-bs-dismiss="modal"]'
-  );
+  const closeButton = editarSubModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
-const cerrarModalBorrar = async () => {
+const cerrarModalBorrar = () => {
   const borrarSubModal = document.getElementById("eliminar");
-  const closeButton = borrarSubModal.querySelector(
-    '[data-bs-dismiss="modal"]'
-  );
+  const closeButton = borrarSubModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
 const verificarSuscripcionActiva = async (client_id) => {
   try {
-    console.log(`Verificando suscripción activa para el cliente con ID: ${client_id}`);
     const response = await api.get(`/subfees?status=activo`);
-    console.log('Respuesta de la verificación:', response.data);
-    
-    // Filtrar las suscripciones activas solo para el cliente seleccionado
     const suscripcionesActivasCliente = response.data.filter(sub => sub.client_id === client_id);
-    const tieneSuscripcion = suscripcionesActivasCliente.length > 0;
-    
-    console.log(`Resultado de la verificación para el cliente con ID ${client_id}: ${tieneSuscripcion}`);
-    return tieneSuscripcion;
+    return suscripcionesActivasCliente.length > 0;
   } catch (error) {
     console.error('Error al verificar suscripción activa:', error);
     return false;
   }
 };
 
-
-
 const crearSub = async () => {
   try {
     const currentDate = new Date().toISOString().split('T')[0];
     const status = "activo";
-    
-    console.log(`Iniciando creación de suscripción para el cliente con ID: ${clienteSeleccionado.value}`);
-    
-    // Verificar si el cliente ya tiene una suscripción activa
+
     const tieneSuscripcionActiva = await verificarSuscripcionActiva(clienteSeleccionado.value);
     if (tieneSuscripcionActiva) {
       showError('El cliente ya tiene una suscripción activa.');
-      console.log('No se puede crear una nueva suscripción porque el cliente ya tiene una activa.');
       return;
     }
 
-    console.log('No se encontró una suscripción activa, procediendo a crear una nueva suscripción.');
-    
     await api.post('/subfees', {
       importe: importe.value,
-      date_pay: currentDate, // Establecer la fecha actual
-      date_end: date_end.value, // Establecer la fecha de caducidad calculada
+      date_pay: currentDate,
+      date_end: date_end.value,
       observation: observation.value,
-      client_id: clienteSeleccionado.value, // Asignar el ID del cliente
-      status: status // Establecer el estado como "activo"
+      client_id: clienteSeleccionado.value,
+      status: status
     });
 
     cerrarModalCrear();
-    showSuccess();
-    console.log('Suscripción creada exitosamente.');
-    // Reiniciar los valores
-    importe.value = ''; // Vaciar el campo de importe
-    name.value = ''; // Reiniciar el estado
-    observation.value = ''; // Vaciar el campo de observaciones
-    clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
-    date_end.value = ''; // Reiniciar la fecha de caducidad
+    showSuccess('Suscripción creada exitosamente.');
+    importe.value = '';
+    name.value = '';
+    observation.value = '';
+    clienteSeleccionado.value = '';
+    date_end.value = '';
     obtenerSubs();
   } catch (error) {
-    showError();
+    showError('Error al crear la suscripción.');
     console.error('Error al crear la suscripción:', error);
   }
 };
 
-
-
 const obtenerClientes = async () => {
   try {
-    const respuesta = await api.get('/clientes')
-    clientes.value = respuesta.data
+    const respuesta = await api.get('/clientes');
+    clientes.value = respuesta.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const actualizarNombre = () => {
   const cliente = clientes.value.find(cli => cli.id === clienteSeleccionado.value);
   nombre.value = cliente ? cliente.name : '';
 };
 
-const cerrarModalCrear = async () => {
-  const crearSubModal = document.getElementById('dardealta')
-  const closeButton = crearSubModal.querySelector('[data-bs-dismiss="modal"]')
-  closeButton.click()
-}
-
+const cerrarModalCrear = () => {
+  const crearSubModal = document.getElementById('dardealta');
+  const closeButton = crearSubModal.querySelector('[data-bs-dismiss="modal"]');
+  closeButton.click();
+};
 
 onMounted(() => {
   obtenerClientes();
   obtenerSubs();
 });
 </script>
+

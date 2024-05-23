@@ -43,21 +43,21 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="importe" placeholder="ID"
                     v-model="selectedCourt.id" readonly />
                   <label for="importe">ID</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="pagado" placeholder="Nombre de la Pista"
                     v-model="selectedCourt.name" readonly />
                   <label for="pagado">Nombre de la Pista</label>
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="resto" placeholder="Deporte"
                     v-model="selectedCourt.sport.sport" readonly />

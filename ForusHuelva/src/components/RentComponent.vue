@@ -91,13 +91,13 @@
           <Toast />
           <div class="row justify-content-center m-3">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="email" v-model="selectedRent.client.email" placeholder="email" readonly />
                   <label for="email">Email</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="nombre" v-model="selectedRent.client.name" placeholder="Nombre" readonly />
                   <label for="nombre">Nombre</label>
@@ -105,13 +105,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="deporte" v-model="selectedRent.court.sport_id" placeholder="deporte" readonly />
                   <label for="deporte">Deporte</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="fechaInicio" v-model="selectedRent.date_day" placeholder="Elije el día de juego" readonly />
                   <label for="fechaInicio">Elije el día de juego</label>
@@ -119,13 +119,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="hora" v-model="selectedRent.date_time" placeholder="hora" readonly />
                   <label for="hora">Hora</label>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="importe" v-model="selectedRent.importe" placeholder="Importe" readonly />
                   <label for="importe">Importe</label>
@@ -133,7 +133,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="pista" v-model="selectedRent.court.name" placeholder="Pista" readonly />
                   <label for="pista">Pista</label>
@@ -165,7 +165,7 @@
         <div class="row justify-content-center m-3">
             <form @submit.prevent="crearAlquiler">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
                                 <option value="" disabled selected>Selecciona un cliente</option>
@@ -176,7 +176,7 @@
                             <label for="cliente">Email</label>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
                             <label for="nombre">Nombre</label>
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <select id="sport" v-model="DeporteSeleccionado" @change="actualizarPistas" class="form-select">
                                 <option value="" disabled selected>Selecciona un deporte</option>
@@ -195,7 +195,7 @@
                             <label for="floatingInput">Deporte</label>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
                             <label for="fechaInicio">Elije el día de juego</label>
@@ -203,7 +203,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <select id="pista" v-model="pistaSeleccionada" @change="actualizarHorasDisponibles" class="form-select">
                                 <option value="" disabled selected>Selecciona una pista</option>
@@ -214,7 +214,7 @@
                             <label for="floatingInput">Pista</label>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <select id="time" v-model="timeSeleccionado" class="form-select">
                                 <option value="" disabled selected>Selecciona una hora</option>
@@ -227,7 +227,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 mb-3">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                         <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
                     </div>
                 </div>
