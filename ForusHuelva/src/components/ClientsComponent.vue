@@ -43,8 +43,8 @@
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">:</button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <li><a class="dropdown-item" href="#">Añadir Suscripción</a></li>
-                      <li><a class="dropdown-item" href="#">Añadir Alquiler</a></li>
+                      <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#newSub" @click="selectClient(slotProps.data)">Añadir Suscripción</Button></li>
+                      <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#newRent" @click="selectClient(slotProps.data)">Añadir Alquiler</Button></li>
                     </ul>
                 </div>
               </template>
@@ -111,14 +111,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="name" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_name" placeholder="name@example.com"
                     v-model="selectedClient.name" readonly/>
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="last_Name" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_last_Name" placeholder="name@example.com"
                     v-model="selectedClient.last_Name" readonly/>
                   <label for="floatingInput">Apellido</label>
                 </div>
@@ -128,14 +128,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="email" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_email" placeholder="name@example.com"
                     v-model="selectedClient.email" readonly/>
                   <label for="floatingInput">Email</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="phone" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_phone" placeholder="name@example.com"
                     v-model="selectedClient.phone" readonly/>
                   <label for="floatingInput">Telefóno</label>
                 </div>
@@ -145,21 +145,21 @@
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="town" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_town" placeholder="name@example.com"
                     v-model="selectedClient.town" readonly/>
                   <label for="floatingInput">Localidad</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="postal_code" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_postal_code" placeholder="name@example.com"
                     v-model="selectedClient.postal_code" readonly/>
                   <label for="floatingInput">Codigo Postal</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="province" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_province" placeholder="name@example.com"
                     v-model="selectedClient.province" readonly/>
                   <label for="floatingInput">Provincia</label>
                 </div>
@@ -169,14 +169,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="address" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_address" placeholder="name@example.com"
                     v-model="selectedClient.address" readonly/>
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="vista_bank_account" placeholder="name@example.com"
                     v-model="selectedClient.bank_account" readonly/>
                   <label for="floatingInput">Cuenta Bancaria</label>
                 </div>
@@ -208,14 +208,14 @@
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="name" placeholder="name@example.com" v-model="name"
+                    <input type="text" class="form-control" id="crear_name" placeholder="name@example.com" v-model="name"
                       required />
                     <label for="floatingInput">Nombre</label>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="last_name" placeholder="name@example.com"
+                    <input type="text" class="form-control" id="crear_last_name" placeholder="name@example.com"
                       v-model="last_Name" required />
                     <label for="floatingInput">Apellidos</label>
                   </div>
@@ -225,21 +225,21 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="name@example.com" v-model="email"
+                    <input type="email" class="form-control" id="crear_email" placeholder="name@example.com" v-model="email"
                       required />
                     <label for="floatingInput">Email</label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="dni" placeholder="name@example.com" v-model="dni"
+                    <input type="text" class="form-control" id="crear_dni" placeholder="name@example.com" v-model="dni"
                       required maxlength="9"/>
                     <label for="floatingInput">DNI</label>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
-                    <input type="phone" class="form-control" id="phone" placeholder="name@example.com" v-model="phone"
+                    <input type="phone" class="form-control" id="crear_phone" placeholder="name@example.com" v-model="phone"
                       required maxlength="9" />
                     <label for="floatingInput">Teléfono</label>
                   </div>
@@ -249,14 +249,14 @@
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="town" placeholder="name@example.com" v-model="town"
+                    <input type="text" class="form-control" id="crear_town" placeholder="name@example.com" v-model="town"
                       required />
                     <label for="floatingInput">Localidad</label>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="postal_code" placeholder="name@example.com"
+                    <input type="text" class="form-control" id="crear_postal_code" placeholder="name@example.com"
                       v-model="postal_code" required maxlength="5" />
                     <label for="floatingInput">Código Postal</label>
                   </div>
@@ -277,7 +277,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="address" placeholder="name@example.com"
+                    <input type="text" class="form-control" id="crear_address" placeholder="name@example.com"
                       v-model="address" required />
                     <label for="floatingInput">Dirección</label>
                   </div>
@@ -287,7 +287,7 @@
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="bank_account" placeholder="name@example.com"
+                    <input type="text" class="form-control" id="crear_bank_account" placeholder="name@example.com"
                       v-model="bank_account" required maxlength="16"/>
                     <label for="floatingInput">Cuenta corriente</label>
                   </div>
@@ -296,7 +296,7 @@
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="password" placeholder="name@example.com"
+                    <input type="password" class="form-control" id="crear_password" placeholder="name@example.com"
                       v-model="password" required />
                     <label for="floatingInput">Contraseña</label>
                   </div>
@@ -334,13 +334,13 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="name" placeholder="Nombre" v-model="selectedClient.name" required />
+                  <input type="text" class="form-control" id="editar_name" placeholder="Nombre" v-model="selectedClient.name" required />
                   <label for="name">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" required />
+                  <input type="text" class="form-control" id="editar_last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" required />
                   <label for="last_name">Apellidos</label>
                 </div>
               </div>
@@ -348,19 +348,19 @@
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="email" placeholder="Email" v-model="selectedClient.email" required />
+                  <input type="email" class="form-control" id="editar_email" placeholder="Email" v-model="selectedClient.email" required />
                   <label for="email">Email</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="dni" placeholder="DNI" v-model="selectedClient.dni" required maxlength="9" />
+                  <input type="text" class="form-control" id="editar_dni" placeholder="DNI" v-model="selectedClient.dni" required maxlength="9" />
                   <label for="dni">DNI</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="phone" placeholder="Teléfono" v-model="selectedClient.phone" required maxlength="9" />
+                  <input type="text" class="form-control" id="editar_phone" placeholder="Teléfono" v-model="selectedClient.phone" required maxlength="9" />
                   <label for="phone">Teléfono</label>
                 </div>
               </div>
@@ -368,13 +368,13 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="town" placeholder="Localidad" v-model="selectedClient.town" required />
+                  <input type="text" class="form-control" id="editar_town" placeholder="Localidad" v-model="selectedClient.town" required />
                   <label for="town">Localidad</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" required maxlength="5" />
+                  <input type="text" class="form-control" id="editar_postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" required maxlength="5" />
                   <label for="postal_code">Código Postal</label>
                 </div>
               </div>
@@ -382,7 +382,7 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <select id="province" class="form-select" v-model="selectedClient.province" required>
+                  <select id="editar_province" class="form-select" v-model="selectedClient.province" required>
                     <option value="" disabled selected>Selecciona una provincia</option>
                     <option v-for="provincia in provincias" :key="provincia.cod" :value="provincia.nombre">
                       {{ provincia.nombre }}
@@ -393,7 +393,7 @@
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="address" placeholder="Dirección" v-model="selectedClient.address" required />
+                  <input type="text" class="form-control" id="editar_address" placeholder="Dirección" v-model="selectedClient.address" required />
                   <label for="address">Dirección</label>
                 </div>
               </div>
@@ -411,6 +411,37 @@
 </div>
 
 
+    <!-- Modal Añadir Suscripción -->
+    <div class="modal fade" id="newSub" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir Suscripción Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <NewSubComponent :id="selectedClient.id" :name="selectedClient.name" :email="selectedClient.email"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Modal Añadir Alquiler -->
+    <div class="modal fade" id="newRent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Añadir Alquiler Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <NewRentComponent :id="selectedClient.id" :name="selectedClient.name" :email="selectedClient.email"/>
+
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 </template>
 
@@ -423,6 +454,9 @@ import Button from 'primevue/button'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 import InputText from 'primevue/inputtext'
+
+import NewRentComponent from '@/components/NewRentComponent.vue';
+import NewSubComponent from '@/components/NewSubComponent.vue';
 
 
 const toast = useToast()

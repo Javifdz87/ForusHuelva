@@ -37,7 +37,7 @@
                   @click="selectRent(slotProps.data)">
                   O
                 </Button>
-                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editarPoliza"
+                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editarAlquiler"
                   @click="selectRent(slotProps.data)">
                   M
                 </Button>
@@ -71,7 +71,7 @@
           <div class="modal-body">Se va a eliminar toda la fila.</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" @click="eliminarPoliza">Si</button>
+            <button type="button" class="btn btn-danger" @click="eliminarAlquiler">Si</button>
           </div>
         </div>
       </div>
@@ -228,7 +228,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                        <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
+                        <button type="submit" class="btn btn-primary btn-block w-100">Crear alquiler</button>
                     </div>
                 </div>
             </form>
@@ -330,18 +330,18 @@ const selectRent = (rent) => {
 };
 
 
-const eliminarPoliza = async () => {
+const eliminarAlquiler = async () => {
   try {
     if (!selectedRent.value) {
       console.error('No hay cliente seleccionado para eliminar.');
       return;
     }
 
-    const idPoliza = selectedRent.value.id;
-    const response = await api.delete(`/rentfees/${idPoliza}`);
+    const idRent = selectedRent.value.id;
+    const response = await api.delete(`/rentfees/${idRent}`);
 
     if (response.status === 204) {
-      rent.value = rent.value.filter(cliente => cliente.id !== idPoliza);
+      rent.value = rent.value.filter(cliente => cliente.id !== idRent);
       cerrarModalBorrar();
       showSuccess();
     } else {
@@ -355,14 +355,14 @@ const eliminarPoliza = async () => {
 };
 
 const cerrarModalEditar = async () => {
-  const editarPolizaModal = document.getElementById("editarPoliza");
-  const closeButton = editarPolizaModal.querySelector('[data-bs-dismiss="modal"]');
+  const editarRentModal = document.getElementById("editarAlquiler");
+  const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
 const cerrarModalBorrar = async () => {
-  const borrarPolizaModal = document.getElementById("eliminar");
-  const closeButton = borrarPolizaModal.querySelector('[data-bs-dismiss="modal"]');
+  const borrarRentModal = document.getElementById("eliminar");
+  const closeButton = borrarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
