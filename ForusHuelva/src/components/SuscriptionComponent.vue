@@ -281,6 +281,19 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-floating mb-3">
+                        <select v-model="selectedSub.status" id="status" class="form-control"
+                          placeholder="name@example.com" required>
+                          <option value="" disabled selected>Elige el estado de suscripción</option>
+                          <option value="activa">Activa</option>
+                          <option value="cancelada">Cancelada</option>
+                        </select>
+                        <label for="floatingInput">Estado</label>
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
@@ -386,6 +399,11 @@ const obtenerSubs = async () => {
 
 const selectSub = (subs) => {
   selectedSub.value = subs;
+  if (subs.importe !== undefined) {
+    importe.value = subs.importe;
+  } else {
+    importe.value = ''; // Puedes establecer un valor predeterminado si no hay importe definido en la suscripción
+  }
   if (subs.client && subs.client.name !== undefined && subs.client.email !== undefined) {
     selectedSubInfo.value.name = subs.client.name;
     selectedSubInfo.value.email = subs.client.email;
@@ -420,22 +438,15 @@ const eliminarSub = async () => {
 
 const editarSub = async () => {
   try {
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    const idSub = selectedSub.value.id;
-    const response = await api.put(`/subfees/${idSub}`, {
+    const response = await api.put(`/subfees/${selectedSub.value.id}`, {
       importe: importe.value,
-      date_pay: currentDate,
-      observation: observation.value,
-      client_id: clienteSeleccionado.value
+      date_pay: selectedSub.value.date_pay,
+      observation: observation.value, // Cambiado a selectedSub.observation
+      status: selectedSub.value.status,
+      // Puedes agregar más campos si los necesitas, como cliente_id, etc.
     });
 
     if (response.status === 200) {
-      importe.value = '';
-      name.value = '';
-      observation.value = '';
-      clienteSeleccionado.value = '';
-      date_end.value = '';
       showSuccess('Suscripción actualizada correctamente.');
       cerrarModalEditar();
       obtenerSubs();
@@ -447,6 +458,7 @@ const editarSub = async () => {
     console.error('Error al editar la suscripción:', error);
   }
 };
+
 
 const cerrarModalEditar = () => {
   const editarSubModal = document.getElementById("editarSub");

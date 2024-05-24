@@ -31,11 +31,6 @@ class RentalFeesModel extends Model implements Authenticatable
         return $this->belongsTo(ClientsModel::class);
     }
 
-    public function sport()
-    {
-        return $this->belongsTo(SportsModel::class);
-    }
-
     public function court()
     {
         return $this->belongsTo(CourtsModel::class);

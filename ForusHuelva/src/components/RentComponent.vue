@@ -2,10 +2,8 @@
   <div>
     <div class="row mt-5">
       <Toast />
-
       <div class="col-lg-8 offset-lg-2 mt-5">
         <div class="table-responsive-vertical p-3">
-
           <div class="row">
             <div class="d-flex justify-content-center">
               <h2>
@@ -21,11 +19,11 @@
           <DataTable :value="rent" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem" :filters="filters"
       :globalFilterFields="['client.name', 'client.email', 'court.sport_id', 'date_day', 'date_time']">
-            <Column field="id" header="Id" sortable style="width: 12%"></Column>
+            <Column field="id" header="Id" sortable style="width: 8%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
             <Column field="court.sport_id" header="Deporte" sortable style="width: 14%"></Column>
-            <Column field="date_day" header="Fecha de Juego" sortable style="width: 14%"></Column>
+            <Column field="date_day" header="Fecha de Juego" sortable style="width: 18%"></Column>
             <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">

@@ -1,10 +1,16 @@
 <template>
-  <div class="container mb-5">
+  <div>
+    <div class="container mt-5">
     <Toast />
-    <div class="row mt-5">
+    <div class="table-responsive-vertical p-5">
+    <div class="row">
+      <div class="d-flex justify-content-center">
       <h2>Selección de Cliente y Suscripciones</h2>
     </div>
-    <div class="row g-3 mt-3">
+    </div>
+    </div>
+    
+    <div class="row g-3">
       <div class="col-lg-4 col-md-4 col-sm-4">
         <label for="rangoId" class="form-label">Rango de ID del Cliente:</label>
         <div class="card flex justify-content-center">
@@ -66,8 +72,8 @@
         <Column field="id" header="Id" sortable style="width: 5%"></Column>
         <Column field="client.name" header="Nombre" sortable style="width: 11%"></Column>
         <Column field="client.email" header="Email" sortable style="width: 11%"></Column>
-        <Column field="date_end" header="Fecha Fin" sortable style="width: 11%"></Column>
         <Column field="date_pay" header="Fecha pago" sortable style="width: 11%"></Column>
+        <Column field="date_end" header="Fecha Fin" sortable style="width: 11%"></Column>
         <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
         <Column field="status" header="Estado" sortable style="width: 8%">
           <template #body="{ data }">
@@ -82,6 +88,9 @@
       <p>No hay clientes con suscripciones disponibles en las fechas indicadas.</p>
     </div>
   </div>
+  </div>
+
+  
 </template>
 
 <script setup>
