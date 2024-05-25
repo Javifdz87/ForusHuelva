@@ -33,9 +33,9 @@
                 Ajustes
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
-                <li><a class="dropdown-item" href="#">Cambiar Pago</a></li>
-                <li><a class="dropdown-item" href="#">Cambiar Contraseña</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAccount">Ver Perfil</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalBank">Cambiar Pago</a></li>
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalPassword">Cambiar Contraseña</a></li>
               </ul>
             </li>
             <li class="nav-item">
@@ -50,18 +50,18 @@
   
     <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
-        <div class="col-lg-12" >
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
           <h1 class="display-1">Bienvenido Usuario</h1>
         </div>
       </div>
 
       <div class="row py-5" id="planes">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <h2 class="display-5">Nuestros planes de suscripción</h2>
           <p class="lead">Si aún no tienes un plan de suscripción es tan facil como pulsar un botón.</p>
         </div>
         <div class="row">
-          <div class="col-lg-4 d-flex justify-content-center">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Subscripción 3 meses</h5>
@@ -71,7 +71,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 d-flex justify-content-center">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Subscripción 6 meses</h5>
@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 d-flex justify-content-center">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">Subscripción 12 meses</h5>
@@ -97,7 +97,7 @@
   
   
       <div class="row py-5" id="gimnasio">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <h2 class="display-5">Más actividades dentro del recinto con nuestra suscripción.</h2>
           <ul class="list-group">
             <li class="list-group-item">Boxeo</li>
@@ -114,10 +114,10 @@
       </div>
   
       <div class="row py-5" id="pistas">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <h4 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h4>
           <div class="row">
-            <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
                 <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
@@ -125,7 +125,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
                 <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
@@ -133,7 +133,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
                 <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
@@ -141,7 +141,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3" data-bs-toggle="modal" data-bs-target="#modalRent">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">
                 <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/siete.jpg" class="card-img" alt="...">
                 <div class="card-img-overlay">
@@ -158,7 +158,7 @@
     <footer class="bg-dark text-white py-4 text-center">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p>Síguenos en redes sociales:</p>
             <ul class="list-inline">
               <li class="list-inline-item"><a href="#">Facebook</a></li>
@@ -168,7 +168,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p>&copy; 2024 Forus Huelva. Todos los derechos reservados.</p>
           </div>
         </div>
@@ -176,6 +176,7 @@
     </footer>
 
         <!-- Modales -->
+    <!-- Modal Rent -->
         <div class="modal fade" id="modalRent" tabindex="-1" aria-labelledby="modalRent" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -266,6 +267,7 @@
   </div>
 </div>
 
+    <!-- Modal Sub -->
     <div class="modal fade" id="modalSub" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -340,6 +342,192 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-warning">Pagar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Modal Contraseña -->
+    <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSub">Modificar contraseña</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" v-model="password" id="password" required />
+                    <label for="floatingInput">Nueva Contraseña</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" v-model="new_password" id="password" required />
+                    <label for="floatingInput">Repita la contraseña</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                  <button type="submit" class="btn btn-primary btn-block w-100">Nueva Contraseña</button>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Modal Perfil -->
+    <div class="modal fade" id="modalAccount" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSub">Ver Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="dni" placeholder="name@example.com"
+                    v-model="dni" readonly/>
+                  <label for="floatingInput">DNI</label>
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_name" placeholder="name@example.com"
+                    v-model="name" readonly/>
+                  <label for="floatingInput">Nombre</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_last_Name" placeholder="name@example.com"
+                    v-model="last_Name" readonly/>
+                  <label for="floatingInput">Apellido</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_email" placeholder="name@example.com"
+                    v-model="email" readonly/>
+                  <label for="floatingInput">Email</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_phone" placeholder="name@example.com"
+                    v-model="phone" readonly/>
+                  <label for="floatingInput">Telefóno</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_town" placeholder="name@example.com"
+                    v-model="town" readonly/>
+                  <label for="floatingInput">Localidad</label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_postal_code" placeholder="name@example.com"
+                    v-model="postal_code" readonly/>
+                  <label for="floatingInput">Codigo Postal</label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_province" placeholder="name@example.com"
+                    v-model="province" readonly/>
+                  <label for="floatingInput">Provincia</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_address" placeholder="name@example.com"
+                    v-model="address" readonly/>
+                  <label for="floatingInput">Dirección</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="vista_bank_account" placeholder="name@example.com"
+                    v-model="bank_account" readonly/>
+                  <label for="floatingInput">Cuenta Bancaria</label>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Modal Bank account -->
+    <div class="modal fade" id="modalBank" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSub">Editar Cuenta Bancaria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" v-model="bank_account" required />
+                    <label for="floatingInput">Antigua Cuenta Bancaria</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" v-model="new_bank_account" required />
+                    <label for="floatingInput">Nueva Cuenta Bancaria</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" v-model="password" required />
+                    <label for="floatingInput">Contraseña</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                  <button type="submit" class="btn btn-primary btn-block w-100">Modificar Cuenta Bancaria</button>
+                </div>
+              </div>
+        </div>
       </div>
     </div>
   </div>
