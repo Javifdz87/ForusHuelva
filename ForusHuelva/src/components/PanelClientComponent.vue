@@ -51,7 +51,7 @@
     <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-          <h1 class="display-1">Bienvenido {{ props.email }}</h1>
+          <h1 class="display-1">Bienvenido {{ localEmail }}</h1>
         </div>
       </div>
 
@@ -396,7 +396,7 @@
 <script setup>
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, watch } from 'vue';
   import { defineProps } from 'vue';
 
 
@@ -425,17 +425,20 @@
   const times = ref([]);
   const sports = ref([]);
 
+  const props = defineProps({
+    email: String,
+    name: String,
+    id: String
+});
+
+const localEmail = ref(props.email);
+
+watch(() => props.email, (newVal) => {
+    localEmail.value = newVal;
+});
   
   const toast = useToast();
 
-  const props = defineProps({
-  email: {
-    type: String,
-    required: true
-  }
-});
-
-  
   
   const showError = () => {
     toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
@@ -467,6 +470,16 @@ const obtenerDeportes = async () => {
   try {
     const respuesta = await api.get('/sports')
     sports.value = respuesta.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const obtenerClientes = async () => {
+  try {
+    const respuesta = await api.get('/clientes')
+    console.log(respuesta.data)
+    clientes.value = respuesta.data
   } catch (error) {
     console.log(error)
   }
