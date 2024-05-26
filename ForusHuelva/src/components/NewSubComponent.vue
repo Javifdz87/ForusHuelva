@@ -7,14 +7,14 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="email" v-model="localEmail" placeholder="email"
+                            <input type="text" class="form-control" id="email_sub" v-model="localEmail" placeholder="email"
                                 readonly />
                             <label for="cliente">Email</label>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nombre" v-model="localName" placeholder="Nombre"
+                            <input type="text" class="form-control" id="nombre_sub" v-model="localName" placeholder="Nombre"
                                 readonly />
                             <label for="nombre">Nombre</label>
                         </div>

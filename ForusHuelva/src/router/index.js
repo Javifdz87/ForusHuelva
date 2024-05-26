@@ -72,7 +72,9 @@ const routes = [
   {
     path: '/PanelClient',
     name: 'panelClient',
-    component: PanelClient
+    component: PanelClient,
+    props: route => ({ email: route.params.email })
+
   }, 
   
 ];

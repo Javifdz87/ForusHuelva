@@ -257,7 +257,7 @@ async function login() {
       if (response.data.user.role === 1) {
         router.push('/home');
       } else {
-        router.push('/PanelClient');
+        router.push({ name: 'panelClient', params: { email: email.value } });
       }
     }
   } catch (error) {

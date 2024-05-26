@@ -51,7 +51,7 @@
     <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-          <h1 class="display-1">Bienvenido Usuario</h1>
+          <h1 class="display-1">Bienvenido {{ props.email }}</h1>
         </div>
       </div>
 
@@ -185,83 +185,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="container">
-          <Toast />
-          <div class="row justify-content-center m-3">
-            <form @submit.prevent="crearAlquiler">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="email_sub" v-model="email" placeholder="email" required />
-                    <label for="cliente">Email</label>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nombre_sub" v-model="nombre" placeholder="Nombre" required />
-                    <label for="nombre">Nombre</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <select id="sport" v-model="DeporteSeleccionado" @change="actualizarHorasYPistas" class="form-select">
-                      <option value="" disabled selected>Selecciona un deporte</option>
-                      <option v-for="sport in sports" :key="sport.id" :value="sport.id">
-                        {{ sport.sport }}
-                      </option>
-                    </select>
-                    <label for="floatingInput">Deporte</label>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
-                    <label for="fechaInicio">Elije el día de juego</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <select id="time" v-model="timeSeleccionado" class="form-select">
-                      <option value="" disabled selected>Selecciona una hora</option>
-                      <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
-                        {{ time.date_time }}
-                      </option>
-                    </select>
-                    <label for="floatingInput">Hora</label>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" placeholder="Importe" v-model="importe_rent" value="12" readonly />
-                    <label for="floatingInput">Importe</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="form-floating mb-3">
-                    <select id="pista" v-model="pistaSeleccionada" class="form-select">
-                      <option value="" disabled selected>Selecciona una pista</option>
-                      <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
-                        {{ pista.name }}
-                      </option>
-                    </select>
-                    <label for="floatingInput">Pista</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 mb-3">
-                  <button type="submit" class="btn btn-primary btn-block w-100">Crear Póliza</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+        <NewRentComponent/>
       </div>
     </div>
   </div>
@@ -276,72 +200,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="container">
-          <Toast />
-          <div class="row justify-content-center m-3">
-            <form @submit.prevent="crearSub">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" v-model="email" placeholder="email" required />
-                    <label for="cliente">Email</label>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nombre" v-model="name" placeholder="Nombre" required />
-                    <label for="nombre">Nombre</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <select v-model="observation" id="subscription" class="form-control" required @change="updateImporte">
-                      <option value="" disabled selected>Elige el tipo de suscripción</option>
-                      <option value="3 meses">3 meses</option>
-                      <option value="6 meses">6 meses</option>
-                      <option value="12 meses">12 meses</option>
-                    </select>
-                    <label for="floatingInput">Estado</label>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-floating mb-3">
-                    <input type="number" class="form-control" v-model="importe" id="importe" required readonly />
-                    <label for="floatingInput">Importe</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" v-model="bank_account" placeholder="Cuenta Bancaria" readonly />
-                    <label for="floatingInput">Cuenta Bancaria</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="form-floating mb-3">
-                    <input type="password" class="form-control" v-model="password" id="password" required />
-                    <label for="floatingInput">Password</label>
-                  </div>
-                </div>
-              </div>
-              <input type="hidden" v-model="date_end" />
-              <div class="row">
-                <div class="col-lg-12 mb-3">
-                  <button type="submit" class="btn btn-primary btn-block w-100">Crear Suscripción</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-warning">Pagar</button>
+        <NewSubComponent/>
       </div>
     </div>
   </div>
@@ -360,7 +219,7 @@
           <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" v-model="password" id="password" required />
+                    <input type="password" class="form-control" v-model="password" id="password_pass" required />
                     <label for="floatingInput">Nueva Contraseña</label>
                   </div>
                 </div>
@@ -368,7 +227,7 @@
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" v-model="new_password" id="password" required />
+                    <input type="password" class="form-control" v-model="new_password" id="new_password_pass" required />
                     <label for="floatingInput">Repita la contraseña</label>
                   </div>
                 </div>
@@ -397,7 +256,7 @@
           <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="dni" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="dni_account" placeholder="name@example.com"
                     v-model="dni" readonly/>
                   <label for="floatingInput">DNI</label>
                 </div>
@@ -408,14 +267,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_name" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="name_account" placeholder="name@example.com"
                     v-model="name" readonly/>
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_last_Name" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="last_Name_account" placeholder="name@example.com"
                     v-model="last_Name" readonly/>
                   <label for="floatingInput">Apellido</label>
                 </div>
@@ -425,14 +284,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_email" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="email_account" placeholder="name@example.com"
                     v-model="email" readonly/>
                   <label for="floatingInput">Email</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_phone" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="phone_account" placeholder="name@example.com"
                     v-model="phone" readonly/>
                   <label for="floatingInput">Telefóno</label>
                 </div>
@@ -442,21 +301,21 @@
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_town" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="town_account" placeholder="name@example.com"
                     v-model="town" readonly/>
                   <label for="floatingInput">Localidad</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_postal_code" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="postal_code_account" placeholder="name@example.com"
                     v-model="postal_code" readonly/>
                   <label for="floatingInput">Codigo Postal</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_province" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="province_account" placeholder="name@example.com"
                     v-model="province" readonly/>
                   <label for="floatingInput">Provincia</label>
                 </div>
@@ -466,14 +325,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_address" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="address_account" placeholder="name@example.com"
                     v-model="address" readonly/>
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="vista_bank_account" placeholder="name@example.com"
+                  <input type="text" class="form-control" id="bank_account_account" placeholder="name@example.com"
                     v-model="bank_account" readonly/>
                   <label for="floatingInput">Cuenta Bancaria</label>
                 </div>
@@ -538,54 +397,45 @@
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
   import { ref, onMounted } from 'vue';
+  import { defineProps } from 'vue';
+
 
   import { useToast } from 'primevue/usetoast'
   import Toast from 'primevue/toast'
+
+  import NewSubComponent from '@/components/NewSubComponent.vue';
+  import NewRentComponent from '@/components/NewRentComponent.vue';
+
   
-  const observation = ref('');
-  const importe = ref('');
+  const new_password = ref('');
   const name = ref('');
   const email = ref('');
   const password = ref('');
   const bank_account = ref('');
-  const date_end = ref(''); // Variable para la fecha de caducidad
-  const importe_rent = ref('');
+  const new_bank_account = ref(''); // Variable para la fecha de caducidad
+  const dni = ref('');
+  const last_Name = ref('');
+  const phone = ref('');
+  const town = ref('');
+  const postal_code = ref('');
+  const province = ref('');
+  const address = ref('');
 
-  const date_day = ref('');
-const date_time = ref('');
-const clientes = ref([]);
-const pistas = ref([]);
-const times = ref([]);
-const sports = ref([]);
-const DeporteSeleccionado = ref('');
-const nombre = ref('');
-const filteredPistas = ref([]);
-const filteredTimes = ref([]);
-const timeSeleccionado = ref('');
-const pistaSeleccionada = ref('');
+  const pistas = ref([]);
+  const times = ref([]);
+  const sports = ref([]);
+
   
   const toast = useToast();
+
+  const props = defineProps({
+  email: {
+    type: String,
+    required: true
+  }
+});
+
   
-  const updateImporte = () => {
-    var subscription = observation.value;
-  
-    switch (subscription) {
-      case "3 meses":
-        importe.value = 59.99; // Valor para 3 meses
-        calculateExpiryDate(3);
-        break;
-      case "6 meses":
-        importe.value = 105.99; // Valor para 6 meses
-        calculateExpiryDate(6);
-        break;
-      case "12 meses":
-        importe.value = 219.99; // Valor para 12 meses
-        calculateExpiryDate(12);
-        break;
-      default:
-        importe.value = ""; // Valor predeterminado si no se selecciona nada
-    }
-  };
   
   const showError = () => {
     toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
@@ -595,88 +445,6 @@ const pistaSeleccionada = ref('');
     toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
   };
   
-  const calculateExpiryDate = (months) => {
-    const currentDate = new Date();
-    currentDate.setMonth(currentDate.getMonth() + months);
-    date_end.value = currentDate.toISOString().split('T')[0];
-  };
-  
-  const verifyClient = async (email, password) => {
-    try {
-      const response = await api.post('/client', { email, password });
-      if (response.data.success) {
-        return response.data.clientId;
-      } else {
-        showError();
-        return null;
-      }
-    } catch (error) {
-      showError();
-      console.error(error);
-      return null;
-    }
-  };
-  
-  const crearSub = async () => {
-    try {
-      const clientId = await verifyClient(email.value, password.value);
-      if (!clientId) return;
-  
-      const currentDate = new Date().toISOString().split('T')[0];
-      const status = "activo";
-  
-      await api.post('/subfees', {
-        importe: 1,
-        date_pay: currentDate, // Establecer la fecha actual
-        date_end: date_end.value, // Establecer la fecha de caducidad calculada
-        observation: observation.value,
-        client_id: clientId, // Asignar el ID del cliente
-        status: status // Establecer el estado como "activo"
-      });
-  
-      cerrarModalCrear();
-      showSuccess();
-      importe.value = ''; // Vaciar el campo de importe
-      name.value = ''; // Reiniciar el estado
-      observation.value = ''; // Vaciar el campo de observaciones
-      clienteSeleccionado.value = ''; // Reiniciar el cliente seleccionado
-      date_end.value = ''; // Reiniciar la fecha de caducidad
-    } catch (error) {
-      showError();
-      console.error(error);
-    }
-  };
-
-  const crearAlquiler = async () => {
-  try {
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    await api.post('/rentfees', {
-      importe: 12,
-      date_pay: currentDate,
-      date_day: date_day.value,
-      date_time: timeSeleccionado.value,
-      client_id: 1,
-      court_id: pistaSeleccionada.value
-    });
-
-    cerrarModalCrear();
-    showSuccess();
-    date_day.value = '';
-    date_time.value = '';
-    clienteSeleccionado.value = '';
-    nombre.value = '';
-    DeporteSeleccionado.value = '';
-    timeSeleccionado.value = '';
-    pistaSeleccionada.value = '';
-
-    obtenerRents();
-  } catch (error) {
-    showError();
-    console.error(error);
-  }
-};
-
 const obtenerPistas = async () => {
   try {
     const respuesta = await api.get('/courts')
@@ -704,16 +472,6 @@ const obtenerDeportes = async () => {
   }
 }
 
-const actualizarHorasYPistas = () => {
-  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
-  filteredTimes.value = times.value.filter(time => time.sport_id === DeporteSeleccionado.value);
-};
-
-const cerrarModalCrear = async () => {
-  const crearAlquilerModal = document.getElementById('dardealta')
-  const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]')
-  closeButton.click()
-}
 
 
 onMounted(() => {
