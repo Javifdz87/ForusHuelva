@@ -357,6 +357,7 @@
       </div>
       <div class="modal-body">
         <div class="container">
+          <form @submit.prevent="editarBankAccount">
           <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
@@ -386,6 +387,7 @@
                   <button type="submit" class="btn btn-primary btn-block w-100">Modificar Cuenta Bancaria</button>
                 </div>
               </div>
+          </form>
         </div>
       </div>
     </div>
@@ -412,7 +414,7 @@
   const email = ref('');
   const password = ref('');
   const bank_account = ref('');
-  const new_bank_account = ref(''); // Variable para la fecha de caducidad
+  const new_bank_account = ref(''); 
   const dni = ref('');
   const last_Name = ref('');
   const phone = ref('');
@@ -477,7 +479,23 @@ const obtenerDeportes = async () => {
   }
 }
 
+const editarContraseña = async () => {
+  try {
+    const respuesta = await api.put('/clients')
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 
+const editarBankAccount = async () => {
+  try {
+    const respuesta = await api.get('/clients')
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const obtenerCliente = async (email) => {
   try {
@@ -488,6 +506,8 @@ const obtenerCliente = async (email) => {
     console.log(error);
   }
 };
+
+
 
 
 
