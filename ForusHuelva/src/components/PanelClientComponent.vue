@@ -51,7 +51,7 @@
     <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-          <h1 class="display-1">Bienvenido {{ localEmail }}</h1>
+          <h1 class="display-1">Bienvenido {{ clientes.name }}</h1>
         </div>
       </div>
 
@@ -185,7 +185,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <NewRentComponent/>
+        <NewRentComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
       </div>
     </div>
   </div>
@@ -200,7 +200,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <NewSubComponent/>
+        <NewSubComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
       </div>
     </div>
   </div>
@@ -257,7 +257,7 @@
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="dni_account" placeholder="name@example.com"
-                    v-model="dni" readonly/>
+                    v-model="clientes.dni" readonly/>
                   <label for="floatingInput">DNI</label>
                 </div>
               </div>
@@ -268,14 +268,14 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="name_account" placeholder="name@example.com"
-                    v-model="name" readonly/>
+                    v-model="clientes.name" readonly/>
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="last_Name_account" placeholder="name@example.com"
-                    v-model="last_Name" readonly/>
+                    v-model="clientes.last_Name" readonly/>
                   <label for="floatingInput">Apellido</label>
                 </div>
               </div>
@@ -285,14 +285,14 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="email_account" placeholder="name@example.com"
-                    v-model="email" readonly/>
+                    v-model="clientes.email" readonly/>
                   <label for="floatingInput">Email</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="phone_account" placeholder="name@example.com"
-                    v-model="phone" readonly/>
+                    v-model="clientes.phone" readonly/>
                   <label for="floatingInput">Telefóno</label>
                 </div>
               </div>
@@ -302,21 +302,21 @@
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="town_account" placeholder="name@example.com"
-                    v-model="town" readonly/>
+                    v-model="clientes.town" readonly/>
                   <label for="floatingInput">Localidad</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="postal_code_account" placeholder="name@example.com"
-                    v-model="postal_code" readonly/>
+                    v-model="clientes.postal_code" readonly/>
                   <label for="floatingInput">Codigo Postal</label>
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="province_account" placeholder="name@example.com"
-                    v-model="province" readonly/>
+                    v-model="clientes.province" readonly/>
                   <label for="floatingInput">Provincia</label>
                 </div>
               </div>
@@ -326,14 +326,14 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="address_account" placeholder="name@example.com"
-                    v-model="address" readonly/>
+                    v-model="clientes.address" readonly/>
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="bank_account_account" placeholder="name@example.com"
-                    v-model="bank_account" readonly/>
+                    v-model="clientes.bank_account" readonly/>
                   <label for="floatingInput">Cuenta Bancaria</label>
                 </div>
               </div>
@@ -360,7 +360,7 @@
           <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" v-model="bank_account" required />
+                    <input type="text" class="form-control" v-model="clientes.bank_account" readonly />
                     <label for="floatingInput">Antigua Cuenta Bancaria</label>
                   </div>
                 </div>
@@ -424,6 +424,8 @@
   const pistas = ref([]);
   const times = ref([]);
   const sports = ref([]);
+  const clientes = ref([]);
+
 
   const props = defineProps({
     email: String,
@@ -475,15 +477,17 @@ const obtenerDeportes = async () => {
   }
 }
 
-const obtenerClientes = async () => {
+
+
+const obtenerCliente = async (email) => {
   try {
-    const respuesta = await api.get('/clientes')
-    console.log(respuesta.data)
-    clientes.value = respuesta.data
+    const respuesta = await api.get(`/clientes/${email}`);
+    console.log(respuesta.data);
+    clientes.value = respuesta.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 
 
@@ -491,5 +495,6 @@ onMounted(() => {
   obtenerPistas();
   obtenerHoras();
   obtenerDeportes();
+  obtenerCliente(localEmail.value);
 });
-  </script>
+</script>

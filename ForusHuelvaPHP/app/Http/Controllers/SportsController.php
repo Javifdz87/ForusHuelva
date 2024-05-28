@@ -13,4 +13,11 @@ class SportsController extends Controller
 
         return response()->json($sports);
     }
+
+    public function show($id)
+    {
+        $sport = SportsModel::findOrFail($id);
+    
+        return response()->json($sport);
+    }
 }

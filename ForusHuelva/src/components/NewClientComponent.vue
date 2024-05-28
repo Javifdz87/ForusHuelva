@@ -17,7 +17,9 @@
       <Toast />
 
     <div class="container mt-5">
+      <div class="table-responsive-vertical p-4">
       <h1>Registrar Nuevo Cliente</h1>
+      </div>
       <form @submit.prevent="registrarCliente">
               <div class="row">
                 <div class="col-lg-6">

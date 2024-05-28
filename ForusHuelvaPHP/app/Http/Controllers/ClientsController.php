@@ -44,11 +44,12 @@ class ClientsController extends Controller
         return response()->json(null, 204);
     }
 
-    public function show($id)
-{
-    $cliente = ClientsModel::findOrFail($id);
-
-    return response()->json($cliente);
-}
+    public function show($email)
+    {
+        $cliente = ClientsModel::where('email', $email)->firstOrFail();
+    
+        return response()->json($cliente);
+    }
+    
 
 }

@@ -49,7 +49,7 @@
       <div class="col-lg-12">
         <hr>
       </div>
-      <div class="row justify-content-center mt-5">
+      <div class="row justify-content-center mt-4">
                 <div class="col-md-6">
                   <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
                   <form @submit.prevent="login">

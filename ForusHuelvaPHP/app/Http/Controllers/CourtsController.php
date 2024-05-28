@@ -34,4 +34,13 @@ class CourtsController extends Controller
         CourtsModel::destroy($id);
 
         return response()->json(null, 204);
-    }}
+    }
+
+    public function show($id)
+    {
+        $court = CourtsModel::findOrFail($id);
+    
+        return response()->json($court);
+    }
+
+}

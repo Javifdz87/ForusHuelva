@@ -35,4 +35,11 @@ class SubFeesController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function show($id)
+    {
+        $sub = SubscriptionFeesModel::findOrFail($id);
+    
+        return response()->json($sub);
+    }
 }
