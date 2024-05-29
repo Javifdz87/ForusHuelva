@@ -231,6 +231,8 @@
       </div>
       <div class="modal-body">
         <div class="container">
+          <form @submit.prevent="editPassword">
+
           <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
@@ -252,6 +254,7 @@
                   <button type="submit" class="btn btn-primary btn-block w-100">Nueva Contraseña</button>
                 </div>
               </div>
+          </form>
         </div>
       </div>
     </div>
@@ -410,7 +413,7 @@
 </div>
   </template>
   
-  <script setup>
+<script setup>
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
   import { ref, onMounted, watch } from 'vue';
@@ -493,14 +496,45 @@
     }
   };
   
-  const editarContraseña = async () => {
-    try {
-      const respuesta = await api.put('/clients');
-      // Aquí falta lógica, pero no está claro lo que se pretende hacer con la respuesta.
-    } catch (error) {
-      console.log(error);
+  const editPassword = async () => {
+  try {
+    if (password.value !== new_password.value) {
+      throw new Error('Las contraseñas no coinciden');
     }
-  };
+
+    const clienteId = clientes.id; // Obtener el id del cliente
+    console.log('Id del cliente:', clienteId);
+
+
+    const data = {
+      password: new_password.value
+    };
+
+    console.log('Datos a enviar:', data);
+
+    const response = await api.put(`/clientes/${ clienteId }`, data);
+
+    if (response.status === 200) {
+      console.log('Contraseña actualizada correctamente.');
+
+      // Limpiar los campos del formulario
+      password.value = '';
+      new_password.value = '';
+
+      showSuccess(); // Mostrar mensaje de éxito
+    } else {
+      console.error('Error al editar la contraseña.');
+      showError(); // Mostrar mensaje de error
+    }
+  } catch (error) {
+    console.error('Error al editar la contraseña:', error.message);
+    showError(); // Mostrar mensaje de error
+  }
+};
+
+
+
+
   
   const editarBankAccount = async () => {
     try {
@@ -542,5 +576,5 @@
       obtenerCliente(localEmail.value);
     }
   });
-  </script>
+</script>
   
