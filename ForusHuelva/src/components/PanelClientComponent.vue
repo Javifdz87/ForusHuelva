@@ -55,45 +55,48 @@
         </div>
       </div>
 
-      <div class="row py-5" id="planes">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <h2 class="display-5">Nuestros planes de suscripción</h2>
-          <p class="lead">Si aún no tienes un plan de suscripción es tan facil como pulsar un botón.</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Subscripción 3 meses</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">59,99€</h6>
-                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub" id="precio1">Pagar</button></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Subscripción 6 meses</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">105,99€</h6>
-                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Subscripción 12 meses</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">219,99€</h6>
-                <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
-                <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button></a>
-              </div>
-            </div>
+      <div class="row py-5" id="planes" v-if="!isActive">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h2 class="display-5">Nuestros planes de suscripción</h2>
+      <p class="lead">Si aún no tienes un plan de suscripción es tan fácil como pulsar un botón.</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Subscripción 3 meses</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">59,99€</h6>
+            <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
+            <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub" id="precio1">Pagar</button></a>
           </div>
         </div>
       </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Subscripción 6 meses</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">105,99€</h6>
+            <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
+            <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Subscripción 12 meses</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">219,99€</h6>
+            <p class="card-text">El pago se realizará en el momento que se acabe la subscripción.</p>
+            <a href="#" class="card-link"><button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalSub">Pagar</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <h2 class="display-5">¡Ya eres socio!</h2>
+    <p class="lead">Gracias por ser parte de nuestra comunidad.</p>
+  </div>
   
   
       <div class="row py-5" id="gimnasio">
@@ -110,7 +113,6 @@
             <li class="list-group-item">Body Pump</li>
           </ul>
         </div>
-  
       </div>
   
       <div class="row py-5" id="pistas">
@@ -153,7 +155,18 @@
           </div>
         </div>
       </div>
+
+      <div class="row py-5" id="gimnasio">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h2 class="display-5">Donde nos encontramos.</h2>
+          <div class="d-flex justify-content-center mt-3">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6350.340466500009!2d-6.929387224559852!3d37.26739014122577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11cffddb41cb6d%3A0xc873cb6b6671193d!2sForus%20Huelva%20(C.D.%20El%20Saladillo)!5e0!3m2!1ses!2ses!4v1716971215139!5m2!1ses!2ses" width="800" height="450" style="border:1;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
     </div>
+
+
   
     <footer class="bg-dark text-white py-4 text-center">
       <div class="container">
@@ -395,19 +408,15 @@
 </div>
   </template>
   
-<script setup>
+  <script setup>
   import api from '@/services/service';
   import { useRouter } from 'vue-router';
   import { ref, onMounted, watch } from 'vue';
   import { defineProps } from 'vue';
-
-
-  import { useToast } from 'primevue/usetoast'
-  import Toast from 'primevue/toast'
-
+  import { useToast } from 'primevue/usetoast';
+  import Toast from 'primevue/toast';
   import NewSubComponent from '@/components/NewSubComponent.vue';
   import NewRentComponent from '@/components/NewRentComponent.vue';
-
   
   const new_password = ref('');
   const name = ref('');
@@ -422,99 +431,113 @@
   const postal_code = ref('');
   const province = ref('');
   const address = ref('');
-
+  
   const pistas = ref([]);
   const times = ref([]);
   const sports = ref([]);
   const clientes = ref([]);
-
-
+  const subs = ref([]);
+  
   const props = defineProps({
     email: String,
     name: String,
     id: String
-});
+  });
+  
+  const isActive = ref(false);
 
-const localEmail = ref(props.email);
-
-watch(() => props.email, (newVal) => {
+  const localEmail = ref(props.email);
+  
+  watch(() => props.email, (newVal) => {
     localEmail.value = newVal;
-});
+    obtenerCliente(newVal);
+  });
   
   const toast = useToast();
-
   
   const showError = () => {
     toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
   };
   
   const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 });
+    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
   };
   
-const obtenerPistas = async () => {
+  const obtenerPistas = async () => {
+    try {
+      const respuesta = await api.get('/courts');
+      pistas.value = respuesta.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const obtenerHoras = async () => {
+    try {
+      const respuesta = await api.get('/times');
+      times.value = respuesta.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const obtenerDeportes = async () => {
+    try {
+      const respuesta = await api.get('/sports');
+      sports.value = respuesta.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const editarContraseña = async () => {
+    try {
+      const respuesta = await api.put('/clients');
+      // Aquí falta lógica, pero no está claro lo que se pretende hacer con la respuesta.
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const editarBankAccount = async () => {
+    try {
+      const respuesta = await api.get('/clients');
+      // Aquí falta lógica, pero no está claro lo que se pretende hacer con la respuesta.
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const obtenerCliente = async (email) => {
+    try {
+      const respuesta = await api.get(`/clientes/${email}`);
+      console.log(respuesta.data);
+      clientes.value = respuesta.data;
+      if (clientes.value.id) {
+        obtenerSub(clientes.value.id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const obtenerSub = async (clienteId) => {
   try {
-    const respuesta = await api.get('/courts')
-    pistas.value = respuesta.data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const obtenerHoras = async () => {
-  try {
-    const respuesta = await api.get('/times')
-    times.value = respuesta.data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const obtenerDeportes = async () => {
-  try {
-    const respuesta = await api.get('/sports')
-    sports.value = respuesta.data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const editarContraseña = async () => {
-  try {
-    const respuesta = await api.put('/clients')
-    
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const editarBankAccount = async () => {
-  try {
-    const respuesta = await api.get('/clients')
-    
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const obtenerCliente = async (email) => {
-  try {
-    const respuesta = await api.get(`/clientes/${email}`);
-    console.log(respuesta.data);
-    clientes.value = respuesta.data;
+    const respuesta = await api.get(`/subfees/${clienteId}`);
+    subs.value = respuesta.data;
+    isActive.value = subs.value.status === 'activa';
   } catch (error) {
     console.log(error);
   }
 };
-
-
-
-
-
-onMounted(() => {
-  obtenerPistas();
-  obtenerHoras();
-  obtenerDeportes();
-  obtenerCliente(localEmail.value);
-});
-</script>
+  
+  onMounted(() => {
+    obtenerPistas();
+    obtenerHoras();
+    obtenerDeportes();
+    if (localEmail.value) {
+      obtenerCliente(localEmail.value);
+    }
+  });
+  </script>
+  

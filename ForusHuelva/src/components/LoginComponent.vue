@@ -37,7 +37,7 @@
 
   <div class="container py-5 mt-5" id="nosotros">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1 class="display-1">Forus Huelva</h1>
         <h2 class="display-4">¿Quiénes somos?</h2>
 
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="row py-5">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <hr>
       </div>
       <div class="row justify-content-center mt-4">
@@ -87,7 +87,7 @@
       <div class="col-lg-12">
         <h2 class="display-4">Contamos con alquiler de equipamiento deportivo</h2>
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
@@ -95,7 +95,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
@@ -103,7 +103,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
@@ -111,7 +111,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <div class="card text-bg-dark" data-bs-toggle="modal" data-bs-target="#modalLogin">
               <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/siete.jpg" class="card-img" alt="...">
               <div class="card-img-overlay">
@@ -125,7 +125,7 @@
     </div>
 
     <div class="row py-5" id="gimnasio">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h2 class="display-4">Más actividades dentro del recinto</h2>
         <ul class="list-group">
           <li class="list-group-item">Boxeo</li>
@@ -143,12 +143,12 @@
 
 
     <div class="row py-5" id="planes">
-      <div class="col-lg-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h2 class="display-4">Nuestros planes de subscripción</h2>
         <p class="lead">Tenemos una variedad de planes para adaptarse a tus necesidades.</p>
       </div>
       <div class="row">
-        <div class="col-lg-4 d-flex justify-content-center">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 d-flex justify-content-center">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Subscripción 3 meses</h5>
@@ -158,7 +158,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 d-flex justify-content-center">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 d-flex justify-content-center">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Subscripción 6 meses</h5>
@@ -169,7 +169,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 d-flex justify-content-center">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 d-flex justify-content-center">
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">Subscripción 12 meses</h5>
@@ -181,12 +181,24 @@
         </div>
       </div>
     </div>
-  </div>
 
+    <div class="row py-5" id="gimnasio">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h2 class="display-5">Donde nos encontramos.</h2>
+          <div class="d-flex justify-content-center mt-3">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6350.340466500009!2d-6.929387224559852!3d37.26739014122577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11cffddb41cb6d%3A0xc873cb6b6671193d!2sForus%20Huelva%20(C.D.%20El%20Saladillo)!5e0!3m2!1ses!2ses!4v1716971215139!5m2!1ses!2ses" width="800" height="450" style="border:1;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    
+  </div>
+  
+
+  
   <footer class="bg-dark text-white py-4 text-center">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <p>Síguenos en redes sociales:</p>
           <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Facebook</a></li>
