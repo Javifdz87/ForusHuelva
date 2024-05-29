@@ -36,10 +36,15 @@ class SubFeesController extends Controller
         return response()->json(null, 204);
     }
 
-    public function show($id)
+    public function show($clientId)
     {
-        $sub = SubscriptionFeesModel::findOrFail($id);
+        $sub = SubscriptionFeesModel::where('client_id', $clientId)->first();
+    
+        if (!$sub) {
+            return response()->json(['message' => 'Subscription not found'], 404);
+        }
     
         return response()->json($sub);
     }
+    
 }

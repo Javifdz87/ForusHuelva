@@ -51,7 +51,7 @@
     <div class="container py-5 mt-5" id="nosotros">
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-          <h1 class="display-1">Bienvenido {{ clientes.name }}</h1>
+          <h1 class="display-1">Bienvenido: {{ clientes.name }}</h1>
         </div>
       </div>
 
@@ -445,6 +445,7 @@
   });
   
   const isActive = ref(false);
+  
 
   const localEmail = ref(props.email);
   

@@ -135,7 +135,7 @@ const verificarSuscripcionActiva = async (client_id) => {
 const crearSub = async () => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
-        const status = "activo";
+        const status = "activa";
 
         const tieneSuscripcionActiva = await verificarSuscripcionActiva(localId.value);
         if (tieneSuscripcionActiva) {
