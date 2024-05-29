@@ -59,6 +59,12 @@
                           <label for="floatingInput">Hora</label>
                       </div>
                   </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="import" value="12" placeholder="email" readonly />
+                        <label for="floatingInput">Precio</label>
+                      </div>
+                  </div>
               </div>
               <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">

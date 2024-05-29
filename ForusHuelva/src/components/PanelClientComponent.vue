@@ -118,6 +118,8 @@
       <div class="row py-5" id="pistas">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <h4 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h4>
+          <p class="lead">Si eres socio se le aplicará un descuento.</p>
+
           <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" data-bs-toggle="modal" data-bs-target="#modalRent">
               <div class="card text-bg-dark">

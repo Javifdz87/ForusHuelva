@@ -70,7 +70,7 @@
                     </div>
                     <div class="mb-3">
 
-                      <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                      <button type="submit" class="btn btn-primary  btn-block w-100">Iniciar sesión</button>
                       <router-link to="/newclient" class="d-block mt-3 text-center">¿Aún no tienes cuenta?</router-link>
                       <p class="text-muted">Credenciales de prueba:<br> Email: admin@gmail.com <br> Contraseña: admin</p>
 
