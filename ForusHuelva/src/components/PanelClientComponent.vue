@@ -451,6 +451,9 @@
   
   const isActive = ref(false);
   
+  
+  const clienteId = clientes.id;
+  console.log('Id del cliente:', clientes);
 
   const localEmail = ref(props.email);
   
@@ -461,6 +464,11 @@
   
   const toast = useToast();
   
+  const cerrarModalEditar = async () => {
+  const editarClienteModal = document.getElementById('modalPassword')
+  const closeButton = editarClienteModal.querySelector('[data-bs-dismiss="modal"]')
+  closeButton.click()
+}
   const showError = () => {
     toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
   };
@@ -502,8 +510,6 @@
       throw new Error('Las contraseñas no coinciden');
     }
 
-    const clienteId = clientes.id; // Obtener el id del cliente
-    console.log('Id del cliente:', clienteId);
 
 
     const data = {
@@ -512,7 +518,7 @@
 
     console.log('Datos a enviar:', data);
 
-    const response = await api.put(`/clientes/${ clienteId }`, data);
+    const response = await api.put(`/clientes/${ localEmail.value }`, data);
 
     if (response.status === 200) {
       console.log('Contraseña actualizada correctamente.');
@@ -522,6 +528,7 @@
       new_password.value = '';
 
       showSuccess(); // Mostrar mensaje de éxito
+      cerrarModalEditar();
     } else {
       console.error('Error al editar la contraseña.');
       showError(); // Mostrar mensaje de error

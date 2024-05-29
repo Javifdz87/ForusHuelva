@@ -29,13 +29,21 @@ class ClientsController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $email)
     {
-        $cliente = ClientsModel::findOrFail($id);
-        $cliente->update($request->all());
-
+        $cliente = ClientsModel::where('email', $email)->firstOrFail();
+    
+        $data = $request->all();
+    
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+    
+        $cliente->update($data);
+    
         return response()->json($cliente, 200);
     }
+    
 
     public function destroy($id)
     {
