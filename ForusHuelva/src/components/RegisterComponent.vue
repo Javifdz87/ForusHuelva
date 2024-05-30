@@ -1,5 +1,7 @@
 <template>
     <div class="container mt-5">
+      <Toast />
+
       <div class="row justify-content-center ">
         <div class="col-md-6 mt-5">
           <h1 class="text-center mb-4">Registro Administrador</h1>
@@ -31,20 +33,39 @@
   <script setup>
   import api from '@/services/service'
   import { ref } from 'vue';
-  
+  import { useToast } from 'primevue/usetoast'
+
+  import Toast from 'primevue/toast';
+
+  const toast = useToast();
+
+
+  const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
+
   const userData = ref({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    role: 1
   });
   
   const registerUser = async () => {
     try {
       const response = await api.post('/register', userData.value);
       console.log('Usuario registrado:', response.data);
+      showSuccess('Administrador creado correctamente');
+
       // Aquí podrías redirigir al usuario a otra página o mostrar un mensaje de éxito
     } catch (error) {
       console.error('Error al registrar usuario:', error.response.data);
+      showError('Error al crear administrador');
+
       // Aquí podrías mostrar un mensaje de error al usuario
     }
   };

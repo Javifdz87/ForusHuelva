@@ -36,6 +36,7 @@
   </nav>
 
   <div class="container py-5 mt-5" id="nosotros">
+    <Toast />
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1 class="display-1">Forus Huelva</h1>
@@ -243,14 +244,13 @@ const email = ref('');
 const password = ref('');
 const router = useRouter();
 
-const showError = () => {
-  toast.add({
-    severity: 'error',
-    summary: 'Error',
-    detail: 'No coinciden los datos',
-    life: 3000
-  })
-}
+const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
 
 async function login() {
   try {
@@ -265,6 +265,7 @@ async function login() {
 
     if (response.status === 200) {
       console.log('Inicio de sesión exitoso');
+      showSuccess('Inicio de sesión exitoso');
 
       if (response.data.user.role === 1) {
         router.push('/home');
@@ -274,7 +275,7 @@ async function login() {
     }
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
-    showError();
+    showError('El email o la contraseña no son correctas.');
   }
 }
 </script>

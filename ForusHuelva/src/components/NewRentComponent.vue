@@ -121,11 +121,11 @@ const timeSeleccionado = ref('');
 const pistaSeleccionada = ref('');
 const rent = ref([]); // Definir rent aquí
 
-const showError = () => {
-    toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
+const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
-const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
 const obtenerRents = async () => {
@@ -151,7 +151,7 @@ const crearAlquiler = async () => {
         });
 
         cerrarModalCrear();
-        showSuccess();
+        showSuccess('Se ha creado correctamente.');
         date_day.value = '';
         date_time.value = '';
         clienteSeleccionado.value = '';
@@ -161,7 +161,7 @@ const crearAlquiler = async () => {
 
         obtenerRents();
     } catch (error) {
-        showError();
+        showError('Error al crear el alquiler.');
         console.error(error);
     }
 };

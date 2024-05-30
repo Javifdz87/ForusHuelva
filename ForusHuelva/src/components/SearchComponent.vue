@@ -114,14 +114,10 @@ const filteredSuscripciones = ref([]);
 const filters = ref({ global: { value: '' } });
 
 const toast = useToast();
-const showError = () => {
-  toast.add({
-    severity: 'error',
-    summary: 'Error',
-    detail: 'Algo no ha salido como se esperaba',
-    life: 3000
-  });
+const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
+
 
 const generarListado = async () => {
   console.log('Rango ID:', rangoId.value);
@@ -131,7 +127,7 @@ const generarListado = async () => {
   console.log('Fecha de Fin:', fechaFin.value);
 
   if (!fechaInicio.value || !fechaFin.value) {
-    showError();
+    showError('Error, tienes que definir las fechas');
     return;
   }
 
@@ -154,7 +150,7 @@ const generarListado = async () => {
     console.log(filteredSuscripciones.value);
   } catch (error) {
     console.log(error);
-    showError();
+    showError('Error al generar la lista');
   }
 };
 
@@ -169,10 +165,6 @@ const getSeverity = (status) => {
   }
 };
 
-const selectSub = (subs) => {
-  // Lógica para seleccionar suscripción (puedes adaptar esto según tu implementación)
-  console.log('Seleccionar suscripción:', subs);
-};
 
 const obtenerSubs = async () => {
   try {

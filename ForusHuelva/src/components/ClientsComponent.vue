@@ -478,18 +478,13 @@ const selectedClient = ref({})
   const address = ref('')
   const password = ref('')
 
-const showSuccess = () => {
-  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 })
-}
+  const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
 
-const showError = () => {
-  toast.add({
-    severity: 'error',
-    summary: 'Error',
-    detail: 'Algo no ha salido como se esperaba',
-    life: 3000
-  })
-}
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
 
 const obtenerClientes = async () => {
   try {
@@ -532,13 +527,13 @@ const eliminarCliente = async () => {
     if (response.status === 204) {
       clientes.value = clientes.value.filter((cliente) => cliente.id !== idCliente)
       cerrarModalBorrar()
-      showSuccess()
+      showSuccess('Se ha eliminado correctamente')
     } else {
       console.error('Error al eliminar el cliente.')
-      showError()
+      showError('Error al eliminar el cliente')
     }
   } catch (error) {
-    showError()
+    showError('Error al eliminar al cliente')
 
     console.error('Error al eliminar el cliente:', error)
   }
@@ -594,20 +589,17 @@ const editarCliente = async () => {
       };
 
       cerrarModalEditar(); // Cerrar el modal de edición
-      showSuccess(); // Mostrar mensaje de éxito
+      showSuccess('Editado Correctamente'); // Mostrar mensaje de éxito
       obtenerClientes(); // Actualizar la lista de clientes
     } else {
       console.error('Error al editar el cliente.');
-      showError(); // Mostrar mensaje de error
+      showError('Error al editar el cliente'); // Mostrar mensaje de error
     }
   } catch (error) {
     console.error('Error al editar el cliente:', error);
-    showError(); // Mostrar mensaje de error
+    showError('Error aleditar el cliente'); // Mostrar mensaje de error
   }
 };
-
-
-
 
 
 const cerrarModalEditar = async () => {
@@ -665,12 +657,12 @@ const registrarCliente = async () => {
     address.value = ''
     password.value = '' 
     cerrarModalCrear()
-    showSuccess()
+    showSuccess('Registrado cliente correctamente')
 
     // Actualizar la lista de clientes después de la creación
     obtenerClientes()
   } catch (error) {
-    showError()
+    showError('Error al crear el cliente')
     console.error(error)
   }
 }

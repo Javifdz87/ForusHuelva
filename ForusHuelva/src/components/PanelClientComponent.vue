@@ -49,6 +49,8 @@
     </nav>
   
     <div class="container py-5 mt-5" id="nosotros">
+      <Toast />
+
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
           <h1 class="display-1">Bienvenido: {{ clientes.name }}</h1>
@@ -461,13 +463,13 @@
   
   const toast = useToast();
   
-  const showError = () => {
-    toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
-  };
-  
-  const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
-  };
+  const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
   
   const obtenerPistas = async () => {
     try {
@@ -520,22 +522,19 @@
       // Limpiar los campos del formulario
       password.value = '';
       new_password.value = '';
-
-      showSuccess(); // Mostrar mensaje de éxito
+      cerrarModalPassword();
+      showSuccess('Contraseña actualizada correctamente.'); // Mostrar mensaje de éxito
     } else {
       console.error('Error al editar la contraseña.');
-      showError(); // Mostrar mensaje de error
+      showError('Error al editar la contraseña.'); // Mostrar mensaje de error
     }
   } catch (error) {
     console.error('Error al editar la contraseña:', error.message);
-    showError(); // Mostrar mensaje de error
+    showError('Error al editar la contraseña.'); // Mostrar mensaje de error
   }
 };
 
 
-
-
-  
   const editarBankAccount = async () => {
     try {
       const respuesta = await api.get('/clients');
@@ -566,6 +565,18 @@
   } catch (error) {
     console.log(error);
   }
+};
+
+const cerrarModalPassword = async () => {
+  const editarRentModal = document.getElementById("modalPassword");
+  const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
+  closeButton.click();
+};
+
+const cerrarModalBank = async () => {
+  const editarRentModal = document.getElementById("modalBank");
+  const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
+  closeButton.click();
 };
   
   onMounted(() => {

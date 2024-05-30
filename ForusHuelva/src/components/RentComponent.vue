@@ -35,10 +35,6 @@
                   @click="selectRent(slotProps.data)">
                   O
                 </Button>
-                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editarAlquiler"
-                  @click="selectRent(slotProps.data)">
-                  M
-                </Button>
               </template>
             </Column>
             <template #header>
@@ -296,11 +292,12 @@ const selectedRent = ref({
 });
 
 
-const showError = () => {
-  toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
+const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
-const showSuccess = () => {
-  toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
+
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
 const obtenerRents = async () => {
@@ -341,14 +338,14 @@ const eliminarAlquiler = async () => {
     if (response.status === 204) {
       rent.value = rent.value.filter(cliente => cliente.id !== idRent);
       cerrarModalBorrar();
-      showSuccess();
+      showSuccess('Alquiler eliminado correctamente.');
     } else {
-      showError();
-      console.error('Error al eliminar el cliente.');
+      showError('Error al eliminar el Alquiler.');
+      console.error('Error al eliminar el Alquiler.');
     }
   } catch (error) {
-    showError();
-    console.error('Error al eliminar el cliente:', error);
+    showError('Error al eliminar el Alquiler');
+    console.error('Error al eliminar el Alquiler:', error);
   }
 };
 
@@ -378,7 +375,7 @@ const crearAlquiler = async () => {
     });
 
     cerrarModalCrear();
-    showSuccess();
+    showSuccess('Se ha creado el Alquiler correctamente');
     date_day.value = '';
     date_time.value = '';
     clienteSeleccionado.value = '';
@@ -389,7 +386,7 @@ const crearAlquiler = async () => {
 
     obtenerRents();
   } catch (error) {
-    showError();
+    showError('Error al crear el alquiler.');
     console.error(error);
   }
 };

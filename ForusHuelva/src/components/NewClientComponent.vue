@@ -155,18 +155,13 @@
     const address = ref('')
     const password = ref('')
   
-  const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo esta en orden', life: 3000 })
-  }
-  
-  const showError = () => {
-    toast.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Algo no ha salido como se esperaba',
-      life: 3000
-    })
-  }
+    const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
   
   
   const obtenerProvincias = async () => {
@@ -222,10 +217,10 @@
       bank_account.value = ''
       address.value = ''
       password.value = '' 
-      showSuccess()
+      showSuccess('Cliente registrado correctamente.')
 
     } catch (error) {
-      showError()
+      showError('Error al crear el cliente.')
       console.error(error)
     }
   }

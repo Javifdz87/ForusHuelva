@@ -97,8 +97,8 @@ const selectedCourt = ref({
   }
 });
 
-const showError = () => {
-  toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
+const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
 
 const obtenerCourts = async () => {
@@ -107,7 +107,7 @@ const obtenerCourts = async () => {
     courts.value = respuesta.data;
   } catch (error) {
     console.error(error);
-    showError();
+    showError('No se pudo obtener las pistas');
   }
 };
 
