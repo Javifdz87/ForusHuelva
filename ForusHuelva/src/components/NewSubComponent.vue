@@ -169,7 +169,7 @@ const crearSub = async () => {
 };
 
 const cerrarModalCrear = () => {
-    const crearSubModal = document.getElementById('dardealta');
+    const crearSubModal = document.getElementById('modalSub');
     const closeButton = crearSubModal.querySelector('[data-bs-dismiss="modal"]');
     closeButton.click();
 };

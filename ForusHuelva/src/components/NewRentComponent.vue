@@ -221,7 +221,7 @@ const actualizarHorasDisponibles = () => {
 };
 
 const cerrarModalCrear = async () => {
-    const crearAlquilerModal = document.getElementById('dardealta');
+    const crearAlquilerModal = document.getElementById('modalRent');
     const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]');
     closeButton.click();
 };

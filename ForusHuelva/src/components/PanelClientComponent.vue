@@ -11,9 +11,6 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#nosotros">Rutinas</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
             <li class="nav-item">
@@ -397,7 +394,7 @@
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" v-model="password" required />
+                    <input type="password" class="form-control" v-model="password" required />
                     <label for="floatingInput">Contraseña</label>
                   </div>
                 </div>
@@ -466,13 +463,13 @@
   
   const toast = useToast();
   
-  const showError = () => {
-    toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
-  };
-  
-  const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
-  };
+  const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
   
   const obtenerPistas = async () => {
     try {
@@ -507,8 +504,6 @@
       throw new Error('Las contraseñas no coinciden');
     }
 
-
-
     const data = {
       password: new_password.value
     };
@@ -523,8 +518,8 @@
       // Limpiar los campos del formulario
       password.value = '';
       new_password.value = '';
-
-      showSuccess(); // Mostrar mensaje de éxito
+      cerrarModalPassword();
+      showSuccess('Contraseña actualizada correctamente.'); // Mostrar mensaje de éxito
     } else {
       console.error('Error al editar la contraseña.');
       showError('Error al editar la contraseña.'); // Mostrar mensaje de error
@@ -536,14 +531,30 @@
 };
 
 
-  const editarBankAccount = async () => {
-    try {
-      const respuesta = await api.get('/clients');
-      // Aquí falta lógica, pero no está claro lo que se pretende hacer con la respuesta.
-    } catch (error) {
-      console.log(error);
+const editarBankAccount = async () => {
+  try {
+    const data = {
+      new_bank_account: new_bank_account.value,  // Asegúrate de usar el campo correcto que espera el backend
+      password: password.value
+    };
+
+    const response = await api.put(`/clientes/${localEmail.value}`, data);  // Elimina '/bank-account' si no es necesario
+
+    if (response.status === 200) {
+      showSuccess('Cuenta bancaria actualizada correctamente.');
+      new_bank_account.value = '';
+      password.value = '';
+      cerrarModalBank();
+    } else {
+      showError('Error al actualizar la cuenta bancaria.');
     }
-  };
+  } catch (error) {
+    console.error('Error al actualizar la cuenta bancaria:', error.message);
+    showError('Error al actualizar la cuenta bancaria.');
+  }
+};
+
+
   
   const obtenerCliente = async (email) => {
     try {
