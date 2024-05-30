@@ -43,8 +43,8 @@
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">:</button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#newSub" @click="selectClient(slotProps.data)">Añadir Suscripción</Button></li>
-                      <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#newRent" @click="selectClient(slotProps.data)">Añadir Alquiler</Button></li>
+                      <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalSub" @click="selectClient(slotProps.data)">Añadir Suscripción</Button></li>
+                      <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalRent" @click="selectClient(slotProps.data)">Añadir Alquiler</Button></li>
                     </ul>
                 </div>
               </template>
@@ -191,7 +191,7 @@
       </div>
     </div>
 
-    <!-- Modal Nuevo cliente -->
+ <!-- Modal Nuevo cliente -->
 <div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -208,102 +208,97 @@
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_name" placeholder="name@example.com" v-model="name"
-                      required />
+                    <input type="text" class="form-control" id="crear_name" placeholder="name@example.com" v-model="name" />
                     <label for="floatingInput">Nombre</label>
+                    <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_last_name" placeholder="name@example.com"
-                      v-model="last_Name" required />
+                    <input type="text" class="form-control" id="crear_last_name" placeholder="name@example.com" v-model="last_Name" />
                     <label for="floatingInput">Apellidos</label>
+                    <div v-if="errors.last_Name" class="text-danger">{{ errors.last_Name }}</div>
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="crear_email" placeholder="name@example.com" v-model="email"
-                      required />
+                    <input type="text" class="form-control" id="crear_email" placeholder="name@example.com" v-model="email" />
                     <label for="floatingInput">Email</label>
+                    <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_dni" placeholder="name@example.com" v-model="dni"
-                      required maxlength="9"/>
+                    <input type="text" class="form-control" id="crear_dni" placeholder="name@example.com" v-model="dni" maxlength="9"/>
                     <label for="floatingInput">DNI</label>
+                    <div v-if="errors.dni" class="text-danger">{{ errors.dni }}</div>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                   <div class="form-floating mb-3">
-                    <input type="phone" class="form-control" id="crear_phone" placeholder="name@example.com" v-model="phone"
-                      required maxlength="9" />
+                    <input type="phone" class="form-control" id="crear_phone" placeholder="name@example.com" v-model="phone" maxlength="9" />
                     <label for="floatingInput">Teléfono</label>
+                    <div v-if="errors.phone" class="text-danger">{{ errors.phone }}</div>
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_town" placeholder="name@example.com" v-model="town"
-                      required />
+                    <input type="text" class="form-control" id="crear_town" placeholder="name@example.com" v-model="town" />
                     <label for="floatingInput">Localidad</label>
+                    <div v-if="errors.town" class="text-danger">{{ errors.town }}</div>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_postal_code" placeholder="name@example.com"
-                      v-model="postal_code" required maxlength="5" />
+                    <input type="text" class="form-control" id="crear_postal_code" placeholder="name@example.com" v-model="postal_code" maxlength="5" />
                     <label for="floatingInput">Código Postal</label>
+                    <div v-if="errors.postal_code" class="text-danger">{{ errors.postal_code }}</div>
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <select id="province" class="form-select" v-model="province" required>
+                    <select id="province" class="form-select" v-model="province">
                       <option value="" disabled selected>Selecciona una provincia</option>
                       <option v-for="provincia in provincias" :key="provincia.cod" :value="provincia.nombre">
                         {{ provincia.nombre }}
                       </option>
                     </select>
                     <label for="province">Provincias</label>
+                    <div v-if="errors.province" class="text-danger">{{ errors.province }}</div>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_address" placeholder="name@example.com"
-                      v-model="address" required />
+                    <input type="text" class="form-control" id="crear_address" placeholder="name@example.com" v-model="address" />
                     <label for="floatingInput">Dirección</label>
+                    <div v-if="errors.address" class="text-danger">{{ errors.address }}</div>
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="crear_bank_account" placeholder="name@example.com"
-                      v-model="bank_account" required maxlength="16"/>
+                    <input type="text" class="form-control" id="crear_bank_account" placeholder="name@example.com" v-model="bank_account" maxlength="16"/>
                     <label for="floatingInput">Cuenta corriente</label>
+                    <div v-if="errors.bank_account" class="text-danger">{{ errors.bank_account }}</div>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="crear_password" placeholder="name@example.com"
-                      v-model="password" required />
+                    <input type="password" class="form-control" id="crear_password" placeholder="name@example.com" v-model="password" />
                     <label for="floatingInput">Contraseña</label>
+                    <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
                   </div>
                 </div>
               </div>
-
-
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
                   <button type="submit" class="btn btn-primary btn-block w-100">
@@ -615,6 +610,10 @@ const cerrarModalBorrar = async () => {
 }
 
 const registrarCliente = async () => {
+  if (!validarFormulario()) {
+    showError('Por favor, corrige los errores del formulario.')
+    return
+  }
   try {
     // Convertir phone y postal_code a números enteros
     const phoneValue = parseInt(phone.value)
@@ -673,6 +672,91 @@ const cerrarModalCrear = async () => {
   closeButton.click()
 }
 
+const errors = ref({
+  name: '',
+  last_Name: '',
+  dni: '',
+  email: '',
+  phone: '',
+  town: '',
+  postal_code: '',
+  province: '',
+  bank_account: '',
+  address: '',
+  password: ''
+})
+
+const validarFormulario = () => {
+  let valid = true
+  errors.value = {
+    name: '',
+    last_Name: '',
+    dni: '',
+    email: '',
+    phone: '',
+    town: '',
+    postal_code: '',
+    province: '',
+    bank_account: '',
+    address: '',
+    password: ''
+  }
+
+  if (!name.value) {
+    errors.value.name = 'El campo Nombre no puede estar vacío.'
+    valid = false
+  }
+  if (!last_Name.value) {
+    errors.value.last_Name = 'El campo Apellidos no puede estar vacío.'
+    valid = false
+  }
+  if (!dni.value) {
+    errors.value.dni = 'El campo DNI no puede estar vacío.'
+    valid = false
+  }
+  if (!email.value) {
+    errors.value.email = 'El campo de correo electrónico no puede estar vacío.'
+    valid = false
+  } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+    errors.value.email = 'El correo electrónico debe ser una dirección de correo válida.'
+    valid = false
+  }
+  if (!phone.value) {
+    errors.value.phone = 'El campo Teléfono no puede estar vacío.'
+    valid = false
+  }
+  if (!town.value) {
+    errors.value.town = 'El campo Localidad no puede estar vacío.'
+    valid = false
+  }
+  if (!postal_code.value) {
+    errors.value.postal_code = 'El campo Código Postal no puede estar vacío.'
+    valid = false
+  } else {
+    const selectedProvince = provincias.value.find(p => p.nombre === province.value)
+    if (selectedProvince && !postal_code.value.startsWith(selectedProvince.cod)) {
+      errors.value.postal_code = `El código postal debe comenzar con ${selectedProvince.cod} para la provincia seleccionada.`
+      valid = false
+    }
+  }
+  if (!province.value) {
+    errors.value.province = 'El campo Provincia no puede estar vacío.'
+    valid = false
+  }
+  if (!bank_account.value) {
+    errors.value.bank_account = 'El campo Cuenta Corriente no puede estar vacío.'
+    valid = false
+  }
+  if (!address.value) {
+    errors.value.address = 'El campo Dirección no puede estar vacío.'
+    valid = false
+  }
+  if (!password.value) {
+    errors.value.password = 'El campo Contraseña no puede estar vacío.'
+    valid = false
+  }
+  return valid
+}
 
 onMounted(obtenerClientes)
 
