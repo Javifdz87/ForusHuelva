@@ -9,11 +9,7 @@
             <div class="d-flex justify-content-center">
               <h2>Lista Clientes</h2>
             </div>
-            <div class="d-flex justify-content-end">
-              <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
-                Dar de Alta
-              </button>
-            </div>
+
           </div>
 
           <DataTable selectionMode="single" :value="clientes" stripedRows :paginator="true" :rows="5"
@@ -52,7 +48,11 @@
             <template #header>
         <div class="flex justify-content-end">
             <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
+                Dar de Alta
+              </button>
         </div>
+
       </template>
       <template #empty>No hay clientes encontrados.</template>
           </DataTable>
@@ -324,7 +324,6 @@
       </div>
       <div class="modal-body">
         <div class="row justify-content-center m-3">
-          <h2 class="card-title text-center mb-4">Editar Cliente</h2>
           <form @submit.prevent="editarCliente">
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">

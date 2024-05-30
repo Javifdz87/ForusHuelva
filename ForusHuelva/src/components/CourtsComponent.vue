@@ -7,7 +7,7 @@
         <div class="table-responsive-vertical p-3">
 
           <div class="row">
-            <div class="d-flex justify-content-center mb-5">
+            <div class="d-flex justify-content-center">
               <h2>
                 Lista Pistas
               </h2>

@@ -10,11 +10,6 @@
                 Lista Alquileres
               </h2>
             </div>
-            <div class="d-flex justify-content-end">
-              <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
-                Nuevo Alquiler
-              </button>
-            </div>
           </div>
           <DataTable :value="rent" stripedRows :paginator="true" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem" :filters="filters"
@@ -145,95 +140,6 @@
 </div>
 
 
-<!-- Modal Nueva Rent -->
-<div class="modal fade" id="dardealta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Alquiler</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-    <div class="container">
-        <Toast />
-        <div class="row justify-content-center m-3">
-            <form @submit.prevent="crearAlquiler">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="cliente" v-model="clienteSeleccionado" @change="actualizarNombre" class="form-select">
-                                <option value="" disabled selected>Selecciona un cliente</option>
-                                <option v-for="cliente in clientes" :key="cliente.id" :value="cliente.id">
-                                    {{ cliente.email }}
-                                </option>
-                            </select>
-                            <label for="cliente">Email</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Nombre" required />
-                            <label for="nombre">Nombre</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="sport" v-model="DeporteSeleccionado" @change="actualizarPistas" class="form-select">
-                                <option value="" disabled selected>Selecciona un deporte</option>
-                                <option v-for="sport in sports" :key="sport.id" :value="sport.id">
-                                    {{ sport.sport }}
-                                </option>
-                            </select>
-                            <label for="floatingInput">Deporte</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
-                            <label for="fechaInicio">Elije el día de juego</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="pista" v-model="pistaSeleccionada" @change="actualizarHorasDisponibles" class="form-select">
-                                <option value="" disabled selected>Selecciona una pista</option>
-                                <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
-                                    {{ pista.name }}
-                                </option>
-                            </select>
-                            <label for="floatingInput">Pista</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="time" v-model="timeSeleccionado" class="form-select">
-                                <option value="" disabled selected>Selecciona una hora</option>
-                                <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
-                                    {{ time.date_time }}
-                                </option>
-                            </select>
-                            <label for="floatingInput">Hora</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                        <button type="submit" class="btn btn-primary btn-block w-100">Crear alquiler</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-    </div>
-  </div>
-</div>
-
   </div>
 </template>
 
@@ -349,47 +255,12 @@ const eliminarAlquiler = async () => {
   }
 };
 
-const cerrarModalEditar = async () => {
-  const editarRentModal = document.getElementById("editarAlquiler");
-  const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
-  closeButton.click();
-};
-
 const cerrarModalBorrar = async () => {
   const borrarRentModal = document.getElementById("eliminar");
   const closeButton = borrarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
-const crearAlquiler = async () => {
-  try {
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    await api.post('/rentfees', {
-      importe: 12,
-      date_pay: currentDate,
-      date_day: date_day.value,
-      date_time: timeSeleccionado.value,
-      client_id: clienteSeleccionado.value,
-      court_id: pistaSeleccionada.value,
-    });
-
-    cerrarModalCrear();
-    showSuccess('Se ha creado el Alquiler correctamente');
-    date_day.value = '';
-    date_time.value = '';
-    clienteSeleccionado.value = '';
-    nombre.value = '';
-    DeporteSeleccionado.value = '';
-    timeSeleccionado.value = '';
-    pistaSeleccionada.value = '';
-
-    obtenerRents();
-  } catch (error) {
-    showError('Error al crear el alquiler.');
-    console.error(error);
-  }
-};
 
 const obtenerClientes = async () => {
   try {
@@ -427,31 +298,6 @@ const obtenerDeportes = async () => {
   }
 };
 
-const actualizarNombre = () => {
-  const cliente = clientes.value.find(cli => cli.id === clienteSeleccionado.value);
-  nombre.value = cliente ? cliente.name : '';
-};
-
-const actualizarPistas = () => {
-    // Filtrar pistas disponibles para el deporte seleccionado
-    filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
-};
-const actualizarHorasDisponibles = () => {
-    // Filtrar horas disponibles para la pista y el día seleccionado
-    filteredTimes.value = times.value.filter(time => {
-        // Verificar si la hora está disponible para la pista seleccionada y el día seleccionado
-        const horaDisponible = !rent.value.some(rent => {
-            return rent.date_day === date_day.value && rent.date_time === time.date_time && rent.court_id === pistaSeleccionada.value;
-        });
-        return horaDisponible;
-    });
-};
-
-const cerrarModalCrear = async () => {
-  const crearAlquilerModal = document.getElementById('dardealta');
-  const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]');
-  closeButton.click();
-};
 
 onMounted(() => {
   obtenerClientes();
