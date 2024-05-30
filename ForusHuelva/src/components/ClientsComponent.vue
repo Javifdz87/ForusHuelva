@@ -330,7 +330,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_name" placeholder="Nombre" v-model="selectedClient.name" />
                   <label for="name">Nombre</label>
-                  <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
 
                 </div>
               </div>
@@ -338,7 +337,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" />
                   <label for="last_name">Apellidos</label>
-                  <div v-if="errors.last_Name" class="text-danger">{{ errors.last_Name }}</div>
 
                 </div>
               </div>
@@ -348,7 +346,6 @@
                 <div class="form-floating mb-3">
                   <input type="email" class="form-control" id="editar_email" placeholder="Email" v-model="selectedClient.email" />
                   <label for="email">Email</label>
-                  <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
 
                 </div>
               </div>
@@ -356,7 +353,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_dni" placeholder="DNI" v-model="selectedClient.dni" maxlength="9" />
                   <label for="dni">DNI</label>
-                  <div v-if="errors.dni" class="text-danger">{{ errors.dni }}</div>
 
                 </div>
               </div>
@@ -364,7 +360,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_phone" placeholder="Teléfono" v-model="selectedClient.phone" maxlength="9" />
                   <label for="phone">Teléfono</label>
-                  <div v-if="errors.phone" class="text-danger">{{ errors.phone }}</div>
 
                 </div>
               </div>
@@ -374,7 +369,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_town" placeholder="Localidad" v-model="selectedClient.town" />
                   <label for="town">Localidad</label>
-                  <div v-if="errors.town" class="text-danger">{{ errors.town }}</div>
 
                 </div>
               </div>
@@ -382,7 +376,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" maxlength="5" />
                   <label for="postal_code">Código Postal</label>
-                  <div v-if="errors.postal_code" class="text-danger">{{ errors.postal_code }}</div>
 
                 </div>
               </div>
@@ -397,7 +390,6 @@
                     </option>
                   </select>
                   <label for="province">Provincias</label>
-                  <div v-if="errors.province" class="text-danger">{{ errors.province }}</div>
 
                 </div>
               </div>
@@ -405,7 +397,6 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="editar_address" placeholder="Dirección" v-model="selectedClient.address" />
                   <label for="address">Dirección</label>
-                  <div v-if="errors.address" class="text-danger">{{ errors.address }}</div>
 
                 </div>
               </div>
@@ -552,10 +543,7 @@ const eliminarCliente = async () => {
 }
 
 const editarCliente = async () => {
-  if (!validarFormulario()) {
-    showError('Por favor, corrige los errores del formulario.')
-    return
-  }
+
   try {
     if (!selectedClient.value) {
       console.error('No hay cliente seleccionado para editar.');

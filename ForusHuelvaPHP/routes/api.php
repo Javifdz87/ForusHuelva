@@ -3,11 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CourtsController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentFeesController;
+use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\SportsController;
 use App\Http\Controllers\SubFeesController;
 use App\Http\Controllers\TimeController;
@@ -45,6 +48,12 @@ Route::apiResource('/subfees', SubFeesController::class);
 Route::apiResource('/times', TimeController::class);
 
 Route::apiResource('/sports', SportsController::class);
+
+Route::apiResource('/bankAccount', BankAccountController::class);
+
+Route::apiResource('/resource', PasswordController::class);
+
+
 
 
 

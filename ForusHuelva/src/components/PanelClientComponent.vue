@@ -553,7 +553,7 @@ const showSuccess = (message) => {
 
     console.log('Datos a enviar:', data);
 
-    const response = await api.put(`/clientes/${ localEmail.value }`, data);
+    const response = await api.put(`/resource/${ localEmail.value }`, data);
 
     if (response.status === 200) {
       console.log('Contraseña actualizada correctamente.');
@@ -581,7 +581,7 @@ const editarBankAccount = async () => {
       password: password.value
     };
 
-    const response = await api.put(`/clientes/${localEmail.value}`, data);  // Elimina '/bank-account' si no es necesario
+    const response = await api.put(`/bankAccount/${localEmail.value}`, data);  // Elimina '/bank-account' si no es necesario
 
     if (response.status === 200) {
       showSuccess('Cuenta bancaria actualizada correctamente.');
