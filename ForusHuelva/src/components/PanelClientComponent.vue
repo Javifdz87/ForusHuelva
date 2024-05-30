@@ -453,6 +453,9 @@
   
   const isActive = ref(false);
   
+  
+  const clienteId = clientes.id;
+  console.log('Id del cliente:', clientes);
 
   const localEmail = ref(props.email);
   
@@ -463,13 +466,13 @@
   
   const toast = useToast();
   
-  const showError = (message) => {
-    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
-};
-
-const showSuccess = (message) => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
-};
+  const showError = () => {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'Algo no ha salido como se esperaba', life: 3000 });
+  };
+  
+  const showSuccess = () => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: 'Todo está en orden', life: 3000 });
+  };
   
   const obtenerPistas = async () => {
     try {
@@ -504,8 +507,6 @@ const showSuccess = (message) => {
       throw new Error('Las contraseñas no coinciden');
     }
 
-    const clienteId = clientes.id; // Obtener el id del cliente
-    console.log('Id del cliente:', clienteId);
 
 
     const data = {
@@ -514,7 +515,7 @@ const showSuccess = (message) => {
 
     console.log('Datos a enviar:', data);
 
-    const response = await api.put(`/clientes/${ clienteId }`, data);
+    const response = await api.put(`/clientes/${ localEmail.value }`, data);
 
     if (response.status === 200) {
       console.log('Contraseña actualizada correctamente.');
@@ -522,8 +523,8 @@ const showSuccess = (message) => {
       // Limpiar los campos del formulario
       password.value = '';
       new_password.value = '';
-      cerrarModalPassword();
-      showSuccess('Contraseña actualizada correctamente.'); // Mostrar mensaje de éxito
+
+      showSuccess(); // Mostrar mensaje de éxito
     } else {
       console.error('Error al editar la contraseña.');
       showError('Error al editar la contraseña.'); // Mostrar mensaje de error
