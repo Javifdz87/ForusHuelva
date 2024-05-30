@@ -8,12 +8,14 @@
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="email_rent" v-model="localEmail" placeholder="email" readonly />
                             <label for="cliente">Email</label>
+                            <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="nombre_rent" v-model="localName" placeholder="Nombre" readonly />
                             <label for="nombre">Nombre</label>
+                            <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
                         </div>
                     </div>
                 </div>
@@ -27,12 +29,14 @@
                                 </option>
                             </select>
                             <label for="floatingInput">Deporte</label>
+                            <div v-if="errors.DeporteSeleccionado" class="text-danger">{{ errors.DeporteSeleccionado }}</div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" required />
+                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" />
                             <label for="fechaInicio">Elije el día de juego</label>
+                            <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
                         </div>
                     </div>
                 </div>
@@ -46,6 +50,7 @@
                                 </option>
                             </select>
                             <label for="floatingInput">Pista</label>
+                            <div v-if="errors.pistaSeleccionada" class="text-danger">{{ errors.pistaSeleccionada }}</div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -57,6 +62,7 @@
                                 </option>
                             </select>
                             <label for="floatingInput">Hora</label>
+                            <div v-if="errors.timeSeleccionado" class="text-danger">{{ errors.timeSeleccionado }}</div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -74,7 +80,8 @@
             </form>
         </div>
     </div>
-  </template>
+</template>
+
   
   
   <script setup>
@@ -206,10 +213,6 @@
       }
   };
   
-  const actualizarNombre = () => {
-      const cliente = clientes.value.find(cli => cli.id === clienteSeleccionado.value);
-      localName.value = cliente ? cliente.name : '';
-  };
   
   const actualizarPistas = () => {
       filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
@@ -231,7 +234,12 @@
   };
 
   const errors = ref({
-   
+        email: '',
+        name: '',
+        DeporteSeleccionado: '',
+        date_day: '',
+        pistaSeleccionada: '',
+        timeSeleccionado: ''
 });
 
 const validarFormulario = () => {
@@ -239,8 +247,10 @@ const validarFormulario = () => {
     errors.value = {
         email: '',
         name: '',
-        observation: '',
-        importe: ''
+        DeporteSeleccionado: '',
+        date_day: '',
+        pistaSeleccionada: '',
+        timeSeleccionado: ''
     };
 
     if (!localEmail.value) {
@@ -251,17 +261,26 @@ const validarFormulario = () => {
         errors.value.name = 'El campo Nombre no puede estar vacío.';
         valid = false;
     }
-    if (!observation.value) {
-        errors.value.observation = 'El campo Estado no puede estar vacío.';
+    if (!DeporteSeleccionado.value) {
+        errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
         valid = false;
     }
-    if (!importe.value) {
-        errors.value.importe = 'El campo Importe no puede estar vacío.';
+    if (!date_day.value) {
+        errors.value.date_day = 'Debes seleccionar una fecha.';
+        valid = false;
+    }
+    if (!pistaSeleccionada.value) {
+        errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
+        valid = false;
+    }
+    if (!timeSeleccionado.value) {
+        errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
         valid = false;
     }
 
     return valid;
 };
+
   
   onMounted(() => {
       obtenerClientes();

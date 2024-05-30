@@ -53,7 +53,7 @@
 
 
 <script setup>
-import { ref, defineProps, watch, onMounted } from 'vue';
+import { ref, defineProps, watch } from 'vue';
 import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
 import api from '@/services/service';
@@ -127,17 +127,6 @@ const showSuccess = (message) => {
     toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
-const verificarSuscripcionActiva = async (client_id) => {
-    try {
-        const response = await api.get(`/subfees?status=activo`);
-        const suscripcionesActivasCliente = response.data.filter(sub => sub.client_id === client_id);
-        return suscripcionesActivasCliente.length > 0;
-    } catch (error) {
-        console.error('Error al verificar suscripción activa:', error);
-        return false;
-    }
-};
-
 const validarFormulario = () => {
     let valid = true;
     errors.value = {
@@ -177,9 +166,13 @@ const crearSub = async () => {
         const currentDate = new Date().toISOString().split('T')[0];
         const status = "activa";
 
-        const tieneSuscripcionActiva = await verificarSuscripcionActiva(localId.value);
-        if (tieneSuscripcionActiva) {
+        const suscripcionActiva = await verificarSuscripcionActiva(localId.value);
+
+        if (suscripcionActiva && suscripcionActiva.status === 'activa') {
             showError('El cliente ya tiene una suscripción activa.');
+            return;
+        } else if (suscripcionActiva && suscripcionActiva.status === 'cancelada' && suscripcionActiva.date_end >= currentDate) {
+            showError('El cliente tiene una suscripción cancelada que aún no ha expirado.');
             return;
         }
 
@@ -207,12 +200,23 @@ const crearSub = async () => {
     }
 };
 
+
+const verificarSuscripcionActiva = async (client_id) => {
+    try {
+        const response = await api.get(`/subfees?client_id=${client_id}&status=activo,cancelada`);
+        return response.data.find(sub => sub.client_id === client_id && sub.status === 'activo' || (sub.status === 'cancelada' && sub.date_end >= new Date().toISOString().split('T')[0]));
+    } catch (error) {
+        console.error('Error al verificar suscripción activa:', error);
+        return {};
+    }
+};
+
 const cerrarModalCrear = () => {
     const crearSubModal = document.getElementById('modalSub');
     const closeButton = crearSubModal.querySelector('[data-bs-dismiss="modal"]');
     closeButton.click();
 };
-
-
 </script>
+
+
 

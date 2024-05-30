@@ -33,10 +33,7 @@
                   @click="selectSub(slotProps.data)">
                   O
                 </Button>
-                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editarSub"
-                  @click="selectSub(slotProps.data)">
-                  M
-                </Button>
+                
               </template>
             </Column>
             <template #header>

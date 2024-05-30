@@ -10,6 +10,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
+
             <li class="nav-item">
               <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
@@ -262,7 +263,7 @@
 
     <!-- Modal Perfil -->
     <div class="modal fade" id="modalAccount" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalSub">Ver Perfil</h5>
@@ -355,6 +356,48 @@
                 </div>
               </div>
             </div>
+            
+        <div class="row"> 
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="importe" placeholder="name@example.com"
+                 readonly />
+              <label for="floatingInput">Importe</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="name" placeholder="name@example.com"
+                 readonly />
+              <label for="floatingInput">Fecha expiración</label>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="importe" placeholder="name@example.com"
+                 readonly />
+              <label for="floatingInput">Estado</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="date_pay" placeholder="name@example.com"
+                 readonly />
+              <label for="floatingInput">Pagado</label>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="observation" placeholder="name@example.com"
+                 readonly />
+              <label for="floatingInput">Observación</label>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -572,11 +615,21 @@ const editarBankAccount = async () => {
   const obtenerSub = async (clienteId) => {
   try {
     const respuesta = await api.get(`/subfees/${clienteId}`);
-    subs.value = respuesta.data;
-    isActive.value = subs.value.status === 'activa';
+    console.log('Datos de suscripción:', respuesta.data);
+    const sub = respuesta.data;
+    const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= getCurrentDate());
+    isActive.value = isActiveSubscription;
   } catch (error) {
     console.log(error);
   }
+};
+
+
+
+
+const getCurrentDate = () => {
+  const currentDate = new Date().toISOString().split('T')[0];
+  return currentDate;
 };
 
 const cerrarModalPassword = async () => {
