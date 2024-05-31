@@ -166,12 +166,12 @@ const crearSub = async () => {
         const currentDate = new Date().toISOString().split('T')[0];
         const status = "activa";
 
-        const suscripcionActiva = await verificarSuscripcionActiva(localId.value);
+        const suscripcionExistente = await verificarSuscripcionExistente(localId.value);
 
-        if (suscripcionActiva && suscripcionActiva.status === 'activa') {
+        if (suscripcionExistente && suscripcionExistente.status === 'activa') {
             showError('El cliente ya tiene una suscripción activa.');
             return;
-        } else if (suscripcionActiva && suscripcionActiva.status === 'cancelada' && suscripcionActiva.date_end >= currentDate) {
+        } else if (suscripcionExistente && suscripcionExistente.status === 'cancelada' && suscripcionExistente.date_end >= currentDate) {
             showError('El cliente tiene una suscripción cancelada que aún no ha expirado.');
             return;
         }
@@ -185,29 +185,33 @@ const crearSub = async () => {
             status: status
         };
 
-        console.log('Data to be inserted:', subscriptionData);
-
-        await api.post('/subfees', subscriptionData);
+        if (suscripcionExistente && suscripcionExistente.status === 'cancelada' && suscripcionExistente.date_end < currentDate) {
+            // Si la suscripción existente está cancelada y ha expirado, actualiza la suscripción existente
+            await api.put(`/subfees/${suscripcionExistente.id}`, subscriptionData);
+            showSuccess('Suscripción actualizada exitosamente.');
+        } else {
+            // Si no existe ninguna suscripción activa, crea una nueva
+            await api.post('/subfees', subscriptionData);
+            showSuccess('Suscripción creada exitosamente.');
+        }
 
         cerrarModalCrear();
-        showSuccess('Suscripción creada exitosamente.');
         importe.value = '';
         observation.value = '';
         date_end.value = '';
     } catch (error) {
-        showError('Error al crear la suscripción.');
-        console.error('Error al crear la suscripción:', error);
+        showError('Error al crear o actualizar la suscripción.');
+        console.error('Error al crear o actualizar la suscripción:', error);
     }
 };
 
-
-const verificarSuscripcionActiva = async (client_id) => {
+const verificarSuscripcionExistente = async (client_id) => {
     try {
-        const response = await api.get(`/subfees?client_id=${client_id}&status=activo,cancelada`);
-        return response.data.find(sub => sub.client_id === client_id && sub.status === 'activo' || (sub.status === 'cancelada' && sub.date_end >= new Date().toISOString().split('T')[0]));
+        const response = await api.get(`/subfees?client_id=${client_id}`);
+        return response.data.find(sub => sub.client_id === client_id);
     } catch (error) {
-        console.error('Error al verificar suscripción activa:', error);
-        return {};
+        console.error('Error al verificar suscripción existente:', error);
+        return null;
     }
 };
 
@@ -217,6 +221,3 @@ const cerrarModalCrear = () => {
     closeButton.click();
 };
 </script>
-
-
-

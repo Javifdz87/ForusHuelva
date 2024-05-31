@@ -191,6 +191,24 @@
     </footer>
 
         <!-- Modales -->
+
+            <!-- Modal cancelar -->
+    <div class="modal fade" id="cancelar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-danger">
+            <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres cancelar la suscripción?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Si cancelas ahora la suscripción tendras acceso hasta el: <br> {{ subs.date_end }}.</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" @click="cancelarSub">Si</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Modal Rent -->
         <div class="modal fade" id="modalRent" tabindex="-1" aria-labelledby="modalRent" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -272,49 +290,48 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="dni_account" placeholder="name@example.com"
                     v-model="clientes.dni" readonly/>
                   <label for="floatingInput">DNI</label>
                 </div>
               </div>
-              
-            </div>
-
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="name_account" placeholder="name@example.com"
                     v-model="clientes.name" readonly/>
                   <label for="floatingInput">Nombre</label>
                 </div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="last_Name_account" placeholder="name@example.com"
                     v-model="clientes.last_Name" readonly/>
                   <label for="floatingInput">Apellido</label>
                 </div>
-              </div>
+              </div>           
             </div>
+
 
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input type="text" class="form-control" id="email_account" placeholder="name@example.com"
                     v-model="clientes.email" readonly/>
                   <label for="floatingInput">Email</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input type="text" class="form-control" id="phone_account" placeholder="name@example.com"
                     v-model="clientes.phone" readonly/>
                   <label for="floatingInput">Telefóno</label>
                 </div>
               </div>
             </div>
+
+            <hr>
 
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -342,66 +359,69 @@
 
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input type="text" class="form-control" id="address_account" placeholder="name@example.com"
                     v-model="clientes.address" readonly/>
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input type="text" class="form-control" id="bank_account_account" placeholder="name@example.com"
                     v-model="clientes.bank_account" readonly/>
                   <label for="floatingInput">Cuenta Bancaria</label>
                 </div>
               </div>
             </div>
+
+            <hr>
             
         <div class="row"> 
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="importe" placeholder="name@example.com"
+              <input type="text" class="form-control" id="importe" placeholder="name@example.com" v-model="subs.importe"
                  readonly />
               <label for="floatingInput">Importe</label>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="name" placeholder="name@example.com"
-                 readonly />
-              <label for="floatingInput">Fecha expiración</label>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="importe" placeholder="name@example.com"
-                 readonly />
-              <label for="floatingInput">Estado</label>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="date_pay" placeholder="name@example.com"
-                 readonly />
-              <label for="floatingInput">Pagado</label>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="observation" placeholder="name@example.com"
+              <input type="text" class="form-control" id="observation" placeholder="name@example.com" v-model="subs.observation"
                  readonly />
               <label for="floatingInput">Observación</label>
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="date_pay" placeholder="name@example.com" v-model="subs.date_pay"
+                 readonly />
+              <label for="floatingInput">Pagado</label>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="name" placeholder="name@example.com" v-model="subs.date_end"
+                 readonly />
+              <label for="floatingInput">Fecha expiración</label>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="form-floating mb-1">
+              <input type="text" class="form-control" id="importe" placeholder="name@example.com" v-model="subs.status"
+                 readonly />
+              <label for="floatingInput">Estado</label>
+            </div>
+          </div>
+
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <div class="row">
+          <router-link to="#" class="d-block mt-3 text-center"  data-bs-toggle="modal" data-bs-target="#modalSub" >Modificar suscripción</router-link>
+          <router-link to="#" class="d-block mt-3 text-center text-danger" data-bs-toggle="modal" data-bs-target="#cancelar">Cancelar suscripción</router-link>
+        </div>
+        </div>
       </div>
     </div>
   </div>
@@ -466,18 +486,10 @@
   import NewRentComponent from '@/components/NewRentComponent.vue';
   
   const new_password = ref('');
-  const name = ref('');
-  const email = ref('');
+
   const password = ref('');
-  const bank_account = ref('');
   const new_bank_account = ref(''); 
-  const dni = ref('');
-  const last_Name = ref('');
-  const phone = ref('');
-  const town = ref('');
-  const postal_code = ref('');
-  const province = ref('');
-  const address = ref('');
+ 
   
   const pistas = ref([]);
   const times = ref([]);
@@ -494,7 +506,6 @@
   const isActive = ref(false);
   
   
-  const clienteId = clientes.id;
   console.log('Id del cliente:', clientes);
 
   const localEmail = ref(props.email);
@@ -540,7 +551,32 @@ const showSuccess = (message) => {
       console.log(error);
     }
   };
-  
+
+  const cancelarSub = async () => {
+  try {
+    const data = {
+      status: 'cancelada'
+    };
+
+    console.log('Datos a enviar:', data);
+
+    const response = await api.put(`/subfees/${clientes.value.id}`, data);
+
+    if (response.status === 200) {
+      console.log('Suscripción cancelada correctamente.');
+      showSuccess('Suscripción cancelada correctamente.');
+      obtenerSub(clientes.value.id); // Refrescar datos de suscripción
+    } else {
+      console.error('Error al editar el status.');
+      showError('Error al editar el status.');
+    }
+  } catch (error) {
+    console.error('Error al editar el status:', error.message);
+    showError('Error al editar el status.');
+  }
+};
+
+
   const editPassword = async () => {
   try {
     if (password.value !== new_password.value) {
@@ -562,6 +598,7 @@ const showSuccess = (message) => {
       password.value = '';
       new_password.value = '';
       cerrarModalPassword();
+      obtenerCliente(localEmail.value);
       showSuccess('Contraseña actualizada correctamente.'); // Mostrar mensaje de éxito
     } else {
       console.error('Error al editar la contraseña.');
@@ -569,7 +606,7 @@ const showSuccess = (message) => {
     }
   } catch (error) {
     console.error('Error al editar la contraseña:', error.message);
-    showError('Error al editar la contraseña.'); // Mostrar mensaje de error
+    showError('No coinciden las contraseñas'); // Mostrar mensaje de error
   }
 };
 
@@ -588,6 +625,8 @@ const editarBankAccount = async () => {
       new_bank_account.value = '';
       password.value = '';
       cerrarModalBank();
+      obtenerSub(clientes.value.id); // Refrescar datos de suscripción
+      obtenerCliente(localEmail.value);
     } else {
       showError('Error al actualizar la cuenta bancaria.');
     }
@@ -598,7 +637,6 @@ const editarBankAccount = async () => {
 };
 
 
-  
   const obtenerCliente = async (email) => {
     try {
       const respuesta = await api.get(`/clientes/${email}`);
@@ -616,6 +654,7 @@ const editarBankAccount = async () => {
   try {
     const respuesta = await api.get(`/subfees/${clienteId}`);
     console.log('Datos de suscripción:', respuesta.data);
+    subs.value = respuesta.data;
     const sub = respuesta.data;
     const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= getCurrentDate());
     isActive.value = isActiveSubscription;
