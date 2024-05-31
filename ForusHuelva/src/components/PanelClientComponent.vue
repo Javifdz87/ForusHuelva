@@ -46,10 +46,11 @@
   
     </nav>
   
-    <div class="container py-5 mt-5" id="nosotros">
+    <div class="container py-5 mt-5 " id="nosotros">
       <Toast />
 
-      <div class="row">
+      <div class="bg-white p-3 rounded-4" id="box">
+        <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
           <h1 class="display-1">Bienvenido: {{ clientes.name }}</h1>
         </div>
@@ -97,10 +98,12 @@
     <h2 class="display-5">¡Ya eres socio!</h2>
     <p class="lead">Gracias por ser parte de nuestra comunidad.</p>
   </div>
+      </div>
+
   
   
       <div class="row py-5" id="gimnasio">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4" >
           <h2 class="display-5">Más actividades dentro del recinto con nuestra suscripción.</h2>
           <ul class="list-group">
             <li class="list-group-item">Boxeo</li>
@@ -116,7 +119,7 @@
       </div>
   
       <div class="row py-5" id="pistas">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
           <h4 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h4>
           <p class="lead">Si eres socio se le aplicará un descuento.</p>
 
@@ -159,7 +162,7 @@
       </div>
 
       <div class="row py-5" id="gimnasio">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
           <h2 class="display-5">Donde nos encontramos.</h2>
           <div class="d-flex justify-content-center mt-3">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6350.340466500009!2d-6.929387224559852!3d37.26739014122577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11cffddb41cb6d%3A0xc873cb6b6671193d!2sForus%20Huelva%20(C.D.%20El%20Saladillo)!5e0!3m2!1ses!2ses!4v1716971215139!5m2!1ses!2ses" width="800" height="450" style="border:1;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -190,9 +193,9 @@
       </div>
     </footer>
 
-        <!-- Modales -->
+<!-- Modales -->
 
-            <!-- Modal cancelar -->
+    <!-- Modal cancelar -->
     <div class="modal fade" id="cancelar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
