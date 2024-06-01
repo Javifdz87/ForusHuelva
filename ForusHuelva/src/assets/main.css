@@ -15,3 +15,7 @@ body{
     background-color: rgb(144, 214, 255);
 
 }
+
+#carouselExampleFade{
+    transition: transform 1s ease, opacity .3s ease-out
+}

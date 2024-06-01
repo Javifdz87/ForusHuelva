@@ -37,7 +37,7 @@
 
   <div class="container py-5 mt-5" id="nosotros">
     <Toast />
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h1 class="display-1">Forus Huelva</h1>
         <h2 class="display-4">¿Quiénes somos?</h2>
@@ -46,11 +46,11 @@
           de entrenamiento, donde primero tendras que iniciar sesión para empezar a usar nuestra aplicación, tenemos una forma muy facil de crear un nuevo usuario.</p>
       </div>
     </div>
-    <div class="row py-5">
+    <div class="row mt-5">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
         <hr>
       </div>
-      <div class="row justify-content-center mt-4">
+      <div class="row justify-content-center mt-5">
                 <div class="col-md-6 bg-white p-3 rounded-4">
                   <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
                   <form @submit.prevent="login">
@@ -82,9 +82,9 @@
                 </div>
               </div>
     </div>
-    <hr>
+    <hr class="mt-5">
 
-    <div class="row py-5" id="pistas">
+    <div class="row mt-5" id="pistas">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4" >
         <h2 class="display-4">Contamos con alquiler de equipamiento deportivo</h2>
         <div class="row">
@@ -125,10 +125,12 @@
       </div>
     </div>
 
-    <div class="row py-5" id="gimnasio">
+    <div class="row mt-5" id="gimnasio">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h2 class="display-4">Más actividades dentro del recinto</h2>
-        <ul class="list-group">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <ul class="list-group">
           <li class="list-group-item">Boxeo</li>
           <li class="list-group-item">Natación</li>
           <li class="list-group-item">Sala de entrenamiento</li>
@@ -138,12 +140,41 @@
           <li class="list-group-item">Pilates</li>
           <li class="list-group-item">Body Pump</li>
         </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="d-block w-100" alt="...">
+    </div>
+              </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+        </div>
+        </div>
+        
+        
+        
       </div>
+
 
     </div>
 
 
-    <div class="row py-5" id="planes">
+    <div class="row mt-5" id="planes">
       <div class="bg-white p-3 rounded-4">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h2 class="display-4">Nuestros planes de subscripción</h2>
@@ -186,7 +217,7 @@
 
     </div>
 
-    <div class="row py-5" id="gimnasio">
+    <div class="row mt-5" id="gimnasio">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
           <h2 class="display-5">Donde nos encontramos.</h2>
           <div class="d-flex justify-content-center mt-3">

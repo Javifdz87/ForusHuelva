@@ -12,6 +12,10 @@
           <ul class="navbar-nav ms-auto">
 
             <li class="nav-item">
+              <a class="nav-link" href="#">Codigo QR</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
             <li class="nav-item">
@@ -56,7 +60,7 @@
         </div>
       </div>
 
-      <div class="row py-5" id="planes" v-if="!isActive">
+      <div class="row mt-5" id="planes" v-if="!isActive">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <h2 class="display-5">Nuestros planes de suscripción</h2>
       <p class="lead">Si aún no tienes un plan de suscripción es tan fácil como pulsar un botón.</p>
@@ -102,23 +106,55 @@
 
   
   
-      <div class="row py-5" id="gimnasio">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4" >
-          <h2 class="display-5">Más actividades dentro del recinto con nuestra suscripción.</h2>
+      <div class="row mt-5" id="gimnasio">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
+        <h2 class="display-4">Más actividades dentro del recinto</h2>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <ul class="list-group">
-            <li class="list-group-item">Boxeo</li>
-            <li class="list-group-item">Natación</li>
-            <li class="list-group-item">Sala de entrenamiento</li>
-            <li class="list-group-item">Aquafitness</li>
-            <li class="list-group-item">Yoga</li>
-            <li class="list-group-item">Ciclo Indoor</li>
-            <li class="list-group-item">Pilates</li>
-            <li class="list-group-item">Body Pump</li>
-          </ul>
+          <li class="list-group-item">Boxeo</li>
+          <li class="list-group-item">Natación</li>
+          <li class="list-group-item">Sala de entrenamiento</li>
+          <li class="list-group-item">Aquafitness</li>
+          <li class="list-group-item">Yoga</li>
+          <li class="list-group-item">Ciclo Indoor</li>
+          <li class="list-group-item">Pilates</li>
+          <li class="list-group-item">Body Pump</li>
+        </ul>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="d-block w-100" alt="...">
+    </div>
+              </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+        </div>
+        </div>
+        
+        
+        
       </div>
+
+
+    </div>
   
-      <div class="row py-5" id="pistas">
+      <div class="row mt-5" id="pistas">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
           <h4 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h4>
           <p class="lead">Si eres socio se le aplicará un descuento.</p>
@@ -161,7 +197,7 @@
         </div>
       </div>
 
-      <div class="row py-5" id="gimnasio">
+      <div class="row mt-5" id="gimnasio">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
           <h2 class="display-5">Donde nos encontramos.</h2>
           <div class="d-flex justify-content-center mt-3">
