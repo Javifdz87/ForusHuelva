@@ -131,17 +131,22 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <img
+                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/boxeo.jpg"
+                    class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/ciclo.jpg"
+                    class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                  <img
                     src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg"
                     class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
                   <img
                     src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg"
-                    class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img
-                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg"
                     class="d-block w-100" alt="...">
                 </div>
               </div>
@@ -550,10 +555,11 @@
         </div>
         <div class="modal-body">
           <div class="container d-flex justify-content-center align-items-center p-5">
-            <div class="">
-
+            <div class="" v-if="!isActive">
+              Necesitas una suscripción.
             </div>
-            <img :src="qrCodeUrl" alt="Código QR" v-if="qrCodeUrl">
+            <div v-else>
+              <img :src="qrCodeUrl" alt="Código QR" v-if="qrCodeUrl"></div>
           </div>
         </div>
       </div>
