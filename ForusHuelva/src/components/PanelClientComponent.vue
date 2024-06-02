@@ -549,7 +549,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="container">
+          <div class="container d-flex justify-content-center align-items-center p-5">
+            <div class="">
+
+            </div>
             <img :src="qrCodeUrl" alt="Código QR" v-if="qrCodeUrl">
           </div>
         </div>
@@ -744,6 +747,7 @@ const obtenerSub = async (clienteId) => {
     const sub = respuesta.data;
     const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= getCurrentDate());
     isActive.value = isActiveSubscription;
+    obtenerQRCode();
   } catch (error) {
     console.log(error);
   }
@@ -786,11 +790,6 @@ onMounted(() => {
   obtenerDeportes();
   if (localEmail.value) {
     obtenerCliente(localEmail.value);
-  }
-
-  const modal = document.getElementById('modalQR');
-  if (modal) {
-    modal.addEventListener('show.bs.modal', obtenerQRCode);
   }
 });
  
