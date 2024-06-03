@@ -48,7 +48,7 @@
     </div>
     <div class="row mt-3">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <Button @click="generarListado" class="btn btn-primary">Generar Listado</Button>
+        <Button @click="generateList" class="btn btn-primary">Generar Listado</Button>
       </div>
     </div>
 
@@ -119,7 +119,7 @@ const showError = (message) => {
 };
 
 
-const generarListado = async () => {
+const generateList = async () => {
   console.log('Rango ID:', rangoId.value);
   console.log('Estado:', estado.value);
   console.log('Tipo de Suscripción:', tipoSuscripcion.value);
@@ -166,7 +166,7 @@ const getSeverity = (status) => {
 };
 
 
-const obtenerSubs = async () => {
+const getSubs = async () => {
   try {
     const respuesta = await api.get('/subfees');
     filteredSuscripciones.value = respuesta.data;
@@ -176,6 +176,6 @@ const obtenerSubs = async () => {
 };
 
 onMounted(() => {
-  obtenerSubs();
+  getSubs();
 });
 </script>

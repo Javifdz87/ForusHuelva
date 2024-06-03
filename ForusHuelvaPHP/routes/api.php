@@ -39,7 +39,7 @@ Route::apiResource('/provinces', ProvinceController::class);
 
 Route::apiResource('/register', RegisterController::class);
 
-Route::apiResource('/clientes', ClientsController::class);
+Route::apiResource('/clients', ClientsController::class);
 
 Route::apiResource('/courts', CourtsController::class);
 
@@ -58,9 +58,3 @@ Route::apiResource('/resource', PasswordController::class);
 //generar qr
 
 Route::get('/generate-qr', [QRCodeController::class, 'generate']);
-
-
-
-
-
-

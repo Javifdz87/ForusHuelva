@@ -51,7 +51,10 @@ CREATE TABLE rental_fees(
     date_time VARCHAR(10) NOT NULL,
     client_id INT NOT NULL,
     court_id INT NOT NULL,
+    sport_id INT NOT NULL,
+
     FOREIGN KEY(client_id) REFERENCES clients(id) ON DELETE CASCADE,
+    FOREIGN KEY(sport_id) REFERENCES sports(id) ON DELETE CASCADE,
     FOREIGN KEY(court_id) REFERENCES courts(id) ON DELETE CASCADE
 );
 

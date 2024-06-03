@@ -272,7 +272,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-danger" @click="cancelarSub">Si</button>
+          <button type="button" class="btn btn-danger" @click="cancelSub">Si</button>
         </div>
       </div>
     </div>
@@ -607,7 +607,7 @@ const localEmail = ref(props.email);
 
 watch(() => props.email, (newVal) => {
   localEmail.value = newVal;
-  obtenerCliente(newVal);
+  getClients(newVal);
 });
 
 const toast = useToast();
@@ -620,7 +620,7 @@ const showSuccess = (message) => {
   toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
-const obtenerPistas = async () => {
+const getCourts = async () => {
   try {
     const respuesta = await api.get('/courts');
     pistas.value = respuesta.data;
@@ -629,7 +629,7 @@ const obtenerPistas = async () => {
   }
 };
 
-const obtenerHoras = async () => {
+const getHours = async () => {
   try {
     const respuesta = await api.get('/times');
     times.value = respuesta.data;
@@ -638,7 +638,7 @@ const obtenerHoras = async () => {
   }
 };
 
-const obtenerDeportes = async () => {
+const getSports = async () => {
   try {
     const respuesta = await api.get('/sports');
     sports.value = respuesta.data;
@@ -647,7 +647,7 @@ const obtenerDeportes = async () => {
   }
 };
 
-const cancelarSub = async () => {
+const cancelSub = async () => {
   try {
     const data = {
       status: 'cancelada'
@@ -660,7 +660,7 @@ const cancelarSub = async () => {
     if (response.status === 200) {
       console.log('Suscripción cancelada correctamente.');
       showSuccess('Suscripción cancelada correctamente.');
-      obtenerSub(clientes.value.id); // Refrescar datos de suscripción
+      getSub(clientes.value.id); // Refrescar datos de suscripción
     } else {
       console.error('Error al editar el status.');
       showError('Error al editar el status.');
@@ -692,8 +692,8 @@ const editPassword = async () => {
       // Limpiar los campos del formulario
       password.value = '';
       new_password.value = '';
-      cerrarModalPassword();
-      obtenerCliente(localEmail.value);
+      closeModalPassword();
+      getClients(localEmail.value);
       showSuccess('Contraseña actualizada correctamente.'); // Mostrar mensaje de éxito
     } else {
       console.error('Error al editar la contraseña.');
@@ -719,9 +719,9 @@ const editarBankAccount = async () => {
       showSuccess('Cuenta bancaria actualizada correctamente.');
       new_bank_account.value = '';
       password.value = '';
-      cerrarModalBank();
-      obtenerSub(clientes.value.id); // Refrescar datos de suscripción
-      obtenerCliente(localEmail.value);
+      closeModalBank();
+      getSub(clientes.value.id); // Refrescar datos de suscripción
+      getClients(localEmail.value);
     } else {
       showError('Error al actualizar la cuenta bancaria.');
     }
@@ -732,20 +732,20 @@ const editarBankAccount = async () => {
 };
 
 
-const obtenerCliente = async (email) => {
+const getClients = async (email) => {
   try {
-    const respuesta = await api.get(`/clientes/${email}`);
+    const respuesta = await api.get(`/clients/${email}`);
     console.log(respuesta.data);
     clientes.value = respuesta.data;
     if (clientes.value.id) {
-      obtenerSub(clientes.value.id);
+      getSub(clientes.value.id);
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-const obtenerSub = async (clienteId) => {
+const getSub = async (clienteId) => {
   try {
     const respuesta = await api.get(`/subfees/${clienteId}`);
     console.log('Datos de suscripción:', respuesta.data);
@@ -753,7 +753,7 @@ const obtenerSub = async (clienteId) => {
     const sub = respuesta.data;
     const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= getCurrentDate());
     isActive.value = isActiveSubscription;
-    obtenerQRCode();
+    getQRCode();
   } catch (error) {
     console.log(error);
   }
@@ -767,19 +767,19 @@ const getCurrentDate = () => {
   return currentDate;
 };
 
-const cerrarModalPassword = async () => {
+const closeModalPassword = async () => {
   const editarRentModal = document.getElementById("modalPassword");
   const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
-const cerrarModalBank = async () => {
+const closeModalBank = async () => {
   const editarRentModal = document.getElementById("modalBank");
   const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
-const obtenerQRCode = async () => {
+const getQRCode = async () => {
   try {
     const response = await api.get('/generate-qr', { responseType: 'blob' });
     const url = URL.createObjectURL(response.data);
@@ -791,11 +791,11 @@ const obtenerQRCode = async () => {
 };
 
 onMounted(() => {
-  obtenerPistas();
-  obtenerHoras();
-  obtenerDeportes();
+  getCourts();
+  getHours();
+  getSports();
   if (localEmail.value) {
-    obtenerCliente(localEmail.value);
+    getClients(localEmail.value);
   }
 });
  

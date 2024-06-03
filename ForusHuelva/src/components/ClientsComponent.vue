@@ -12,7 +12,7 @@
 
           </div>
 
-          <DataTable selectionMode="single" :value="clientes" stripedRows :paginator="true" :rows="5"
+          <DataTable selectionMode="single" :value="clients" stripedRows :paginator="true" :rows="5"
             :rowsPerPageOptions="[5, 10, 20, 50]" tableStyle="min-width: 50rem" :filters="filters"
       :globalFilterFields="['name', 'last_Name', 'dni', 'phone', 'town', 'address']">
             <Column field="name" header="Nombre" sortable style="width: 14%"></Column>
@@ -32,7 +32,7 @@
                   @click="selectClient(slotProps.data)">
                   O
                 </Button>
-                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editarCliente"
+                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editClient"
                   @click="selectClient(slotProps.data)">
                   M
                 </Button>
@@ -74,7 +74,7 @@
           <div class="modal-body">Se va a eliminar toda la fila.</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" @click="eliminarCliente">Si</button>
+            <button type="button" class="btn btn-danger" @click="deleteClient">Si</button>
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@
           <Toast />
 
           <div class="row justify-content-center m-3">
-            <form @submit.prevent="registrarCliente">
+            <form @submit.prevent="createClient">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
@@ -315,7 +315,7 @@
 </div>
 
     <!-- Modal editar Cliente -->
-    <div class="modal fade" id="editarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-warning">
@@ -324,7 +324,7 @@
       </div>
       <div class="modal-body">
         <div class="row justify-content-center m-3">
-          <form @submit.prevent="editarCliente">
+          <form @submit.prevent="editClient">
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
@@ -463,7 +463,7 @@ import NewSubComponent from '@/components/NewSubComponent.vue';
 
 
 const toast = useToast()
-const clientes = ref([])
+const clients = ref([])
 const provincias = ref([])
 const filters = ref({ global: { value: '' } })
 
@@ -489,18 +489,18 @@ const showSuccess = (message) => {
     toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
-const obtenerClientes = async () => {
+const getClients = async () => {
   try {
-    const respuesta = await api.get('/clientes')
+    const respuesta = await api.get('/clients')
     console.log(respuesta.data)
-    clientes.value = respuesta.data
-    obtenerProvincias();
+    clients.value = respuesta.data
+    getProvinces();
   } catch (error) {
     console.log(error)
   }
 }
 
-const obtenerProvincias = async () => {
+const getProvinces = async () => {
   try {
     const respuesta = await api.get('/provinces')
     console.log(respuesta.data)
@@ -516,7 +516,7 @@ const selectClient = (cliente) => {
 }
 
 
-const eliminarCliente = async () => {
+const deleteClient = async () => {
   try {
     if (!selectedClient.value) {
       console.error('No hay cliente seleccionado para eliminar.')
@@ -525,11 +525,11 @@ const eliminarCliente = async () => {
 
     const idCliente = selectedClient.value.id
     console.log(idCliente)
-    const response = await api.delete(`/clientes/${idCliente}`)
+    const response = await api.delete(`/clients/${idCliente}`)
 
     if (response.status === 204) {
-      clientes.value = clientes.value.filter((cliente) => cliente.id !== idCliente)
-      cerrarModalBorrar()
+      clients.value = clients.value.filter((cliente) => cliente.id !== idCliente)
+      closeModalDelete()
       showSuccess('Se ha eliminado correctamente')
     } else {
       console.error('Error al eliminar el cliente.')
@@ -542,7 +542,7 @@ const eliminarCliente = async () => {
   }
 }
 
-const editarCliente = async () => {
+const editClient = async () => {
 
   try {
     if (!selectedClient.value) {
@@ -574,7 +574,7 @@ const editarCliente = async () => {
 
     console.log('Datos a enviar:', data);
 
-    const response = await api.put(`/clientes/${idCliente}`, data); // Enviar `data` en la solicitud `PUT`
+    const response = await api.put(`/clients/${idCliente}`, data); // Enviar `data` en la solicitud `PUT`
 
     if (response.status === 200) {
       console.log('Cliente actualizado correctamente.');
@@ -592,9 +592,9 @@ const editarCliente = async () => {
         address: ''
       };
 
-      cerrarModalEditar(); // Cerrar el modal de edición
+      closeModalEdit(); // Cerrar el modal de edición
       showSuccess('Editado Correctamente'); // Mostrar mensaje de éxito
-      obtenerClientes(); // Actualizar la lista de clientes
+      getClients(); // Actualizar la lista de clients
     } else {
       console.error('Error al editar el cliente.');
       showError('Error al editar el cliente'); // Mostrar mensaje de error
@@ -606,20 +606,20 @@ const editarCliente = async () => {
 };
 
 
-const cerrarModalEditar = async () => {
-  const editarClienteModal = document.getElementById('editarCliente')
-  const closeButton = editarClienteModal.querySelector('[data-bs-dismiss="modal"]')
+const closeModalEdit = async () => {
+  const editClientModal = document.getElementById('editClient')
+  const closeButton = editClientModal.querySelector('[data-bs-dismiss="modal"]')
   closeButton.click()
 }
 
-const cerrarModalBorrar = async () => {
+const closeModalDelete = async () => {
   const borrarClienteModal = document.getElementById('eliminar')
   const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
   closeButton.click()
 }
 
-const registrarCliente = async () => {
-  if (!validarFormulario()) {
+const createClient = async () => {
+  if (!validateForm()) {
     showError('Por favor, corrige los errores del formulario.')
     return
   }
@@ -652,7 +652,7 @@ const registrarCliente = async () => {
     console.log('Datos a enviar:', data)
 
     // Realizar la solicitud POST
-    await api.post('/clientes', data)
+    await api.post('/clients', data)
     name.value = ''
     last_Name.value = ''
     dni.value = ''
@@ -664,18 +664,18 @@ const registrarCliente = async () => {
     bank_account.value = ''
     address.value = ''
     password.value = '' 
-    cerrarModalCrear()
+    closeModalCreate()
     showSuccess('Registrado cliente correctamente')
 
-    // Actualizar la lista de clientes después de la creación
-    obtenerClientes()
+    // Actualizar la lista de clients después de la creación
+    getClients()
   } catch (error) {
     showError('Error al crear el cliente')
     console.error(error)
   }
 }
 
-const cerrarModalCrear = async () => {
+const closeModalCreate = async () => {
   const crearClienteModal = document.getElementById('dardealta')
   const closeButton = crearClienteModal.querySelector('[data-bs-dismiss="modal"]')
   closeButton.click()
@@ -695,7 +695,7 @@ const errors = ref({
   password: ''
 })
 
-const validarFormulario = () => {
+const validateForm = () => {
   let valid = true
   errors.value = {
     name: '',
@@ -767,6 +767,6 @@ const validarFormulario = () => {
   return valid
 }
 
-onMounted(obtenerClientes)
+onMounted(getClients)
 
 </script>

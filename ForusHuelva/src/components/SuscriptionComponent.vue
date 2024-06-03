@@ -64,7 +64,7 @@
           <div class="modal-body">Se va a eliminar toda la fila.</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" @click="eliminarSub">Si</button>
+            <button type="button" class="btn btn-danger" @click="deleteSub">Si</button>
           </div>
         </div>
       </div>
@@ -154,82 +154,6 @@
 </div>
 
 
-    <!-- Modal editar Suscripción -->
-    <div class="modal fade" id="editarSub" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <h5 class="modal-title" id="exampleModalLabel">Editar Sub</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <div class="row justify-content-center m-3">
-                <form @submit.prevent="editarSub">
-                  <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="email" placeholder="name@example.com"
-                    v-model="selectedSub.client.email" readonly />
-                        <label for="cliente">Email</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="name" placeholder="name@example.com"
-                v-model="selectedSub.client.name" readonly />
-                        <label for="nombre">Nombre</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <div class="form-floating mb-3">
-                        <select v-model="observation" id="subscription" class="form-control"
-                          placeholder="name@example.com" required @change="updateImporte">
-                          <option value="" disabled selected>Elige el tipo de suscripción</option>
-                          <option value="3 meses">3 meses</option>
-                          <option value="6 meses">6 meses</option>
-                          <option value="12 meses">12 meses</option>
-                        </select>
-                        <label for="floatingInput">Estado</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                      <div class="form-floating mb-3">
-                        <input type="number" class="form-control" placeholder="name@example.com" v-model="importe"
-                          id="importe" required readonly />
-                        <label for="floatingInput">Importe</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-floating mb-3">
-                        <select v-model="selectedSub.status" id="status" class="form-control"
-                          placeholder="name@example.com" required>
-                          <option value="" disabled selected>Elige el estado de suscripción</option>
-                          <option value="activa">Activa</option>
-                          <option value="cancelada">Cancelada</option>
-                        </select>
-                        <label for="floatingInput">Estado</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                      <button type="submit" class="btn btn-warning btn-block w-100">Editar Suscripción</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
   </div>
 </template>
@@ -249,41 +173,13 @@ import InputText from 'primevue/inputtext'
 const router = useRouter();
 const toast = useToast();
 const importe = ref('');
-const name = ref('');
-const nombre = ref('');
+
 const observation = ref('');
 const clientes = ref([]);
-const clienteSeleccionado = ref('');
 const date_end = ref(''); // Variable para la fecha de caducidad
 
 const filters = ref({ global: { value: '' } });
 
-const updateImporte = () => {
-  var subscription = observation.value;
-
-  switch (subscription) {
-    case "3 meses":
-      importe.value = 59.99; // Valor para 3 meses
-      calculateExpiryDate(3);
-      break;
-    case "6 meses":
-      importe.value = 105.99; // Valor para 6 meses
-      calculateExpiryDate(6);
-      break;
-    case "12 meses":
-      importe.value = 219.99; // Valor para 12 meses
-      calculateExpiryDate(12);
-      break;
-    default:
-      importe.value = ""; // Valor predeterminado si no se selecciona nada
-  }
-};
-
-const calculateExpiryDate = (months) => {
-  const currentDate = new Date();
-  currentDate.setMonth(currentDate.getMonth() + months);
-  date_end.value = currentDate.toISOString().split('T')[0];
-};
 
 const selectedSubInfo = ref({
   name: '',
@@ -310,7 +206,7 @@ const showSuccess = (message) => {
   toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
-const obtenerSubs = async () => {
+const getSubs = async () => {
   try {
     const respuesta = await api.get('/subfees');
     subs.value = respuesta.data;
@@ -335,7 +231,7 @@ const selectSub = (subs) => {
   }
 };
 
-const eliminarSub = async () => {
+const deleteSub = async () => {
   try {
     if (!selectedSub.value) {
       console.error('No hay cliente seleccionado para eliminar.');
@@ -347,7 +243,7 @@ const eliminarSub = async () => {
 
     if (response.status === 204) {
       subs.value = subs.value.filter(cliente => cliente.id !== idSub);
-      cerrarModalBorrar();
+      clseModalDelete();
       showSuccess('Suscripción eliminada correctamente.');
     } else {
       showError('Error al eliminar el cliente.');
@@ -358,46 +254,17 @@ const eliminarSub = async () => {
   }
 };
 
-const editarSub = async () => {
-  try {
-    const response = await api.put(`/subfees/${selectedSub.value.id}`, {
-      importe: importe.value,
-      date_pay: selectedSub.value.date_pay,
-      observation: observation.value, // Cambiado a selectedSub.observation
-      status: selectedSub.value.status,
-      // Puedes agregar más campos si los necesitas, como cliente_id, etc.
-    });
 
-    if (response.status === 200) {
-      showSuccess('Suscripción actualizada correctamente.');
-      cerrarModalEditar();
-      obtenerSubs();
-    } else {
-      showError('Error al editar la suscripción.');
-    }
-  } catch (error) {
-    showError('Error al editar la suscripción.');
-    console.error('Error al editar la suscripción:', error);
-  }
-};
-
-
-const cerrarModalEditar = () => {
-  const editarSubModal = document.getElementById("editarSub");
-  const closeButton = editarSubModal.querySelector('[data-bs-dismiss="modal"]');
-  closeButton.click();
-};
-
-const cerrarModalBorrar = () => {
+const clseModalDelete = () => {
   const borrarSubModal = document.getElementById("eliminar");
   const closeButton = borrarSubModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
 
-const obtenerClientes = async () => {
+const getClients = async () => {
   try {
-    const respuesta = await api.get('/clientes');
+    const respuesta = await api.get('/clients');
     clientes.value = respuesta.data;
   } catch (error) {
     console.log(error);
@@ -406,8 +273,8 @@ const obtenerClientes = async () => {
 
 
 onMounted(() => {
-  obtenerClientes();
-  obtenerSubs();
+  getClients();
+  getSubs();
 });
 </script>
 

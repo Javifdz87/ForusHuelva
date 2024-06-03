@@ -101,7 +101,7 @@ const showError = (message) => {
     toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
 
-const obtenerCourts = async () => {
+const getCourts = async () => {
   try {
     const respuesta = await api.get('/courts');
     courts.value = respuesta.data;
@@ -116,6 +116,6 @@ const selectCourt = (court) => {
 };
 
 onMounted(() => {
-  obtenerCourts();
+  getCourts();
 });
 </script>

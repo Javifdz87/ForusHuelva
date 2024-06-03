@@ -17,7 +17,7 @@
             <Column field="id" header="Id" sortable style="width: 8%"></Column>
             <Column field="client.name" header="Nombre" sortable style="width: 14%"></Column>
             <Column field="client.email" header="Email" sortable style="width: 14%"></Column>
-            <Column field="court.sport_id" header="Deporte" sortable style="width: 14%"></Column>
+            <Column field="sport.sport" header="Deporte" sortable style="width: 14%"></Column>
             <Column field="date_day" header="Fecha de Juego" sortable style="width: 18%"></Column>
             <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
             <Column header="Operaciones" style="width: 18%">
@@ -60,7 +60,7 @@
           <div class="modal-body">Se va a eliminar toda la fila.</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" @click="eliminarAlquiler">Si</button>
+            <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
           </div>
         </div>
       </div>
@@ -160,19 +160,12 @@ const importe = ref(12);
 const filters = ref({ global: { value: '' } })
 
 
-const date_day = ref('');
-const date_time = ref('');
+
 const clientes = ref([]);
 const pistas = ref([]);
 const times = ref([]);
 const sports = ref([]);
-const clienteSeleccionado = ref('');
-const DeporteSeleccionado = ref('');
-const nombre = ref('');
-const filteredPistas = ref([]);
-const filteredTimes = ref([]);
-const timeSeleccionado = ref('');
-const pistaSeleccionada = ref('');
+
 
 
 
@@ -206,7 +199,7 @@ const showSuccess = (message) => {
     toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
-const obtenerRents = async () => {
+const getRents = async () => {
   try {
     const respuesta = await api.get('/rentfees');
     rent.value = respuesta.data;
@@ -231,7 +224,7 @@ const selectRent = (rent) => {
 };
 
 
-const eliminarAlquiler = async () => {
+const deleteRent = async () => {
   try {
     if (!selectedRent.value) {
       console.error('No hay cliente seleccionado para eliminar.');
@@ -243,7 +236,7 @@ const eliminarAlquiler = async () => {
 
     if (response.status === 204) {
       rent.value = rent.value.filter(cliente => cliente.id !== idRent);
-      cerrarModalBorrar();
+      closeModalDelete();
       showSuccess('Alquiler eliminado correctamente.');
     } else {
       showError('Error al eliminar el Alquiler.');
@@ -255,23 +248,23 @@ const eliminarAlquiler = async () => {
   }
 };
 
-const cerrarModalBorrar = async () => {
+const closeModalDelete = async () => {
   const borrarRentModal = document.getElementById("eliminar");
   const closeButton = borrarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
 
 
-const obtenerClientes = async () => {
+const getClients = async () => {
   try {
-    const respuesta = await api.get('/clientes');
+    const respuesta = await api.get('/clients');
     clientes.value = respuesta.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-const obtenerPistas = async () => {
+const getCourts = async () => {
   try {
     const respuesta = await api.get('/courts');
     pistas.value = respuesta.data;
@@ -280,7 +273,7 @@ const obtenerPistas = async () => {
   }
 };
 
-const obtenerHoras = async () => {
+const getHours = async () => {
   try {
     const respuesta = await api.get('/times');
     times.value = respuesta.data;
@@ -289,7 +282,7 @@ const obtenerHoras = async () => {
   }
 };
 
-const obtenerDeportes = async () => {
+const getSports = async () => {
   try {
     const respuesta = await api.get('/sports');
     sports.value = respuesta.data;
@@ -300,10 +293,10 @@ const obtenerDeportes = async () => {
 
 
 onMounted(() => {
-  obtenerClientes();
-  obtenerRents();
-  obtenerPistas();
-  obtenerHoras();
-  obtenerDeportes();
+  getClients();
+  getRents();
+  getCourts();
+  getHours();
+  getSports();
 });
 </script>

@@ -159,6 +159,8 @@
               date_time: timeSeleccionado.value,
               client_id: localId.value,
               court_id: pistaSeleccionada.value,
+              sport_id: DeporteSeleccionado.value,
+
           });
   
           cerrarModalCrear();

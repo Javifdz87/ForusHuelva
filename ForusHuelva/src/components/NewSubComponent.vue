@@ -2,7 +2,7 @@
     <div class="container">
         <Toast />
         <div class="row justify-content-center m-3">
-            <form @submit.prevent="crearSub">
+            <form @submit.prevent="createSub">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
@@ -127,7 +127,7 @@ const showSuccess = (message) => {
     toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
-const validarFormulario = () => {
+const validateForm = () => {
     let valid = true;
     errors.value = {
         email: '',
@@ -156,8 +156,8 @@ const validarFormulario = () => {
     return valid;
 };
 
-const crearSub = async () => {
-    if (!validarFormulario()) {
+const createSub = async () => {
+    if (!validateForm()) {
         showError('Por favor, corrige los errores del formulario.');
         return;
     }
@@ -166,7 +166,7 @@ const crearSub = async () => {
         const currentDate = new Date().toISOString().split('T')[0];
         const status = "activa";
 
-        const suscripcionExistente = await verificarSuscripcionExistente(localId.value);
+        const suscripcionExistente = await verifySub(localId.value);
 
         if (suscripcionExistente && suscripcionExistente.status === 'activa') {
             showError('El cliente ya tiene una suscripción activa.');
@@ -195,7 +195,7 @@ const crearSub = async () => {
             showSuccess('Suscripción creada exitosamente.');
         }
 
-        cerrarModalCrear();
+        closeModalCreate();
         importe.value = '';
         observation.value = '';
         date_end.value = '';
@@ -205,7 +205,7 @@ const crearSub = async () => {
     }
 };
 
-const verificarSuscripcionExistente = async (client_id) => {
+const verifySub = async (client_id) => {
     try {
         const response = await api.get(`/subfees?client_id=${client_id}`);
         return response.data.find(sub => sub.client_id === client_id);
@@ -215,9 +215,9 @@ const verificarSuscripcionExistente = async (client_id) => {
     }
 };
 
-const cerrarModalCrear = () => {
-    const crearSubModal = document.getElementById('modalSub');
-    const closeButton = crearSubModal.querySelector('[data-bs-dismiss="modal"]');
+const closeModalCreate = () => {
+    const createSubModal = document.getElementById('modalSub');
+    const closeButton = createSubModal.querySelector('[data-bs-dismiss="modal"]');
     closeButton.click();
 };
 </script>

@@ -20,7 +20,7 @@
       <div class="table-responsive-vertical p-4">
       <h1>Registrar Nuevo Cliente</h1>
       </div>
-      <form @submit.prevent="registrarCliente">
+      <form @submit.prevent="createClient">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
@@ -158,7 +158,7 @@ const showSuccess = (message) => {
 };
   
   
-  const obtenerProvincias = async () => {
+  const getProvinces = async () => {
     try {
       const respuesta = await api.get('/provinces')
       console.log(respuesta.data)
@@ -169,7 +169,7 @@ const showSuccess = (message) => {
   }
   
   
-  const registrarCliente = async () => {
+  const createClient = async () => {
     if (!validarFormulario()) {
     showError('Por favor, corrige los errores del formulario.')
     return
@@ -203,7 +203,7 @@ const showSuccess = (message) => {
       console.log('Datos a enviar:', data)
   
       // Realizar la solicitud POST
-      await api.post('/clientes', data)
+      await api.post('/clients', data)
       name.value = ''
       last_Name.value = ''
       dni.value = ''
@@ -310,7 +310,7 @@ const showSuccess = (message) => {
 }
 
   
-  onMounted(obtenerProvincias)
+  onMounted(getProvinces)
   
   </script>
   

@@ -23,6 +23,7 @@ class RentalFeesModel extends Model implements Authenticatable
         'date_time',
         'client_id',
         'court_id',
+        'sport_id',
 
     ];
 
@@ -34,5 +35,10 @@ class RentalFeesModel extends Model implements Authenticatable
     public function court()
     {
         return $this->belongsTo(CourtsModel::class);
+    }
+
+    public function sport()
+    {
+        return $this->belongsTo(SportsModel::class);
     }
 }

@@ -65,7 +65,7 @@
                       <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="password" placeholder="name@example.com"
                           v-model="password"/>
-                        <label for="floatingInput">Contraseñaa</label>
+                        <label for="floatingInput">Contraseña</label>
                       </div>
 
                     </div>
