@@ -14,6 +14,8 @@ use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\SportsController;
 use App\Http\Controllers\SubFeesController;
 use App\Http\Controllers\TimeController;
+use App\Http\Controllers\QRCodeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,11 @@ Route::apiResource('/sports', SportsController::class);
 Route::apiResource('/bankAccount', BankAccountController::class);
 
 Route::apiResource('/resource', PasswordController::class);
+
+//generar qr
+
+Route::get('/generate-qr', [QRCodeController::class, 'generate']);
+
 
 
 
