@@ -328,14 +328,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_name" placeholder="Nombre" v-model="selectedClient.name" />
+                  <input type="text" class="form-control" id="editar_name" placeholder="Nombre" v-model="selectedClient.name" required/>
                   <label for="name">Nombre</label>
 
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" />
+                  <input type="text" class="form-control" id="editar_last_name" placeholder="Apellidos" v-model="selectedClient.last_Name" required/>
                   <label for="last_name">Apellidos</label>
 
                 </div>
@@ -344,21 +344,21 @@
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="editar_email" placeholder="Email" v-model="selectedClient.email" />
+                  <input type="email" class="form-control" id="editar_email" placeholder="Email" v-model="selectedClient.email" required/>
                   <label for="email">Email</label>
 
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_dni" placeholder="DNI" v-model="selectedClient.dni" maxlength="9" />
+                  <input type="text" class="form-control" id="editar_dni" placeholder="DNI" v-model="selectedClient.dni" maxlength="9" required/>
                   <label for="dni">DNI</label>
 
                 </div>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_phone" placeholder="Teléfono" v-model="selectedClient.phone" maxlength="9" />
+                  <input type="text" class="form-control" id="editar_phone" placeholder="Teléfono" v-model="selectedClient.phone" maxlength="9" required/>
                   <label for="phone">Teléfono</label>
 
                 </div>
@@ -367,14 +367,14 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_town" placeholder="Localidad" v-model="selectedClient.town" />
+                  <input type="text" class="form-control" id="editar_town" placeholder="Localidad" v-model="selectedClient.town" required/>
                   <label for="town">Localidad</label>
 
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" maxlength="5" />
+                  <input type="text" class="form-control" id="editar_postal_code" placeholder="Código Postal" v-model="selectedClient.postal_code" maxlength="5" required/>
                   <label for="postal_code">Código Postal</label>
 
                 </div>
@@ -383,7 +383,7 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <select id="editar_province" class="form-select" v-model="selectedClient.province">
+                  <select id="editar_province" class="form-select" v-model="selectedClient.province" required>
                     <option value="" disabled selected>Selecciona una provincia</option>
                     <option v-for="provincia in provincias" :key="provincia.cod" :value="provincia.nombre">
                       {{ provincia.nombre }}
@@ -395,7 +395,7 @@
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="editar_address" placeholder="Dirección" v-model="selectedClient.address" />
+                  <input type="text" class="form-control" id="editar_address" placeholder="Dirección" v-model="selectedClient.address" required/>
                   <label for="address">Dirección</label>
 
                 </div>

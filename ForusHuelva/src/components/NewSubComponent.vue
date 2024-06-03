@@ -68,6 +68,9 @@ const localEmail = ref(props.email);
 const localName = ref(props.name);
 const localId = ref(props.id);
 
+const emit = defineEmits(['subscriptionCreated']);
+
+
 watch(() => props.email, (newVal) => {
     localEmail.value = newVal;
 });
@@ -187,13 +190,15 @@ const createSub = async () => {
 
         if (suscripcionExistente && suscripcionExistente.status === 'cancelada' && suscripcionExistente.date_end < currentDate) {
             // Si la suscripción existente está cancelada y ha expirado, actualiza la suscripción existente
-            await api.put(`/subfees/${suscripcionExistente.id}`, subscriptionData);
+            await api.put(`/subfees/${localId.value}`, subscriptionData);
             showSuccess('Suscripción actualizada exitosamente.');
         } else {
             // Si no existe ninguna suscripción activa, crea una nueva
             await api.post('/subfees', subscriptionData);
             showSuccess('Suscripción creada exitosamente.');
         }
+        emit('subscriptionCreated'); // Emitir evento cuando la suscripción se cree
+
 
         closeModalCreate();
         importe.value = '';

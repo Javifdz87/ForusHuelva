@@ -21,13 +21,18 @@ class SubFeesController extends Controller
     return response()->json($sub, 201);
 }
 
-    public function update(Request $request, $id)
-    {
-        $sub = SubscriptionFeesModel::findOrFail($id);
-        $sub->update($request->all());
+public function update(Request $request, $clientId)
+{
+    // Buscar la suscripción por client_id en lugar de id
+    $sub = SubscriptionFeesModel::where('client_id', $clientId)->first();
 
-        return response()->json($sub, 200);
-    }
+
+    // Actualizar los datos de la suscripción
+    $sub->update($request->all());
+
+    return response()->json($sub, 200);
+}
+
 
     public function destroy($id)
     {

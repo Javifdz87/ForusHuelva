@@ -20,7 +20,7 @@
       <div class="table-responsive-vertical p-4">
       <h1>Registrar Nuevo Cliente</h1>
       </div>
-      <form @submit.prevent="createClient">
+      <form @submit.prevent="registrarCliente">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <div class="form-floating mb-3">
@@ -169,7 +169,7 @@ const showSuccess = (message) => {
   }
   
   
-  const createClient = async () => {
+  const registrarCliente = async () => {
     if (!validarFormulario()) {
     showError('Por favor, corrige los errores del formulario.')
     return

@@ -301,7 +301,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <NewSubComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" />
+          <NewSubComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" @subscriptionCreated="handleSubscriptionCreated"/>
         </div>
       </div>
     </div>
@@ -629,6 +629,10 @@ const getCourts = async () => {
   }
 };
 
+const handleSubscriptionCreated = () => {
+    getSub(clientes.value.id);
+};
+
 const getHours = async () => {
   try {
     const respuesta = await api.get('/times');
@@ -654,6 +658,8 @@ const cancelSub = async () => {
     };
 
     console.log('Datos a enviar:', data);
+    console.log(clientes.value.id);
+
 
     const response = await api.put(`/subfees/${clientes.value.id}`, data);
 
@@ -789,6 +795,8 @@ const getQRCode = async () => {
     console.error('Error al generar el código QR:', error);
   }
 };
+
+
 
 onMounted(() => {
   getCourts();
