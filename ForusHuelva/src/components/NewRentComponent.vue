@@ -2,7 +2,7 @@
     <div class="container">
         <Toast />
         <div class="row justify-content-center m-3">
-            <form @submit.prevent="crearAlquiler">
+            <form @submit.prevent="createRent">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
@@ -135,7 +135,7 @@
       toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
   };
   
-  const obtenerRents = async () => {
+  const getRents = async () => {
       try {
           const respuesta = await api.get('/rentfees');
           rent.value = respuesta.data;
@@ -144,7 +144,7 @@
       }
   };
   
-  const crearAlquiler = async () => {
+  const createRent = async () => {
     if (!validarFormulario()) {
         showError('Por favor, corrige los errores del formulario.');
         return;
@@ -172,23 +172,23 @@
           timeSeleccionado.value = '';
           pistaSeleccionada.value = '';
   
-          obtenerRents();
+          getRents();
       } catch (error) {
           showError('Error al crear el alquiler.');
           console.error(error);
       }
   };
   
-  const obtenerClientes = async () => {
+  const getClients = async () => {
       try {
-          const respuesta = await api.get('/clientes');
+          const respuesta = await api.get('/clients');
           clientes.value = respuesta.data;
       } catch (error) {
           console.error(error);
       }
   };
   
-  const obtenerPistas = async () => {
+  const getCourts = async () => {
       try {
           const respuesta = await api.get('/courts');
           pistas.value = respuesta.data;
@@ -197,7 +197,7 @@
       }
   };
   
-  const obtenerHoras = async () => {
+  const getHours = async () => {
       try {
           const respuesta = await api.get('/times');
           times.value = respuesta.data;
@@ -206,7 +206,7 @@
       }
   };
   
-  const obtenerDeportes = async () => {
+  const getSports = async () => {
       try {
           const respuesta = await api.get('/sports');
           sports.value = respuesta.data;
@@ -230,8 +230,8 @@
   };
   
   const cerrarModalCrear = async () => {
-      const crearAlquilerModal = document.getElementById('modalRent');
-      const closeButton = crearAlquilerModal.querySelector('[data-bs-dismiss="modal"]');
+      const createRentModal = document.getElementById('modalRent');
+      const closeButton = createRentModal.querySelector('[data-bs-dismiss="modal"]');
       closeButton.click();
   };
 
@@ -285,10 +285,10 @@ const validarFormulario = () => {
 
   
   onMounted(() => {
-      obtenerClientes();
-      obtenerRents();
-      obtenerPistas();
-      obtenerHoras();
-      obtenerDeportes();
+      getClients();
+      getRents();
+      getCourts();
+      getHours();
+      getSports();
   });
   </script>
