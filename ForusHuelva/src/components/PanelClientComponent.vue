@@ -212,6 +212,9 @@
       </div>
     </div>
 
+    <FullCalendar :plugins="calendarPlugins" :initialView="initialView" :events="events" @eventClick="handleEventClick" />
+
+    
     <div class="row mt-5" id="gimnasio">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h2 class="display-5">Donde nos encontramos.</h2>
@@ -609,6 +612,9 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext'
+
+
+
 
 import Toast from 'primevue/toast';
 import NewSubComponent from '@/components/NewSubComponent.vue';
