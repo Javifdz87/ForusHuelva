@@ -129,26 +129,15 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img
-                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/boxeo.jpg"
-                    class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img
-                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/ciclo.jpg"
-                    class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img
-                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg"
-                    class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img
-                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg"
-                    class="d-block w-100" alt="...">
-                </div>
+    <div class="carousel-item active">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="d-block w-100" alt="...">
+    </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
                 data-bs-slide="prev">
