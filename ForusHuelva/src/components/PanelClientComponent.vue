@@ -36,6 +36,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAccount">Ver Perfil</a></li>
+              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalMyRent  ">Tus Alquileres</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalBank">Cambiar Pago</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalPassword">Cambiar Contraseña</a>
               </li>
@@ -554,6 +555,48 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Gestion del Alquiler -->
+<div class="modal fade" id="modalMyRent" tabindex="-1" aria-labelledby="modalQR" aria-hidden="true" ref="modal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSub">Tus Alquileres</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <DataTable :value="rent" stripedRows :paginator="false" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
+            tableStyle="min-width: 50rem" :filters="filters"
+      :globalFilterFields="['court.sport_id', 'date_day', 'date_time']">
+            <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
+            <Column field="date_pay" header="Dia de Pago" sortable style="width: 14%"></Column>
+            <Column field="court.name" header="Pista" sortable style="width: 14%"></Column>
+            <Column field="sport.sport" header="Deporte" sortable style="width: 14%"></Column>
+            <Column field="date_day" header="Fecha de Juego" sortable style="width: 18%"></Column>
+            <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
+            <Column header="Operaciones" style="width: 18%">
+              <template #body="slotProps">
+                <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
+                  @click="selectRent(slotProps.data)">
+                  X
+                </Button>
+                <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#edit"
+                  @click="selectRent(slotProps.data)">
+                  M
+                </Button>
+              </template>
+            </Column>
+            <template #header>
+        <div class="flex justify-content-end">
+            <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+        </div>
+      </template>
+      <template #empty>No hay alquileres encontrados.</template>
+          </DataTable>
+          </div>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script setup>
@@ -562,6 +605,11 @@ import { useRouter } from 'vue-router';
 import { ref, onMounted, watch, nextTick  } from 'vue';
 import { defineProps } from 'vue';
 import { useToast } from 'primevue/usetoast';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext'
+
 import Toast from 'primevue/toast';
 import NewSubComponent from '@/components/NewSubComponent.vue';
 import NewRentComponent from '@/components/NewRentComponent.vue';
@@ -571,12 +619,17 @@ const new_password = ref('');
 const password = ref('');
 const new_bank_account = ref('');
 
+const filters = ref({ global: { value: '' } })
+
+
 
 const pistas = ref([]);
 const times = ref([]);
 const sports = ref([]);
 const clientes = ref([]);
 const subs = ref([]);
+const rent = ref([]);
+
 const qrCodeUrl = ref('');
 
 
@@ -734,6 +787,8 @@ const getClients = async (email) => {
     clientes.value = respuesta.data;
     if (clientes.value.id) {
       getSub(clientes.value.id);
+      getRents(clientes.value.id);
+
     }
   } catch (error) {
     console.log(error);
@@ -782,6 +837,16 @@ const getQRCode = async () => {
     console.log('QR Code URL:', qrCodeUrl.value);
   } catch (error) {
     console.error('Error al generar el código QR:', error);
+  }
+};
+
+const getRents = async (clienteId) => {
+  try {
+    const respuesta = await api.get(`/rentfees/${clienteId}`);
+    rent.value = respuesta.data;
+    console.log(rent);
+  } catch (error) {
+    console.error(error);
   }
 };
 

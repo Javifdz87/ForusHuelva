@@ -38,10 +38,11 @@ class RentFeesController extends Controller
         return response()->json(null, 204);
     }
 
-    public function show($id)
+    public function show($clientId)
     {
-        $rent = RentalFeesModel::findOrFail($id);
-    
+        $rent = RentalFeesModel::where('client_id', $clientId)
+        ->with(['client:id,name,email', 'court:id,name,sport_id', 'sport:id,sport'])
+        ->get();    
         return response()->json($rent);
     }
 }

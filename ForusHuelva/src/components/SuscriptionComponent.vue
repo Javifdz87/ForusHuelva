@@ -41,7 +41,7 @@
             <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
         </div>
       </template>
-      <template #empty>No hay clientes encontrados.</template>
+      <template #empty>No hay suscripciones encontrados.</template>
           </DataTable>
 
 

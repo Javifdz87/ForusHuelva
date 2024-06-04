@@ -46,9 +46,9 @@
               </template>
             </Column>
             <template #header>
-        <div class="flex justify-content-end">
-            <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
-            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
+        <div class="clearfix">
+            <InputText v-model="filters['global'].value" placeholder="Keyword Search" class="float-start"/>
+            <button class="btn btn-success float-end" type="button" data-bs-toggle="modal" data-bs-target="#dardealta">
                 Dar de Alta
               </button>
         </div>

@@ -67,9 +67,12 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="import" value="12" placeholder="email" readonly />
-                          <label for="floatingInput">Precio</label>
+                            <input type="text" class="form-control" id="import" :value="calculatedImporte" placeholder="Precio" readonly />
+                            <label for="floatingInput">Precio</label>
                         </div>
+                        <!-- Debugging output for isActive -->
+                        <div v-if="isActive" class="text-success">Suscripción activa: Precio reducido</div>
+                        <div v-else class="text-warning">Suscripción inactiva: Precio normal</div>
                     </div>
                 </div>
                 <div class="row">
@@ -82,166 +85,180 @@
     </div>
 </template>
 
-  
-  
-  <script setup>
-  import api from '@/services/service';
-  import { ref, defineProps, watch, onMounted } from 'vue';
-  import Toast from 'primevue/toast';
-  import { useToast } from "primevue/usetoast";
-  
-  const props = defineProps({
-      email: String,
-      name: String,
-      id: String
-  });
-  
-  const localEmail = ref(props.email);
-  const localName = ref(props.name);
-  const localId = ref(props.id);
-  
-  watch(() => props.email, (newVal) => {
-      localEmail.value = newVal;
-  });
-  
-  watch(() => props.name, (newVal) => {
-      localName.value = newVal;
-  });
-  
-  watch(() => props.id, (newVal) => {
-      localId.value = newVal;
-  });
-  
-  const toast = useToast();
-  const importe = ref(12);
-  const date_day = ref('');
-  const date_time = ref('');
-  const clientes = ref([]);
-  const pistas = ref([]);
-  const times = ref([]);
-  const sports = ref([]);
-  const clienteSeleccionado = ref('');
-  const DeporteSeleccionado = ref('');
-  const filteredPistas = ref([]);
-  const filteredTimes = ref([]);
-  const timeSeleccionado = ref('');
-  const pistaSeleccionada = ref('');
-  const rent = ref([]); // Definir rent aquí
-  
-  const showError = (message) => {
-      toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
-  };
-  const showSuccess = (message) => {
-      toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
-  };
-  
-  const getRents = async () => {
-      try {
-          const respuesta = await api.get('/rentfees');
-          rent.value = respuesta.data;
-      } catch (error) {
-          console.error(error);
-      }
-  };
-  
-  const createRent = async () => {
+<script setup>
+import api from '@/services/service';
+import { ref, defineProps, watch, onMounted, computed } from 'vue';
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast";
+
+const props = defineProps({
+    email: String,
+    name: String,
+    id: String
+});
+
+const isActive = ref(false);
+
+const localEmail = ref(props.email);
+const localName = ref(props.name);
+const localId = ref(props.id);
+
+watch(() => props.email, (newVal) => {
+    localEmail.value = newVal;
+});
+
+watch(() => props.name, (newVal) => {
+    localName.value = newVal;
+});
+
+watch(() => props.id, (newVal) => {
+    localId.value = newVal;
+});
+
+const toast = useToast();
+const date_day = ref('');
+const date_time = ref('');
+const clientes = ref([]);
+const pistas = ref([]);
+const times = ref([]);
+const sports = ref([]);
+const clienteSeleccionado = ref('');
+const DeporteSeleccionado = ref('');
+const filteredPistas = ref([]);
+const filteredTimes = ref([]);
+const timeSeleccionado = ref('');
+const pistaSeleccionada = ref('');
+const rent = ref([]);
+
+const showError = (message) => {
+    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+const showSuccess = (message) => {
+    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
+
+const getRents = async () => {
+    try {
+        const respuesta = await api.get('/rentfees');
+        rent.value = respuesta.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const createRent = async () => {
     if (!validarFormulario()) {
         showError('Por favor, corrige los errores del formulario.');
         return;
     }
-      try {
-          const currentDate = new Date().toISOString().split('T')[0];
-  
-          await api.post('/rentfees', {
-              importe: 12,
-              date_pay: currentDate,
-              date_day: date_day.value,
-              date_time: timeSeleccionado.value,
-              client_id: localId.value,
-              court_id: pistaSeleccionada.value,
-              sport_id: DeporteSeleccionado.value,
+    try {
+        const currentDate = new Date().toISOString().split('T')[0];
 
-          });
-  
-          cerrarModalCrear();
-          showSuccess('Se ha creado correctamente.');
-          date_day.value = '';
-          date_time.value = '';
-          clienteSeleccionado.value = '';
-          DeporteSeleccionado.value = '';
-          timeSeleccionado.value = '';
-          pistaSeleccionada.value = '';
-  
-          getRents();
-      } catch (error) {
-          showError('Error al crear el alquiler.');
-          console.error(error);
-      }
-  };
-  
-  const getClients = async () => {
-      try {
-          const respuesta = await api.get('/clients');
-          clientes.value = respuesta.data;
-      } catch (error) {
-          console.error(error);
-      }
-  };
-  
-  const getCourts = async () => {
-      try {
-          const respuesta = await api.get('/courts');
-          pistas.value = respuesta.data;
-      } catch (error) {
-          console.log(error);
-      }
-  };
-  
-  const getHours = async () => {
-      try {
-          const respuesta = await api.get('/times');
-          times.value = respuesta.data;
-      } catch (error) {
-          console.log(error);
-      }
-  };
-  
-  const getSports = async () => {
-      try {
-          const respuesta = await api.get('/sports');
-          sports.value = respuesta.data;
-      } catch (error) {
-          console.log(error);
-      }
-  };
-  
-  
-  const actualizarPistas = () => {
-      filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
-  };
-  
-  const actualizarHorasDisponibles = () => {
-      filteredTimes.value = times.value.filter(time => {
-          const horaDisponible = !rent.value.some(rentItem => {
-              return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time && rentItem.court_id === pistaSeleccionada.value;
-          });
-          return horaDisponible;
-      });
-  };
-  
-  const cerrarModalCrear = async () => {
-      const createRentModal = document.getElementById('modalRent');
-      const closeButton = createRentModal.querySelector('[data-bs-dismiss="modal"]');
-      closeButton.click();
-  };
+        await api.post('/rentfees', {
+            importe: calculatedImporte.value,
+            date_pay: currentDate,
+            date_day: date_day.value,
+            date_time: timeSeleccionado.value,
+            client_id: localId.value,
+            court_id: pistaSeleccionada.value,
+            sport_id: DeporteSeleccionado.value,
+        });
 
-  const errors = ref({
-        email: '',
-        name: '',
-        DeporteSeleccionado: '',
-        date_day: '',
-        pistaSeleccionada: '',
-        timeSeleccionado: ''
+        cerrarModalCrear();
+        showSuccess('Se ha creado correctamente.');
+        date_day.value = '';
+        date_time.value = '';
+        clienteSeleccionado.value = '';
+        DeporteSeleccionado.value = '';
+        timeSeleccionado.value = '';
+        pistaSeleccionada.value = '';
+
+        getRents();
+    } catch (error) {
+        showError('Error al crear el alquiler.');
+        console.error(error);
+    }
+};
+
+const getClients = async (email) => {
+    try {
+        const respuesta = await api.get(`/clients/${email}`);
+        console.log('Datos del cliente:', respuesta.data);
+        clientes.value = respuesta.data;
+        if (clientes.value.id) {
+            await getSub(clientes.value.id);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const getCourts = async () => {
+    try {
+        const respuesta = await api.get('/courts');
+        pistas.value = respuesta.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const getHours = async () => {
+    try {
+        const respuesta = await api.get('/times');
+        times.value = respuesta.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const getSports = async () => {
+    try {
+        const respuesta = await api.get('/sports');
+        sports.value = respuesta.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const actualizarPistas = () => {
+    filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
+};
+
+const actualizarHorasDisponibles = () => {
+    filteredTimes.value = times.value.filter(time => {
+        const horaDisponible = !rent.value.some(rentItem => {
+            return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time && rentItem.court_id === pistaSeleccionada.value;
+        });
+        return horaDisponible;
+    });
+};
+
+const cerrarModalCrear = () => {
+    const createRentModal = document.getElementById('modalRent');
+    const closeButton = createRentModal.querySelector('[data-bs-dismiss="modal"]');
+    closeButton.click();
+};
+
+const getSub = async (clienteId) => {
+    try {
+        const respuesta = await api.get(`/subfees/${clienteId}`);
+        console.log('Datos de suscripción:', respuesta.data);
+        const sub = respuesta.data;
+        const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= new Date().toISOString().split('T')[0]);
+        console.log('Estado de suscripción:', isActiveSubscription);
+        isActive.value = isActiveSubscription;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const errors = ref({
+    email: '',
+    name: '',
+    DeporteSeleccionado: '',
+    date_day: '',
+    pistaSeleccionada: '',
+    timeSeleccionado: ''
 });
 
 const validarFormulario = () => {
@@ -283,12 +300,17 @@ const validarFormulario = () => {
     return valid;
 };
 
-  
-  onMounted(() => {
-      getClients();
-      getRents();
-      getCourts();
-      getHours();
-      getSports();
-  });
-  </script>
+const calculatedImporte = computed(() => {
+    return isActive.value ? 8 : 12;
+});
+
+onMounted(() => {
+    if (localEmail.value) {
+        getClients(localEmail.value);
+    }
+    getRents();
+    getCourts();
+    getHours();
+    getSports();
+});
+</script>
