@@ -216,18 +216,22 @@ const getCourts = async () => {
     }
 };
 
-// Función para obtener la lista de horarios desde la API
-const getHours = async () => {
+const getHours = async (sportId) => {
     try {
-        // Realizar una solicitud a la API para obtener los horarios
-        const respuesta = await api.get('/times');
-        // Almacenar los horarios en una variable reactiva
-        times.value = respuesta.data;
+        console.log('Obteniendo horarios para el deporte con ID:', sportId);
+        const respuesta = await api.get(`/times/${sportId}`);
+        console.log('Respuesta de la API para los horarios:', respuesta.data);
+        if(Array.isArray(respuesta.data)) {
+            times.value = respuesta.data;
+        } else {
+            console.error('La respuesta de la API no es un array:', respuesta.data);
+        }
     } catch (error) {
-        // Manejar cualquier error que ocurra durante la obtención de los horarios
-        console.log(error);
+        console.error('Error al obtener los horarios:', error);
     }
 };
+
+
 
 // Función para obtener la lista de deportes desde la API
 const getSports = async () => {
@@ -246,6 +250,7 @@ const getSports = async () => {
 const actualizarPistas = () => {
     // Filtrar las pistas que coinciden con el deporte seleccionado
     filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
+    getHours(DeporteSeleccionado.value); // Corrección aquí
 };
 
 // Función para actualizar la lista de horarios disponibles según las reservas existentes
@@ -339,7 +344,6 @@ onMounted(() => {
     }
     getRents();
     getCourts();
-    getHours();
     getSports();
 });
 </script>

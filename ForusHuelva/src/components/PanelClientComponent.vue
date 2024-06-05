@@ -216,7 +216,9 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h2 class="display-5">Calendario.</h2>
         <div class="d-flex justify-content-center mt-3">
-          <FullCalendar :plugins="calendarPlugins" :initialView="initialView" :events="events" @eventClick="handleEventClick" />
+          <div class="calendar-container">
+    <FullCalendar :options="calendarOptions" />
+  </div>
 
         </div>
       </div>
@@ -622,12 +624,40 @@ import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext'
 
-
-
+import FullCalendar from '@fullcalendar/vue3'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 
 import Toast from 'primevue/toast';
 import NewSubComponent from '@/components/NewSubComponent.vue';
 import NewRentComponent from '@/components/NewRentComponent.vue';
+
+const calendarOptions = ref({
+  plugins: [timeGridPlugin, bootstrapPlugin],
+  initialView: 'timeGridWeek',
+  columnHeaderFormat: {
+    weekday: 'short', // Mostrar solo el día de la semana abreviado
+    month: 'numeric',
+    day: 'numeric'
+  },
+  slotLabelFormat: {
+    hour: 'numeric',
+    minute: '2-digit',
+    omitZeroMinute: false,
+    meridiem: false
+  },
+  slotDuration: '00:20:00',
+  slotMinTime: '09:00:00',
+  slotMaxTime: '24:00:00',
+  allDaySlot: false,
+  themeSystem: 'bootstrap5', // Agregamos el tema de Bootstrap 5
+  height: 'auto', // Ajustar automáticamente la altura del calendario
+  eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: false }, // Formato de hora de los eventos
+  eventDisplay: 'block', // Mostrar eventos en bloque para una mejor visualización
+  eventBackgroundColor: '#0d6efd', // Color de fondo de los eventos
+  eventTextColor: '#ffffff' // Color del texto de los eventos
+});
+
 
 const new_password = ref('');
 
@@ -635,7 +665,6 @@ const password = ref('');
 const new_bank_account = ref('');
 
 const filters = ref({ global: { value: '' } })
-
 
 
 const pistas = ref([]);
@@ -646,7 +675,6 @@ const subs = ref([]);
 const rent = ref([]);
 
 const qrCodeUrl = ref('');
-
 
 
 const props = defineProps({
@@ -665,6 +693,36 @@ const localEmail = ref(props.email);
 watch(() => props.email, (newVal) => {
   localEmail.value = newVal;
   getClients(newVal);
+});
+
+// Filtrar las pistas ocupadas de la base de datos de alquileres
+const getOccupiedSlots = () => {
+  const events = [];
+  rent.value.forEach(rent => {
+    const event = {
+      title: `Deporte: ${rent.sport.sport} - Pista: ${rent.court.name}`, // Concatenar el nombre del deporte y la pista en el título del evento
+      start: rent.date_day + 'T' + rent.date_time, // Concatenar la fecha y hora de inicio
+      backgroundColor: '#dc3545', // Color de fondo del evento
+      borderColor: '#dc4000', // Color del borde del evento
+      textColor: '#ffffff' // Color del texto del evento
+    };
+    events.push(event);
+  });
+  console.log('Eventos:', events); // Agregar console.log para verificar los eventos
+  return events;
+};
+
+// Actualizar los eventos del calendario con las pistas ocupadas
+watch(rent, () => {
+  const events = getOccupiedSlots();
+  calendarOptions.value.events = events;
+  console.log('Eventos actualizados:', events); // Agregar console.log para verificar los eventos actualizados
+});
+
+// Actualizar los eventos del calendario con las pistas ocupadas
+watch(rent, () => {
+  const events = getOccupiedSlots();
+  calendarOptions.value.events = events;
 });
 
 const toast = useToast();
@@ -690,14 +748,6 @@ const handleSubscriptionCreated = () => {
     getSub(clientes.value.id);
 };
 
-const getHours = async () => {
-  try {
-    const respuesta = await api.get('/times');
-    times.value = respuesta.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const getSports = async () => {
   try {
@@ -881,7 +931,7 @@ const getRents = async (clienteId) => {
   try {
     const respuesta = await api.get(`/rentfees/${clienteId}`);
     rent.value = respuesta.data;
-    console.log(rent);
+    console.log('Alquileres:', rent); // Agregar console.log para verificar los alquileres
   } catch (error) {
     console.error(error);
   }
@@ -891,11 +941,12 @@ const getRents = async (clienteId) => {
 
 onMounted(() => {
   getCourts();
-  getHours();
   getSports();
   if (localEmail.value) {
     getClients(localEmail.value);
   }
+  const events = getOccupiedSlots();
+  calendarOptions.value.events = events;
 });
  
 </script>

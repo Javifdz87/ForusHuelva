@@ -13,4 +13,13 @@ class TimeController extends Controller
 
         return response()->json($time);
     }
+    
+    public function show($sport_id)
+    {
+        // Buscar todos los horarios para un deporte específico
+        $times = TimeModel::where('sport_id', $sport_id)->get();
+    
+        return response()->json($times);
+    }
+    
 }
