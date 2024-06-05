@@ -212,20 +212,28 @@
       </div>
     </div>
 
-    <div class="row mt-5" id="gimnasio">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
-        <h2 class="display-5">Calendario.</h2>
-        <div class="d-flex justify-content-center mt-3">
-          <div class="calendar-container">
-    <FullCalendar :options="calendarOptions" />
-  </div>
-
-        </div>
+    <div class="row mt-5" id="calendario">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
+    <h2 class="display-5">Calendario.</h2>
+    <div class="dropdown">
+      <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Deporte
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="selectSport">
+        <li><a class="dropdown-item" data-sport-id="1">Padel</a></li>
+        <li><a class="dropdown-item" data-sport-id="2">Tenis</a></li>
+        <li><a class="dropdown-item" data-sport-id="3">Futbol sala</a></li>
+        <li><a class="dropdown-item" data-sport-id="4">Futbol 7</a></li>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+      <div class="calendar-container">
+        <FullCalendar :options="calendarOptions" />
       </div>
     </div>
+  </div>
+</div>
 
-
-    
     <div class="row mt-5" id="gimnasio">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h2 class="display-5">Donde nos encontramos.</h2>
@@ -655,7 +663,7 @@ const calendarOptions = ref({
   eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: false }, // Formato de hora de los eventos
   eventDisplay: 'block', // Mostrar eventos en bloque para una mejor visualización
   eventBackgroundColor: '#0d6efd', // Color de fondo de los eventos
-  eventTextColor: '#ffffff' // Color del texto de los eventos
+  eventTextColor: '#f747fff' // Color del texto de los eventos
 });
 
 
@@ -700,7 +708,7 @@ const getOccupiedSlots = () => {
   const events = [];
   rent.value.forEach(rent => {
     const event = {
-      title: `Deporte: ${rent.sport.sport} - Pista: ${rent.court.name}`, // Concatenar el nombre del deporte y la pista en el título del evento
+      title: `Deporte: ${rent.sport.sport} - ${rent.court.name}`, // Concatenar el nombre del deporte y la pista en el título del evento
       start: rent.date_day + 'T' + rent.date_time, // Concatenar la fecha y hora de inicio
       backgroundColor: '#dc3545', // Color de fondo del evento
       borderColor: '#dc4000', // Color del borde del evento
@@ -936,6 +944,22 @@ const getRents = async (clienteId) => {
     console.error(error);
   }
 };
+
+const selectSport = async (event) => {
+  const sportId = event.target.getAttribute('data-sport-id');
+  await getRentsSport(sportId);
+};
+
+const getRentsSport = async (sportId) => {
+  try {
+    const respuesta = await api.get(`/calendar/${sportId}`);
+    rent.value = respuesta.data;
+    console.log('Alquileres:', rent);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 
 

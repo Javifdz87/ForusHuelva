@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\calendarController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CourtsController;
 use App\Http\Controllers\PasswordController;
@@ -54,6 +55,9 @@ Route::apiResource('/sports', SportsController::class);
 Route::apiResource('/bankAccount', BankAccountController::class);
 
 Route::apiResource('/resource', PasswordController::class);
+
+Route::apiResource('/calendar', calendarController::class);
+
 
 //generar qr
 
