@@ -288,28 +288,32 @@ const showSuccess = (message) => {
 
 async function login() {
   try {
-    console.log('Datos de inicio de sesión:', { email: email.value, password: password.value });
-
+    // Hacemos una solicitud de inicio de sesión a la API
     const response = await api.post('/login', {
-      email: email.value,
-      password: password.value
+      email: email.value, // Obtenemos el valor del campo de correo electrónico
+      password: password.value // Obtenemos el valor del campo de contraseña
     });
 
-    console.log('Respuesta del servidor:', response);
-
+    // Si la respuesta es exitosa (status 200)
     if (response.status === 200) {
-      console.log('Inicio de sesión exitoso');
+      // Mostramos un mensaje de éxito
       showSuccess('Inicio de sesión exitoso');
 
+      // Si el usuario tiene un rol de 1 ( 1 es el rol de administrador)
       if (response.data.user.role === 1) {
+        // Redirigimos a la página de inicio del administrador
         router.push('/home');
       } else {
+        // Redirigimos a la página del panel del cliente y pasamos el correo electrónico como parámetro
         router.push({ name: 'panelClient', params: { email: email.value } });
       }
     }
   } catch (error) {
+    // Si ocurre un error al iniciar sesión, lo mostramos en la consola
     console.error('Error al iniciar sesión:', error);
+    // Mostramos un mensaje de error al usuario
     showError('El email o la contraseña no son correctas.');
   }
 }
+
 </script>

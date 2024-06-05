@@ -146,26 +146,34 @@ const getRents = async () => {
     }
 };
 
+// Función para crear un nuevo alquiler
 const createRent = async () => {
+    // Validar el formulario antes de proceder
     if (!validarFormulario()) {
         showError('Por favor, corrige los errores del formulario.');
         return;
     }
     try {
+        // Obtener la fecha actual en formato YYYY-MM-DD
         const currentDate = new Date().toISOString().split('T')[0];
 
+        // Realizar una solicitud a la API para crear un nuevo alquiler
         await api.post('/rentfees', {
-            importe: calculatedImporte.value,
-            date_pay: currentDate,
-            date_day: date_day.value,
-            date_time: timeSeleccionado.value,
-            client_id: localId.value,
-            court_id: pistaSeleccionada.value,
-            sport_id: DeporteSeleccionado.value,
+            importe: calculatedImporte.value,      // Importe calculado del alquiler
+            date_pay: currentDate,                // Fecha de pago (fecha actual)
+            date_day: date_day.value,             // Fecha del día del alquiler
+            date_time: timeSeleccionado.value,    // Hora seleccionada del alquiler
+            client_id: localId.value,             // ID del cliente
+            court_id: pistaSeleccionada.value,    // ID de la pista seleccionada
+            sport_id: DeporteSeleccionado.value,  // ID del deporte seleccionado
         });
 
+        // Cerrar el modal de creación de alquiler
         cerrarModalCrear();
+        // Mostrar mensaje de éxito
         showSuccess('Se ha creado correctamente.');
+
+        // Limpiar los campos del formulario
         date_day.value = '';
         date_time.value = '';
         clienteSeleccionado.value = '';
@@ -173,12 +181,14 @@ const createRent = async () => {
         timeSeleccionado.value = '';
         pistaSeleccionada.value = '';
 
+        // Actualizar la lista de alquileres
         getRents();
     } catch (error) {
         showError('Error al crear el alquiler.');
         console.error(error);
     }
 };
+
 
 const getClients = async (email) => {
     try {
@@ -193,45 +203,64 @@ const getClients = async (email) => {
     }
 };
 
+// Función para obtener la lista de pistas desde la API
 const getCourts = async () => {
     try {
+        // Realizar una solicitud a la API para obtener las pistas
         const respuesta = await api.get('/courts');
+        // Almacenar las pistas en una variable reactiva
         pistas.value = respuesta.data;
     } catch (error) {
+        // Manejar cualquier error que ocurra durante la obtención de las pistas
         console.log(error);
     }
 };
 
+// Función para obtener la lista de horarios desde la API
 const getHours = async () => {
     try {
+        // Realizar una solicitud a la API para obtener los horarios
         const respuesta = await api.get('/times');
+        // Almacenar los horarios en una variable reactiva
         times.value = respuesta.data;
     } catch (error) {
+        // Manejar cualquier error que ocurra durante la obtención de los horarios
         console.log(error);
     }
 };
 
+// Función para obtener la lista de deportes desde la API
 const getSports = async () => {
     try {
+        // Realizar una solicitud a la API para obtener los deportes
         const respuesta = await api.get('/sports');
+        // Almacenar los deportes en una variable reactiva
         sports.value = respuesta.data;
     } catch (error) {
+        // Manejar cualquier error que ocurra durante la obtención de los deportes
         console.log(error);
     }
 };
 
+// Función para actualizar la lista de pistas filtradas según el deporte seleccionado
 const actualizarPistas = () => {
+    // Filtrar las pistas que coinciden con el deporte seleccionado
     filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
 };
 
+// Función para actualizar la lista de horarios disponibles según las reservas existentes
 const actualizarHorasDisponibles = () => {
+    // Filtrar los horarios que están disponibles (no reservados)
     filteredTimes.value = times.value.filter(time => {
+        // Verificar si la hora no está reservada para la fecha y pista seleccionada
         const horaDisponible = !rent.value.some(rentItem => {
-            return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time && rentItem.court_id === pistaSeleccionada.value;
+            return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time 
+            && rentItem.court_id === pistaSeleccionada.value;
         });
         return horaDisponible;
     });
 };
+
 
 const cerrarModalCrear = () => {
     const createRentModal = document.getElementById('modalRent');

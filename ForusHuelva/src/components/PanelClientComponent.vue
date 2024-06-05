@@ -699,31 +699,36 @@ const getSports = async () => {
   }
 };
 
+// Función para cancelar una suscripción
 const cancelSub = async () => {
   try {
+    // Datos que se enviarán a la API para cancelar la suscripción
     const data = {
       status: 'cancelada'
     };
 
-    console.log('Datos a enviar:', data);
-    console.log(clientes.value.id);
-
-
+    // Realizar una solicitud PUT a la API para actualizar el estado de la suscripción del cliente
     const response = await api.put(`/subfees/${clientes.value.id}`, data);
 
+    // Verificar si la respuesta de la API es exitosa
     if (response.status === 200) {
-      console.log('Suscripción cancelada correctamente.');
+      // Si la respuesta es exitosa, imprimir mensaje en la consola y mostrar notificación de éxito
       showSuccess('Suscripción cancelada correctamente.');
-      getSub(clientes.value.id); // Refrescar datos de suscripción
+
+      // Refrescar los datos de suscripción del cliente
+      getSub(clientes.value.id);
     } else {
+      // Si la respuesta no es exitosa, imprimir mensaje de error en la consola y mostrar notificación de error
       console.error('Error al editar el status.');
       showError('Error al editar el status.');
     }
   } catch (error) {
+    // Manejar cualquier error que ocurra durante la solicitud a la API
     console.error('Error al editar el status:', error.message);
     showError('Error al editar el status.');
   }
 };
+
 
 
 const editPassword = async () => {
@@ -786,35 +791,45 @@ const editarBankAccount = async () => {
 };
 
 
+// Función para obtener los detalles del cliente por su email
 const getClients = async (email) => {
   try {
+    // Realizar una solicitud a la API para obtener los detalles del cliente por su email
     const respuesta = await api.get(`/clients/${email}`);
     console.log(respuesta.data);
+    // Almacenar los detalles del cliente en una variable reactiva
     clientes.value = respuesta.data;
+    // Verificar si se obtuvo algún cliente
     if (clientes.value.id) {
+      // Si se obtuvo un cliente, obtener sus suscripciones y alquileres
       getSub(clientes.value.id);
       getRents(clientes.value.id);
-
     }
   } catch (error) {
     console.log(error);
   }
 };
 
+// Función para obtener las suscripciones de un cliente por su ID
 const getSub = async (clienteId) => {
   try {
+    // Realizar una solicitud a la API para obtener las suscripciones del cliente por su ID
     const respuesta = await api.get(`/subfees/${clienteId}`);
     console.log('Datos de suscripción:', respuesta.data);
+    // Almacenar las suscripciones en una variable reactiva
     subs.value = respuesta.data;
+    // Obtener la última suscripción del cliente
     const sub = respuesta.data;
+    // Verificar si la suscripción está activa
     const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= getCurrentDate());
+    // Almacenar el estado de la suscripción activa en una variable reactiva
     isActive.value = isActiveSubscription;
+    // Obtener el código QR correspondiente a la suscripción
     getQRCode();
   } catch (error) {
     console.log(error);
   }
 };
-
 
 
 
@@ -835,16 +850,23 @@ const closeModalBank = async () => {
   closeButton.click();
 };
 
+// Función para obtener un código QR desde la API
 const getQRCode = async () => {
   try {
+    // Realizar una solicitud a la API para generar el código QR
     const response = await api.get('/generate-qr', { responseType: 'blob' });
+
+    // Crear una URL a partir del blob recibido en la respuesta
     const url = URL.createObjectURL(response.data);
+
+    // Almacenar la URL del código QR en una variable reactiva
     qrCodeUrl.value = url;
-    console.log('QR Code URL:', qrCodeUrl.value);
+
   } catch (error) {
     console.error('Error al generar el código QR:', error);
   }
 };
+
 
 const getRents = async (clienteId) => {
   try {

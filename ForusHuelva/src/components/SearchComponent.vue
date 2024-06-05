@@ -120,43 +120,42 @@ const showError = (message) => {
 
 
 const generateList = async () => {
-  console.log('Rango ID:', rangoId.value);
-  console.log('Estado:', estado.value);
-  console.log('Tipo de Suscripción:', tipoSuscripcion.value);
-  console.log('Fecha de Inicio:', fechaInicio.value);
-  console.log('Fecha de Fin:', fechaFin.value);
-
+  // Verificar si las fechas de inicio y fin están definidas
   if (!fechaInicio.value || !fechaFin.value) {
+    // Mostrar un mensaje de error si las fechas no están definidas
     showError('Error, tienes que definir las fechas');
     return;
   }
 
   try {
+    // Obtener las suscripciones desde la API
     const respuesta = await api.get('/subfees');
     const suscripciones = respuesta.data;
 
-    // Filtrar las suscripciones según las fechas, el estado, el tipo de suscripción y el rango de ID del cliente especificados
+    // Filtrar las suscripciones según los criterios especificados
     const suscripcionesFiltradas = suscripciones.filter(suscripcion => 
-      suscripcion.date_pay >= fechaInicio.value &&
-      suscripcion.date_pay <= fechaFin.value &&
-      suscripcion.client.id >= rangoId.value[0] &&
+      suscripcion.date_pay >= fechaInicio.value && // La fecha de pago es mayor o igual a la fecha de inicio
+      suscripcion.date_pay <= fechaFin.value &&   // La fecha de pago es menor o igual a la fecha de fin
+      suscripcion.client.id >= rangoId.value[0] &&  // El ID del cliente está dentro del rango especificado
       suscripcion.client.id <= rangoId.value[1] &&
-      (estado.value === '' || suscripcion.status === estado.value) &&
-      (tipoSuscripcion.value === '' || suscripcion.observation === tipoSuscripcion.value)
+      (estado.value === '' || suscripcion.status === estado.value) &&  // El estado coincide con el especificado o está vacío
+      // El tipo de suscripción coincide con el especificado o está vacío
+      (tipoSuscripcion.value === '' || suscripcion.observation === tipoSuscripcion.value) 
     );
 
-    // Asignar las suscripciones filtradas a filteredSuscripciones.value
+    // Almacenar las suscripciones filtradas en una variable reactiva
     filteredSuscripciones.value = suscripcionesFiltradas;
-    console.log(filteredSuscripciones.value);
   } catch (error) {
+    // Mostrar un mensaje de error si ocurre un error al generar la lista
     console.log(error);
     showError('Error al generar la lista');
   }
 };
 
+
 const getSeverity = (status) => {
   switch (status) {
-    case 'activo':
+    case 'activa':
       return 'success';
     case 'cancelada':
       return 'danger';
