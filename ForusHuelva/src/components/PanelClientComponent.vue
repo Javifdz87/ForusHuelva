@@ -212,7 +212,16 @@
       </div>
     </div>
 
-    <FullCalendar :plugins="calendarPlugins" :initialView="initialView" :events="events" @eventClick="handleEventClick" />
+    <div class="row mt-5" id="gimnasio">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
+        <h2 class="display-5">Calendario.</h2>
+        <div class="d-flex justify-content-center mt-3">
+          <FullCalendar :plugins="calendarPlugins" :initialView="initialView" :events="events" @eventClick="handleEventClick" />
+
+        </div>
+      </div>
+    </div>
+
 
     
     <div class="row mt-5" id="gimnasio">
