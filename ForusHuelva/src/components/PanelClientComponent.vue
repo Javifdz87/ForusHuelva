@@ -632,45 +632,84 @@ import Column from 'primevue/column';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 
-import FullCalendar from '@fullcalendar/vue3';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import bootstrapPlugin from '@fullcalendar/bootstrap';
-
 import Toast from 'primevue/toast';
 import NewSubComponent from '@/components/NewSubComponent.vue';
 import NewRentComponent from '@/components/NewRentComponent.vue';
 
+
+import FullCalendar from '@fullcalendar/vue3';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+
+
+// Objeto reactivo que contiene las opciones de configuración del calendario
 const calendarOptions = ref({
+  // Plugins utilizados por el calendario
   plugins: [timeGridPlugin, bootstrapPlugin],
+
+  // Vista inicial del calendario: una semana en formato de cuadrícula de tiempo
   initialView: 'timeGridWeek',
+
+  // Formato de encabezado de las columnas (días de la semana)
   columnHeaderFormat: {
-    weekday: 'short',
-    month: 'numeric',
-    day: 'numeric'
+    weekday: 'short',  // Abreviatura del día de la semana (ej. 'Lun')
+    month: 'numeric',  // Número del mes (ej. '6' para junio)
+    day: 'numeric'     // Día del mes (ej. '5')
   },
+
+  // Configuración de la barra de herramientas del encabezado
   headerToolbar: {
-    left: 'prev,next',
-    center: 'title',
-    right: 'timeGridWeek,timeGridDay'
+    left: 'prev,next',                    // Botones de navegación para avanzar y retroceder
+    center: 'title',                      // Título centrado del calendario (ej. 'Junio 2024')
+    right: 'timeGridWeek,timeGridDay'     // Botones para cambiar la vista entre semana y día
   },
+
+  // Formato de las etiquetas de los intervalos de tiempo en el calendario
   slotLabelFormat: {
-    hour: 'numeric',
-    minute: '2-digit',
-    omitZeroMinute: false,
-    meridiem: false
+    hour: 'numeric',        // Hora en formato numérico (ej. '9')
+    minute: '2-digit',      // Minutos con dos dígitos (ej. '00')
+    omitZeroMinute: false,  // No omitir minutos '00'
+    meridiem: false         // No usar AM/PM (formato de 24 horas)
   },
+
+  // Permitir que los días tengan múltiples filas de eventos
   dayMaxEventRows: true,
+
+  // Duración de cada intervalo de tiempo en la cuadrícula (20 minutos)
   slotDuration: '00:20:00',
+
+  // Hora de inicio del calendario (9:00 AM)
   slotMinTime: '09:00:00',
+
+  // Hora de fin del calendario (medianoche)
   slotMaxTime: '24:00:00',
+
+  // No mostrar un intervalo para eventos de todo el día
   allDaySlot: false,
+
+  // Sistema de temas visuales (Bootstrap 5)
   themeSystem: 'bootstrap5',
+
+  // Altura del calendario (ajustada automáticamente)
   height: 'auto',
-  eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: false },
+
+  // Formato de la hora de los eventos
+  eventTimeFormat: {
+    hour: '2-digit',        // Hora con dos dígitos (ej. '09')
+    minute: '2-digit',      // Minutos con dos dígitos (ej. '30')
+    meridiem: false         // No usar AM/PM (formato de 24 horas)
+  },
+
+  // Modo de visualización de los eventos
   eventDisplay: 'block',
-  eventBackgroundColor: '#0d6efd',
-  eventTextColor: '#ffffff'
+
+  // Color de fondo de los eventos
+  eventBackgroundColor: '#0d6efd',  // Azul
+
+  // Color del texto de los eventos
+  eventTextColor: '#ffffff'         // Blanco
 });
+
 
 const new_password = ref('');
 const password = ref('');
