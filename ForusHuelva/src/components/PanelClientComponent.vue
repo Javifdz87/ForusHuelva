@@ -217,7 +217,7 @@
     <h2 class="display-5">Calendario.</h2>
     <div class="dropdown">
       <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Deporte
+        Elige Deporte para ver los datos
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="selectSport">
         <li><a class="dropdown-item" data-sport-id="1">Padel</a></li>
@@ -624,16 +624,16 @@
 <script setup>
 import api from '@/services/service';
 import { useRouter } from 'vue-router';
-import { ref, onMounted, watch, nextTick  } from 'vue';
+import { ref, onMounted, watch, nextTick } from 'vue';
 import { defineProps } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
-import InputText from 'primevue/inputtext'
+import InputText from 'primevue/inputtext';
 
-import FullCalendar from '@fullcalendar/vue3'
-import timeGridPlugin from '@fullcalendar/timegrid'
+import FullCalendar from '@fullcalendar/vue3';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 
 import Toast from 'primevue/toast';
@@ -644,9 +644,14 @@ const calendarOptions = ref({
   plugins: [timeGridPlugin, bootstrapPlugin],
   initialView: 'timeGridWeek',
   columnHeaderFormat: {
-    weekday: 'short', // Mostrar solo el día de la semana abreviado
+    weekday: 'short',
     month: 'numeric',
     day: 'numeric'
+  },
+  headerToolbar: {
+    left: 'prev,next',
+    center: 'title',
+    right: 'timeGridWeek,timeGridDay'
   },
   slotLabelFormat: {
     hour: 'numeric',
@@ -654,26 +659,23 @@ const calendarOptions = ref({
     omitZeroMinute: false,
     meridiem: false
   },
+  dayMaxEventRows: true,
   slotDuration: '00:20:00',
   slotMinTime: '09:00:00',
   slotMaxTime: '24:00:00',
   allDaySlot: false,
-  themeSystem: 'bootstrap5', // Agregamos el tema de Bootstrap 5
-  height: 'auto', // Ajustar automáticamente la altura del calendario
-  eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: false }, // Formato de hora de los eventos
-  eventDisplay: 'block', // Mostrar eventos en bloque para una mejor visualización
-  eventBackgroundColor: '#0d6efd', // Color de fondo de los eventos
-  eventTextColor: '#f747fff' // Color del texto de los eventos
+  themeSystem: 'bootstrap5',
+  height: 'auto',
+  eventTimeFormat: { hour: '2-digit', minute: '2-digit', meridiem: false },
+  eventDisplay: 'block',
+  eventBackgroundColor: '#0d6efd',
+  eventTextColor: '#ffffff'
 });
 
-
 const new_password = ref('');
-
 const password = ref('');
 const new_bank_account = ref('');
-
-const filters = ref({ global: { value: '' } })
-
+const filters = ref({ global: { value: '' } });
 
 const pistas = ref([]);
 const times = ref([]);
@@ -681,9 +683,8 @@ const sports = ref([]);
 const clientes = ref([]);
 const subs = ref([]);
 const rent = ref([]);
-
+const rentSport = ref([]);
 const qrCodeUrl = ref('');
-
 
 const props = defineProps({
   email: String,
@@ -693,9 +694,6 @@ const props = defineProps({
 
 const isActive = ref(false);
 
-
-console.log('Id del cliente:', clientes);
-
 const localEmail = ref(props.email);
 
 watch(() => props.email, (newVal) => {
@@ -703,34 +701,29 @@ watch(() => props.email, (newVal) => {
   getClients(newVal);
 });
 
-// Filtrar las pistas ocupadas de la base de datos de alquileres
 const getOccupiedSlots = () => {
   const events = [];
-  rent.value.forEach(rent => {
+  rentSport.value.forEach(r => {
     const event = {
-      title: `Deporte: ${rent.sport.sport} - ${rent.court.name}`, // Concatenar el nombre del deporte y la pista en el título del evento
-      start: rent.date_day + 'T' + rent.date_time, // Concatenar la fecha y hora de inicio
-      backgroundColor: '#dc3545', // Color de fondo del evento
-      borderColor: '#dc4000', // Color del borde del evento
-      textColor: '#ffffff' // Color del texto del evento
+      title: `Deporte: ${r.sport.sport} - ${r.court.name}`,
+      start: r.date_day + 'T' + r.date_time,
+      backgroundColor: '#dc3545',
+      borderColor: '#dc4000',
+      textColor: '#ffffff'
     };
     events.push(event);
   });
-  console.log('Eventos:', events); // Agregar console.log para verificar los eventos
   return events;
 };
 
-// Actualizar los eventos del calendario con las pistas ocupadas
-watch(rent, () => {
+const updateCalendarEvents = async () => {
+  await nextTick();
   const events = getOccupiedSlots();
   calendarOptions.value.events = events;
-  console.log('Eventos actualizados:', events); // Agregar console.log para verificar los eventos actualizados
-});
+};
 
-// Actualizar los eventos del calendario con las pistas ocupadas
-watch(rent, () => {
-  const events = getOccupiedSlots();
-  calendarOptions.value.events = events;
+watch(rentSport, () => {
+  updateCalendarEvents();
 });
 
 const toast = useToast();
@@ -753,9 +746,8 @@ const getCourts = async () => {
 };
 
 const handleSubscriptionCreated = () => {
-    getSub(clientes.value.id);
+  getSub(clientes.value.id);
 };
-
 
 const getSports = async () => {
   try {
@@ -766,37 +758,23 @@ const getSports = async () => {
   }
 };
 
-// Función para cancelar una suscripción
 const cancelSub = async () => {
   try {
-    // Datos que se enviarán a la API para cancelar la suscripción
-    const data = {
-      status: 'cancelada'
-    };
-
-    // Realizar una solicitud PUT a la API para actualizar el estado de la suscripción del cliente
+    const data = { status: 'cancelada' };
     const response = await api.put(`/subfees/${clientes.value.id}`, data);
 
-    // Verificar si la respuesta de la API es exitosa
     if (response.status === 200) {
-      // Si la respuesta es exitosa, imprimir mensaje en la consola y mostrar notificación de éxito
       showSuccess('Suscripción cancelada correctamente.');
-
-      // Refrescar los datos de suscripción del cliente
       getSub(clientes.value.id);
     } else {
-      // Si la respuesta no es exitosa, imprimir mensaje de error en la consola y mostrar notificación de error
       console.error('Error al editar el status.');
       showError('Error al editar el status.');
     }
   } catch (error) {
-    // Manejar cualquier error que ocurra durante la solicitud a la API
     console.error('Error al editar el status:', error.message);
     showError('Error al editar el status.');
   }
 };
-
-
 
 const editPassword = async () => {
   try {
@@ -804,49 +782,40 @@ const editPassword = async () => {
       throw new Error('Las contraseñas no coinciden');
     }
 
-    const data = {
-      password: new_password.value
-    };
-
-    console.log('Datos a enviar:', data);
-
+    const data = { password: new_password.value };
     const response = await api.put(`/resource/${localEmail.value}`, data);
 
     if (response.status === 200) {
-      console.log('Contraseña actualizada correctamente.');
-
-      // Limpiar los campos del formulario
       password.value = '';
       new_password.value = '';
       closeModalPassword();
       getClients(localEmail.value);
-      showSuccess('Contraseña actualizada correctamente.'); // Mostrar mensaje de éxito
+      showSuccess('Contraseña actualizada correctamente.');
     } else {
       console.error('Error al editar la contraseña.');
-      showError('Error al editar la contraseña.'); // Mostrar mensaje de error
+      showError('Error al editar la contraseña.');
     }
   } catch (error) {
     console.error('Error al editar la contraseña:', error.message);
-    showError('No coinciden las contraseñas'); // Mostrar mensaje de error
+    showError('No coinciden las contraseñas');
   }
 };
-
 
 const editarBankAccount = async () => {
   try {
     const data = {
-      new_bank_account: new_bank_account.value,  // Asegúrate de usar el campo correcto que espera el backend
+      new_bank_account: new_bank_account.value,
       password: password.value
     };
 
-    const response = await api.put(`/bankAccount/${localEmail.value}`, data);  // Elimina '/bank-account' si no es necesario
+    const response = await api.put(`/bankAccount/${localEmail.value}`, data);
 
     if (response.status === 200) {
       showSuccess('Cuenta bancaria actualizada correctamente.');
       new_bank_account.value = '';
       password.value = '';
       closeModalBank();
-      getSub(clientes.value.id); // Refrescar datos de suscripción
+      getSub(clientes.value.id);
       getClients(localEmail.value);
     } else {
       showError('Error al actualizar la cuenta bancaria.');
@@ -857,18 +826,11 @@ const editarBankAccount = async () => {
   }
 };
 
-
-// Función para obtener los detalles del cliente por su email
 const getClients = async (email) => {
   try {
-    // Realizar una solicitud a la API para obtener los detalles del cliente por su email
     const respuesta = await api.get(`/clients/${email}`);
-    console.log(respuesta.data);
-    // Almacenar los detalles del cliente en una variable reactiva
     clientes.value = respuesta.data;
-    // Verificar si se obtuvo algún cliente
     if (clientes.value.id) {
-      // Si se obtuvo un cliente, obtener sus suscripciones y alquileres
       getSub(clientes.value.id);
       getRents(clientes.value.id);
     }
@@ -877,32 +839,21 @@ const getClients = async (email) => {
   }
 };
 
-// Función para obtener las suscripciones de un cliente por su ID
 const getSub = async (clienteId) => {
   try {
-    // Realizar una solicitud a la API para obtener las suscripciones del cliente por su ID
     const respuesta = await api.get(`/subfees/${clienteId}`);
-    console.log('Datos de suscripción:', respuesta.data);
-    // Almacenar las suscripciones en una variable reactiva
     subs.value = respuesta.data;
-    // Obtener la última suscripción del cliente
     const sub = respuesta.data;
-    // Verificar si la suscripción está activa
     const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= getCurrentDate());
-    // Almacenar el estado de la suscripción activa en una variable reactiva
     isActive.value = isActiveSubscription;
-    // Obtener el código QR correspondiente a la suscripción
     getQRCode();
   } catch (error) {
     console.log(error);
   }
 };
 
-
-
 const getCurrentDate = () => {
-  const currentDate = new Date().toISOString().split('T')[0];
-  return currentDate;
+  return new Date().toISOString().split('T')[0];
 };
 
 const closeModalPassword = async () => {
@@ -917,29 +868,20 @@ const closeModalBank = async () => {
   closeButton.click();
 };
 
-// Función para obtener un código QR desde la API
 const getQRCode = async () => {
   try {
-    // Realizar una solicitud a la API para generar el código QR
     const response = await api.get('/generate-qr', { responseType: 'blob' });
-
-    // Crear una URL a partir del blob recibido en la respuesta
     const url = URL.createObjectURL(response.data);
-
-    // Almacenar la URL del código QR en una variable reactiva
     qrCodeUrl.value = url;
-
   } catch (error) {
     console.error('Error al generar el código QR:', error);
   }
 };
 
-
 const getRents = async (clienteId) => {
   try {
     const respuesta = await api.get(`/rentfees/${clienteId}`);
     rent.value = respuesta.data;
-    console.log('Alquileres:', rent); // Agregar console.log para verificar los alquileres
   } catch (error) {
     console.error(error);
   }
@@ -953,15 +895,12 @@ const selectSport = async (event) => {
 const getRentsSport = async (sportId) => {
   try {
     const respuesta = await api.get(`/calendar/${sportId}`);
-    rent.value = respuesta.data;
-    console.log('Alquileres:', rent);
+    rentSport.value = respuesta.data;
+    console.log('Alquileres por deporte:', rentSport.value);
   } catch (error) {
     console.error(error);
   }
 };
-
-
-
 
 onMounted(() => {
   getCourts();
@@ -972,5 +911,5 @@ onMounted(() => {
   const events = getOccupiedSlots();
   calendarOptions.value.events = events;
 });
- 
+
 </script>

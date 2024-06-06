@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" placeholder="Elije el dia de juego" />
+                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" @change="actualizarHorasDisponibles" placeholder="Elije el dia de juego" />
                             <label for="fechaInicio">Elije el día de juego</label>
                             <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
                         </div>
@@ -70,7 +70,6 @@
                             <input type="text" class="form-control" id="import" :value="calculatedImporte" placeholder="Precio" readonly />
                             <label for="floatingInput">Precio</label>
                         </div>
-                        <!-- Debugging output for isActive -->
                         <div v-if="isActive" class="text-success">Suscripción activa: Precio reducido</div>
                         <div v-else class="text-warning">Suscripción inactiva: Precio normal</div>
                     </div>
@@ -105,6 +104,9 @@ const localId = ref(props.id);
 
 watch(() => props.email, (newVal) => {
     localEmail.value = newVal;
+    if (newVal) {
+        getClients(newVal);
+    }
 });
 
 watch(() => props.name, (newVal) => {
@@ -113,6 +115,9 @@ watch(() => props.name, (newVal) => {
 
 watch(() => props.id, (newVal) => {
     localId.value = newVal;
+    if (newVal) {
+        getSub(newVal);
+    }
 });
 
 const toast = useToast();
@@ -170,102 +175,86 @@ const createRent = async () => {
 
         // Cerrar el modal de creación de alquiler
         cerrarModalCrear();
-        // Mostrar mensaje de éxito
-        showSuccess('Se ha creado correctamente.');
 
-        // Limpiar los campos del formulario
+        // Mostrar mensaje de éxito
+        showSuccess('Alquiler creado correctamente');
+
+        // Refrescar la lista de alquileres
+        await getRents();
+
+        // Resetear el formulario a los valores iniciales
         date_day.value = '';
-        date_time.value = '';
-        clienteSeleccionado.value = '';
-        DeporteSeleccionado.value = '';
         timeSeleccionado.value = '';
         pistaSeleccionada.value = '';
-
-        // Actualizar la lista de alquileres
-        getRents();
+        DeporteSeleccionado.value = '';
     } catch (error) {
-        showError('Error al crear el alquiler.');
         console.error(error);
+        showError('Hubo un problema al crear el alquiler.');
     }
 };
 
-
+// Función para obtener la lista de clientes desde la API
 const getClients = async (email) => {
     try {
         const respuesta = await api.get(`/clients/${email}`);
-        console.log('Datos del cliente:', respuesta.data);
         clientes.value = respuesta.data;
-        if (clientes.value.id) {
-            await getSub(clientes.value.id);
+        if (clientes.value.length > 0) {
+            const cliente = clientes.value[0];
+            localName.value = cliente.name;
+            localId.value = cliente.id;
+            getSub(cliente.id);  // Obtener la suscripción del cliente
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
 // Función para obtener la lista de pistas desde la API
 const getCourts = async () => {
     try {
-        // Realizar una solicitud a la API para obtener las pistas
         const respuesta = await api.get('/courts');
-        // Almacenar las pistas en una variable reactiva
         pistas.value = respuesta.data;
     } catch (error) {
-        // Manejar cualquier error que ocurra durante la obtención de las pistas
-        console.log(error);
+        console.error(error);
     }
 };
 
+// Función para obtener la lista de horarios disponibles desde la API
 const getHours = async (sportId) => {
     try {
-        console.log('Obteniendo horarios para el deporte con ID:', sportId);
         const respuesta = await api.get(`/times/${sportId}`);
-        console.log('Respuesta de la API para los horarios:', respuesta.data);
-        if(Array.isArray(respuesta.data)) {
-            times.value = respuesta.data;
-        } else {
-            console.error('La respuesta de la API no es un array:', respuesta.data);
-        }
+        times.value = respuesta.data;
+        actualizarHorasDisponibles(); // Actualizar las horas disponibles después de obtenerlas
     } catch (error) {
-        console.error('Error al obtener los horarios:', error);
+        console.error(error);
     }
 };
-
-
 
 // Función para obtener la lista de deportes desde la API
 const getSports = async () => {
     try {
-        // Realizar una solicitud a la API para obtener los deportes
         const respuesta = await api.get('/sports');
-        // Almacenar los deportes en una variable reactiva
         sports.value = respuesta.data;
     } catch (error) {
-        // Manejar cualquier error que ocurra durante la obtención de los deportes
-        console.log(error);
+        console.error(error);
     }
 };
 
 // Función para actualizar la lista de pistas filtradas según el deporte seleccionado
 const actualizarPistas = () => {
-    // Filtrar las pistas que coinciden con el deporte seleccionado
     filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
-    getHours(DeporteSeleccionado.value); // Corrección aquí
+    getHours(DeporteSeleccionado.value); // Obtener los horarios disponibles para el deporte seleccionado
 };
 
 // Función para actualizar la lista de horarios disponibles según las reservas existentes
 const actualizarHorasDisponibles = () => {
-    // Filtrar los horarios que están disponibles (no reservados)
     filteredTimes.value = times.value.filter(time => {
-        // Verificar si la hora no está reservada para la fecha y pista seleccionada
         const horaDisponible = !rent.value.some(rentItem => {
-            return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time 
-            && rentItem.court_id === pistaSeleccionada.value;
+            return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time && rentItem.court_id === pistaSeleccionada.value;
         });
         return horaDisponible;
     });
 };
-
 
 const cerrarModalCrear = () => {
     const createRentModal = document.getElementById('modalRent');
@@ -276,13 +265,11 @@ const cerrarModalCrear = () => {
 const getSub = async (clienteId) => {
     try {
         const respuesta = await api.get(`/subfees/${clienteId}`);
-        console.log('Datos de suscripción:', respuesta.data);
         const sub = respuesta.data;
         const isActiveSubscription = sub.status === 'activa' || (sub.status === 'cancelada' && sub.date_end >= new Date().toISOString().split('T')[0]);
-        console.log('Estado de suscripción:', isActiveSubscription);
         isActive.value = isActiveSubscription;
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
