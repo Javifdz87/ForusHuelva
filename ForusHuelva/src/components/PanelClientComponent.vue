@@ -163,7 +163,7 @@
 
     <div class="row mt-5" id="pistas">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
-        <h4 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h4>
+        <h2 class="display-5">Puede alquilar nuestras pistas facilmente pulsando abajo.</h2>
         <p class="lead">Si eres socio se le aplicará un descuento.</p>
 
         <div class="row">
@@ -234,15 +234,47 @@
   </div>
 </div>
 
-    <div class="row mt-5" id="gimnasio">
+    <div class="row mt-5" id="lugar">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h2 class="display-5">Donde nos encontramos.</h2>
-        <div class="d-flex justify-content-center mt-3">
+        <div class="row">
+          <div class="mt-3 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="row">
+              <div class="col-lg-6">
+                <h2 class="display-6">Dirección</h2>
+                <p class="">Avda. de Honduras, s/n 21007 Huelva</p>
+
+              </div>
+              <div class="col-lg-6">
+                <h2 class="display-6">Horario</h2>
+                <p class="">Lunes a Viernes: 7:00 a 23:00 <br> Sábados, domingos y festivos: 9:00 a 21:00</p>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <h2 class="display-6">Teléfono</h2>
+                <p class="">959270115</p>
+
+              </div>
+              <div class="col-lg-6">
+                <h2 class="display-6">Email</h2>
+                <p class="">infohuelva@forus.es</p>
+
+              </div>
+            </div>
+            
+
+
+        </div>
+        <div class="d-flex justify-content-center mt-3 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6350.340466500009!2d-6.929387224559852!3d37.26739014122577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11cffddb41cb6d%3A0xc873cb6b6671193d!2sForus%20Huelva%20(C.D.%20El%20Saladillo)!5e0!3m2!1ses!2ses!4v1716971215139!5m2!1ses!2ses"
             width="800" height="450" style="border:1;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
+        </div>
+        
       </div>
     </div>
   </div>

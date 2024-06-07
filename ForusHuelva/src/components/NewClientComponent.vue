@@ -130,12 +130,15 @@
   <script setup>
   import api from '@/services/service'
   import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router';
   import Button from 'primevue/button'
   import { useToast } from 'primevue/usetoast'
   import Toast from 'primevue/toast'
   
   const toast = useToast()
   const provincias = ref([])
+  const router = useRouter();
+
   
     const name = ref('')
     const last_Name = ref('')
@@ -216,6 +219,8 @@ const showSuccess = (message) => {
       address.value = ''
       password.value = '' 
       showSuccess('Cliente registrado correctamente.')
+      router.push('/');
+
 
     } catch (error) {
       showError('Error al crear el cliente.')
