@@ -43,7 +43,7 @@
         <h2 class="display-4">¿Quiénes somos?</h2>
 
         <p class="lead">Bienvenido al gimnasio más grande de toda la provincia, con pistas y una amplia sala
-          de entrenamiento, donde primero tendras que iniciar sesión para empezar a usar nuestra aplicación, tenemos una forma muy facil de crear un nuevo usuario.</p>
+          de entrenamiento. <br> Primero tendras que iniciar sesión para empezar a usar nuestra aplicación, tenemos una forma muy facil de crear un nuevo usuario.</p>
       </div>
     </div>
     <div class="row mt-5">

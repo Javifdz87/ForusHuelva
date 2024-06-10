@@ -501,7 +501,7 @@
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="observation" placeholder="name@example.com"
                     v-model="subs.observation" readonly />
-                  <label for="floatingInput">Observación</label>
+                  <label for="floatingInput">Suscripción</label>
                 </div>
               </div>
             </div>
@@ -622,13 +622,11 @@
             <DataTable :value="rent" stripedRows :paginator="false" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
             tableStyle="min-width: 50rem" :filters="filters"
       :globalFilterFields="['court.sport_id', 'date_day', 'date_time']">
-            <Column field="importe" header="Importe" sortable style="width: 8%"></Column>
-            <Column field="date_pay" header="Dia de Pago" sortable style="width: 14%"></Column>
-            <Column field="court.name" header="Pista" sortable style="width: 14%"></Column>
-            <Column field="sport.sport" header="Deporte" sortable style="width: 14%"></Column>
-            <Column field="date_day" header="Fecha de Juego" sortable style="width: 18%"></Column>
-            <Column field="date_time" header="Hora Alquiler" sortable style="width: 14%"></Column>
-            <Column header="Operaciones" style="width: 18%">
+            <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
+            <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
+            <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
+            <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
+            <Column header="Operaciones" style="width: 20%">
               <template #body="slotProps">
                 <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
                   @click="selectRent(slotProps.data)">
@@ -952,11 +950,20 @@ const getQRCode = async () => {
 const getRents = async (clienteId) => {
   try {
     const respuesta = await api.get(`/rentfees/${clienteId}`);
-    rent.value = respuesta.data;
+
+    const currentDate = new Date();
+
+    const filteredRents = respuesta.data.filter(rent => {
+      const rentEndDate = new Date(rent.date_day);
+      return rentEndDate > currentDate;
+    });
+
+    rent.value = filteredRents;
   } catch (error) {
     console.error(error);
   }
 };
+
 
 const selectSport = async (event) => {
   const sportId = event.target.getAttribute('data-sport-id');
