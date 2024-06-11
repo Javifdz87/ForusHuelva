@@ -67,8 +67,8 @@
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="import" :value="calculatedImporte" placeholder="Precio" readonly />
-                            <label for="floatingInput">Precio</label>
+                            
+                            <p><strong>Precio:</strong> {{ calculatedImporte }} €</p>
                         </div>
                         <div v-if="isActive" class="text-success">Suscripción activa: Precio reducido</div>
                         <div v-else class="text-warning">Suscripción inactiva: Precio normal</div>
