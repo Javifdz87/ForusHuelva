@@ -65,6 +65,17 @@ CREATE TABLE date_time(
     FOREIGN KEY(sport_id) REFERENCES sports(id) ON DELETE CASCADE 
 );
 
+CREATE TABLE matches(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    team_a VARCHAR(250),
+    team_b VARCHAR(250),
+    result VARCHAR(250),
+    description VARCHAR(250),
+    rent_id INT NOT NULL,
+
+    FOREIGN KEY(rent_id) REFERENCES rental_fees(id) ON DELETE CASCADE
+);
+
 INSERT INTO date_time(id, sport_id, date_time) VALUES 
 (1, '3', '10:00'),
 (2, '3', '11:00'),
