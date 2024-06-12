@@ -23,3 +23,12 @@ body{
 h1, h2, h5 {
     font-family: 'Oswald', sans-serif;
 }
+
+.dropdown-menu {
+    z-index: 1050; /* Ajusta este valor si es necesario */
+  }
+
+  #alquileres {
+    position: relative;
+    z-index: 1;
+  }

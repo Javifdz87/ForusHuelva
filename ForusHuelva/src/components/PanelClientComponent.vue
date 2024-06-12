@@ -234,15 +234,15 @@
   </div>
 </div>
 
-<div class="row mt-5" id="alquileres">
+<div class="row mt-5" id="alquileres" style="position: relative; z-index: 1;">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
     <h2 class="display-5">Historial de Alquileres y Resultados.</h2>
-
-      <div class="calendar-container">
-        <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
-      </div>
+    <div class="">
+      <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
+    </div>
   </div>
 </div>
+
 
     <div class="row mt-5" id="lugar">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
@@ -660,6 +660,85 @@
         </div>
       </div>
   </div>
+
+      <!-- Modal Eliminar -->
+      <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-danger">
+            <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Se va a eliminar toda la fila.</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Vista -->
+    <div class="modal fade" id="modalViewResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-info">
+            <h5 class="modal-title text-light" id="staticBackdropLabel">Vista Alquiler</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <Toast />
+              <div class="row justify-content-center m-3">
+                <!-- Contenido de la vista del alquiler -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Nuevo cliente -->
+    <div class="modal fade" id="modalNewResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Registrar Cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <Toast />
+              <div class="row justify-content-center m-3">
+                <!-- Contenido del registro del cliente -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Editar Cliente -->
+    <div class="modal fade" id="modalEditResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-center m-3">
+              <!-- Contenido de la edición del cliente -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script setup>

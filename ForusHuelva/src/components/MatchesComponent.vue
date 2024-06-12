@@ -1,37 +1,50 @@
 <template>
   <div>
     <Toast />
-    <DataTable :value="rent" stripedRows :paginator="true" :rows="5"
-      tableStyle="min-width: 50rem">
+    <DataTable :value="rent" stripedRows :paginator="true" :rows="5">
       <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
       <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
       <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
-      <Column field="match.result" header="Resultado" sortable style="width: 20%"></Column>
+      <Column header="Resultado" sortable style="width: 20%">
+        <template #body="slotProps">
+          {{ slotProps.data.result ? slotProps.data.result : '- -' }}
+        </template>
+      </Column>
       <Column header="Operaciones" style="width: 20%">
         <template #body="slotProps">
-          <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false">...</button>
-                  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalSub"
-                        @click="selectClient(slotProps.data)">Añadir Resultado</Button></li>
-                    <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalRent"
-                        @click="selectClient(slotProps.data)">Eliminar</Button></li>
-                        <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalSub"
-                        @click="selectClient(slotProps.data)">Ver alquiler</Button></li>
-                    <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalRent"
-                        @click="selectClient(slotProps.data)">Modificar Alquiler</Button></li>
-                  </ul>
-                </div>
+          <div class="btn-group" role="group" style="position: relative;">
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+              data-bs-toggle="dropdown" aria-expanded="false">...</button>
+            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="z-index: 1050;">
+              <li>
+                <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalNewResult"
+                  @click="selectRent(slotProps.data)">Añadir Resultado</button>
+              </li>
+              <li>
+                <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalDeleteResult"
+                  @click="selectRent(slotProps.data)">Eliminar</button>
+              </li>
+              <li>
+                <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalViewResult"
+                  @click="selectRent(slotProps.data)">Ver alquiler</button>
+              </li>
+              <li>
+                <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalEditResult"
+                  @click="selectRent(slotProps.data)">Modificar Alquiler</button>
+              </li>
+            </ul>
+          </div>
         </template>
       </Column>
     </DataTable>
+
+
   </div>
 </template>
 
 <script setup>
 import api from '@/services/service';
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { defineProps } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import DataTable from 'primevue/datatable';
@@ -41,8 +54,6 @@ import Toast from 'primevue/toast';
 
 const cliente = ref([]);
 const rent = ref([]);
-const match = ref([]);
-
 
 const props = defineProps({
   email: String,
@@ -67,8 +78,23 @@ watch(() => props.email, (newVal) => {
   getClients(newVal);
 });
 
-const selectMatch = (match) => {
-  selectedCourt.value = { ...match };
+const selectedRent = ref({
+  id: '',
+  client: {
+    email: '',
+    name: ''
+  },
+  court: {
+    id: '',
+    name: ''
+  },
+  date_day: '',
+  date_time: '',
+  importe: ''
+});
+
+const selectRent = (rent) => {
+  selectedRent.value = rent;
 };
 
 const toast = useToast();
@@ -89,7 +115,7 @@ const getClients = async (email) => {
     cliente.value = respuesta.data;
     if (cliente.value && cliente.value.id) {
       console.log('Cliente encontrado:', cliente.value);
-      getRents(cliente.value.id); // Obtener la suscripción del cliente
+      getRents(cliente.value.id);
     } else {
       console.log('No se encontró ningún cliente con ese email.');
     }
@@ -103,32 +129,39 @@ const getRents = async (clienteId) => {
     console.log(`Buscando alquileres para el cliente con ID: ${clienteId}`);
     const respuesta = await api.get(`/rentfees/${clienteId}`);
     console.log('Respuesta de getRents:', respuesta.data);
-      rent.value = respuesta.data;
-      getMatches(rent.value.id);
+    rent.value = respuesta.data;
     console.log('Alquileres cargados:', rent.value);
   } catch (error) {
     console.error('Error en getRents:', error);
   }
 };
 
-const getMatches = async (rentId) => {
+const deleteRent = async () => {
   try {
-    const respuesta = await api.get(`/matches/${rentId}`);
-    console.log('Respuesta de getRents:', respuesta.data);
-      match.value = respuesta.data;
-      getMatches(rent.value.id);
-    console.log('Alquileres cargados:', rent.value);
+    if (!selectedRent.value) {
+      console.error('No hay alquiler seleccionado para eliminar.');
+      return;
+    }
+
+    const idRent = selectedRent.value.id;
+    const response = await api.delete(`/rentfees/${idRent}`);
+
+    if (response.status === 204) {
+      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
+      showSuccess('Alquiler eliminado correctamente.');
+    } else {
+      showError('Error al eliminar el alquiler.');
+      console.error('Error al eliminar el alquiler.');
+    }
   } catch (error) {
-    console.error('Error en getRents:', error);
+    showError('Error al eliminar el alquiler');
+    console.error('Error al eliminar el alquiler:', error);
   }
 };
-
 
 onMounted(() => {
   if (localEmail.value) {
-    getClients(localEmail.value); // Asegurarse de que se llama a getClients con el email del prop
+    getClients(localEmail.value);
   }
 });
 </script>
-
-

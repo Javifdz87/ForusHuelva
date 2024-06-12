@@ -24,6 +24,10 @@ class RentalFeesModel extends Model implements Authenticatable
         'client_id',
         'court_id',
         'sport_id',
+        'team_a',
+        'team_b',
+        'result',
+        'description',
 
     ];
 
