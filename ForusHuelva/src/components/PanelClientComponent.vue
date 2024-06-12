@@ -661,7 +661,7 @@
       </div>
   </div>
 
-      <!-- Modal Eliminar -->
+      <!-- Modal Eliminar Alquiler -->
       <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -685,15 +685,41 @@
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header bg-info">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">Vista Alquiler</h5>
+            <h5 class="modal-title text-light" id="staticBackdropLabel">Ver resultado</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="container">
               <Toast />
               <div class="row justify-content-center m-3">
-                <!-- Contenido de la vista del alquiler -->
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <label for="email"><h2>Team 1</h2></label>
               </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <label for="nombre"><h3>resultado</h3></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <label for="nombre"><h2>Team 2</h2></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <label for="deporte">equipo 1</label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <label for="fechaInicio">vs</label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <label for="fechaInicio">Equipo 2</label>
+              </div>
+            </div>
+
+
+           
+
+          </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -703,25 +729,87 @@
       </div>
     </div>
 
-    <!-- Modal Nuevo cliente -->
     <div class="modal fade" id="modalNewResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Registrar Cliente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <Toast />
-              <div class="row justify-content-center m-3">
-                <!-- Contenido del registro del cliente -->
-              </div>
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registrar Resultado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <Toast />
+            <div class="row justify-content-center m-3">
+              <form @submit.prevent="addResult" class="text-center">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2>Deporte</h2>
+                  </div>
+                </div>
+                <div id="team-rows">
+                  <div v-for="player in players" :key="player.id" class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" v-model="player.teamA" :placeholder="'email'" />
+                        <label :for="'player' + player.id">jugador {{ player.id }} - Team A</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 align-self-center">
+                      <label>vs</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" v-model="player.teamB" :placeholder="'Nombre'" />
+                        <label :for="'player' + player.id">jugador {{ player.id }} - Team B</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <button type="button" class="btn btn-secondary" @click="addPlayer">Añadir jugador</button>
+                  </div>
+                </div>
+                <hr>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h2>Resultado</h2>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 align-self-center">
+                    <label for="resultadoA">Team A</label>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <input type="text" class="form-control" v-model="resultadoA" placeholder="Resultado Team A" />
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <input type="text" class="form-control" v-model="resultadoB" placeholder="Resultado Team B" />
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 align-self-center">
+                    <label for="resultadoB">Team B</label>
+                  </div>
+                </div>
+                <hr>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h2>Descripción</h2>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" v-model="description"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                    <button type="submit" class="btn btn-primary btn-block w-100">Crear Resultado</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
 
     <!-- Modal Editar Cliente -->
     <div class="modal fade" id="modalEditResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -846,6 +934,11 @@ const subs = ref([]);
 const rent = ref([]);
 const rentSport = ref([]);
 const qrCodeUrl = ref('');
+
+const players = ref([{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }]);
+const resultadoA = ref('');
+const resultadoB = ref('');
+const description = ref('');
 
 const props = defineProps({
   email: String,
@@ -1071,6 +1164,81 @@ const getRentsSport = async (sportId) => {
     console.error(error);
   }
 };
+
+const selectedRent = ref({
+  id: '', // Asegúrate de que este valor se actualice correctamente
+  client: {
+    email: '',
+    name: ''
+  },
+  court: {
+    id: '',
+    name: ''
+  },
+  date_day: '',
+  date_time: '',
+  importe: ''
+});
+
+const selectRent = (rent) => {
+  selectedRent.value = {...rent}; // Aquí se debe asignar el alquiler seleccionado con el ID correcto
+};
+const deleteRent = async () => {
+  try {
+    if (!selectedRent.value) {
+      console.error('No hay alquiler seleccionado para eliminar.');
+      return;
+    }
+
+    const idRent = selectedRent.value.id;
+    const response = await api.delete(`/rentfees/${idRent}`);
+
+    if (response.status === 204) {
+      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
+      showSuccess('Alquiler eliminado correctamente.');
+    } else {
+      showError('Error al eliminar el alquiler.');
+      console.error('Error al eliminar el alquiler.');
+    }
+  } catch (error) {
+    showError('Error al eliminar el alquiler');
+    console.error('Error al eliminar el alquiler:', error);
+  }
+};
+
+
+
+const addPlayer = () => {
+  if (players.value.length >= 7) {
+    return;
+  }
+
+  players.value.push({ id: players.value.length + 1, teamA: '', teamB: '' });
+};
+
+const addResult = async () => {
+  const teamA = players.value.map(player => player.teamA).join(', ');
+  const teamB = players.value.map(player => player.teamB).join(', ');
+  const result = `${resultadoA.value} - ${resultadoB.value}`;
+  
+  const data = {
+    team_a: teamA,
+    team_b: teamB,
+    result: result,
+    description: description.value,
+  };
+
+    const response = await api.put(`/rentfees/${selectedRent.value.id}`, data);
+
+    if (response.status === 200) {
+      showSuccess('Resultado actualizado correctamente.');
+      // Aquí puedes agregar la lógica para actualizar la vista o los datos locales
+    } else {
+      showError('Error al actualizar el resultado.');
+    }
+  
+};
+
 
 onMounted(() => {
   getCourts();

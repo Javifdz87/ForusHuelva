@@ -12,10 +12,10 @@
       </Column>
       <Column header="Operaciones" style="width: 20%">
         <template #body="slotProps">
-          <div class="btn-group" role="group" style="position: relative;">
+          <div class="btn-group dropend" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
               data-bs-toggle="dropdown" aria-expanded="false">...</button>
-            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="z-index: 1050;">
+            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" >
               <li>
                 <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalNewResult"
                   @click="selectRent(slotProps.data)">Añadir Resultado</button>
@@ -26,7 +26,7 @@
               </li>
               <li>
                 <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalViewResult"
-                  @click="selectRent(slotProps.data)">Ver alquiler</button>
+                  @click="selectRent(slotProps.data)">Ver resultado</button>
               </li>
               <li>
                 <button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalEditResult"
@@ -136,28 +136,7 @@ const getRents = async (clienteId) => {
   }
 };
 
-const deleteRent = async () => {
-  try {
-    if (!selectedRent.value) {
-      console.error('No hay alquiler seleccionado para eliminar.');
-      return;
-    }
 
-    const idRent = selectedRent.value.id;
-    const response = await api.delete(`/rentfees/${idRent}`);
-
-    if (response.status === 204) {
-      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
-      showSuccess('Alquiler eliminado correctamente.');
-    } else {
-      showError('Error al eliminar el alquiler.');
-      console.error('Error al eliminar el alquiler.');
-    }
-  } catch (error) {
-    showError('Error al eliminar el alquiler');
-    console.error('Error al eliminar el alquiler:', error);
-  }
-};
 
 onMounted(() => {
   if (localEmail.value) {
