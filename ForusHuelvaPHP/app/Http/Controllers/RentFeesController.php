@@ -11,7 +11,7 @@ class RentFeesController extends Controller
     public function index()
     {
         // Obtener todos los alquileres con los detalles del cliente, la cancha y el deporte asociados
-        $rent = RentalFeesModel::with('client:id,name,email', 'court:id,name,sport_id', 'sport:id,sport')->get();
+        $rent = RentalFeesModel::with('client:id,name,email', 'court:id,name,sport_id', 'sport:id,sport', 'match:id,team_a,team_b, result, description')->get();
 
         return response()->json($rent);
     }

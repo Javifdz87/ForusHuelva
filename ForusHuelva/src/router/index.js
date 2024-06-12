@@ -10,6 +10,8 @@ import Nav from '@/views/NavView.vue';
 import Search from '@/views/SearchView.vue'
 import NewClient from '@/views/NewClientView.vue';
 import PanelClient from '@/views/PanelClientView.vue';
+import Matches from '@/views/MatchesView.vue';
+
 
 
 
@@ -75,6 +77,11 @@ const routes = [
     component: PanelClient,
     props: route => ({ email: route.params.email })
 
+  }, 
+  {
+    path: '/matches',
+    name: 'matches',
+    component: Matches
   }, 
   
 ];

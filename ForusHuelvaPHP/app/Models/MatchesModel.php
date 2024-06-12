@@ -20,12 +20,13 @@ class MatchesModel extends Model implements Authenticatable
         'team_a',
         'team_b',
         'result',
+        'description',
         'rent_id',
     ];
 
-    public function rent()
+    public function rentalFee()
     {
-        return $this->hasMany(RentalFeesModel::class);
+        return $this->hasMany(RentalFeesModel::class, 'rent_id');
     }
    
 }

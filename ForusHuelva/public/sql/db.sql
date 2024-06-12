@@ -52,10 +52,13 @@ CREATE TABLE rental_fees(
     client_id INT NOT NULL,
     court_id INT NOT NULL,
     sport_id INT NOT NULL,
+    match_id INT,
 
     FOREIGN KEY(client_id) REFERENCES clients(id) ON DELETE CASCADE,
     FOREIGN KEY(sport_id) REFERENCES sports(id) ON DELETE CASCADE,
-    FOREIGN KEY(court_id) REFERENCES courts(id) ON DELETE CASCADE
+    FOREIGN KEY(court_id) REFERENCES courts(id) ON DELETE CASCADE,
+    FOREIGN KEY(match_id) REFERENCES matches(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE date_time(
@@ -70,10 +73,7 @@ CREATE TABLE matches(
     team_a VARCHAR(250),
     team_b VARCHAR(250),
     result VARCHAR(250),
-    description VARCHAR(250),
-    rent_id INT NOT NULL,
-
-    FOREIGN KEY(rent_id) REFERENCES rental_fees(id) ON DELETE CASCADE
+    description VARCHAR(250)
 );
 
 INSERT INTO date_time(id, sport_id, date_time) VALUES 

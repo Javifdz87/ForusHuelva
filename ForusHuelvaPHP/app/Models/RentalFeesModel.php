@@ -41,4 +41,9 @@ class RentalFeesModel extends Model implements Authenticatable
     {
         return $this->belongsTo(SportsModel::class);
     }
+
+    public function match()
+    {
+        return $this->belongsTo(MatchesModel::class);
+    }
 }

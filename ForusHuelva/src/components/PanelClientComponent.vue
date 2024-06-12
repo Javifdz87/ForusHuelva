@@ -16,6 +16,10 @@
           </li>
 
           <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalRentClient">Puntaciones</a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link" href="#nosotros">Nosotros</a>
           </li>
           <li class="nav-item">
@@ -36,7 +40,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAccount">Ver Perfil</a></li>
-              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalMyRent  ">Tus Alquileres</a></li>
+              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalMyRent">Alquileres pendientes</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalBank">Cambiar Pago</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalPassword">Cambiar Contraseña</a>
               </li>
@@ -351,6 +355,21 @@
     </div>
   </div>
 
+    <!-- Modal Alquileres del cliente -->
+    <div class="modal fade" id="modalRentClient" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSub">Lista Alquileres Cliente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal Contraseña -->
   <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
     <div class="modal-dialog">
@@ -615,11 +634,11 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalSub">Tus Alquileres</h5>
+          <h5 class="modal-title" id="modalSub">Tus Alquileres Pendientes</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <DataTable :value="rent" stripedRows :paginator="false" :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]"
+            <DataTable :value="rent" stripedRows :paginator="true" :rows="5"
             tableStyle="min-width: 50rem" :filters="filters"
       :globalFilterFields="['court.sport_id', 'date_day', 'date_time']">
             <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
@@ -665,6 +684,8 @@ import InputText from 'primevue/inputtext';
 import Toast from 'primevue/toast';
 import NewSubComponent from '@/components/NewSubComponent.vue';
 import NewRentComponent from '@/components/NewRentComponent.vue';
+import MatchesComponent from '@/components/MatchesComponent.vue';
+
 
 
 import FullCalendar from '@fullcalendar/vue3';
