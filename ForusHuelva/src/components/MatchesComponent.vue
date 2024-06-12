@@ -9,18 +9,20 @@
       <Column field="match.result" header="Resultado" sortable style="width: 20%"></Column>
       <Column header="Operaciones" style="width: 20%">
         <template #body="slotProps">
-          <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#vista"
-            @click="selectMatch(slotProps.data)">
-            O
-          </Button>
-          <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#vista"
-            @click="selectMatch(slotProps.data)">
-            M
-          </Button>
-          <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#vista"
-            @click="selectMatch(slotProps.data)">
-            X
-          </Button>
+          <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">...</button>
+                  <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalSub"
+                        @click="selectClient(slotProps.data)">Añadir Resultado</Button></li>
+                    <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalRent"
+                        @click="selectClient(slotProps.data)">Eliminar</Button></li>
+                        <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalSub"
+                        @click="selectClient(slotProps.data)">Ver alquiler</Button></li>
+                    <li><Button class="dropdown-item m-1" data-bs-toggle="modal" data-bs-target="#modalRent"
+                        @click="selectClient(slotProps.data)">Modificar Alquiler</Button></li>
+                  </ul>
+                </div>
         </template>
       </Column>
     </DataTable>

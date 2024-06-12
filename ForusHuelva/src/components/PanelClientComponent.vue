@@ -16,10 +16,6 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modalRentClient">Puntaciones</a>
-          </li>
-
-          <li class="nav-item">
             <a class="nav-link" href="#nosotros">Nosotros</a>
           </li>
           <li class="nav-item">
@@ -238,6 +234,16 @@
   </div>
 </div>
 
+<div class="row mt-5" id="alquileres">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
+    <h2 class="display-5">Historial de Alquileres y Resultados.</h2>
+
+      <div class="calendar-container">
+        <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
+      </div>
+  </div>
+</div>
+
     <div class="row mt-5" id="lugar">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
         <h2 class="display-5">Donde nos encontramos.</h2>
@@ -355,20 +361,6 @@
     </div>
   </div>
 
-    <!-- Modal Alquileres del cliente -->
-    <div class="modal fade" id="modalRentClient" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalSub">Lista Alquileres Cliente</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Modal Contraseña -->
   <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
