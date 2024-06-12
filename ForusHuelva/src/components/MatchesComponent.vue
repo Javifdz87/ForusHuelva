@@ -5,12 +5,13 @@
       <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
       <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
       <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
-      <Column header="Resultado" sortable style="width: 20%">
+      <Column field="date_time" header="Hora" sortable style="width: 15%"></Column>
+      <Column header="Resultado" sortable style="width: 10%">
         <template #body="slotProps">
           {{ slotProps.data.result ? slotProps.data.result : '- -' }}
         </template>
       </Column>
-      <Column header="Operaciones" style="width: 20%">
+      <Column header="Operaciones" style="width: 15%">
         <template #body="slotProps">
           <div class="btn-group dropend" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
@@ -38,7 +39,26 @@
       </Column>
     </DataTable>
 
+        <!-- Modal Registrar resultados -->
 
+        <div class="modal fade" id="modalNewResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registrar Resultado</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <Toast />
+            <div class="row justify-content-center m-3">
+              <ResultadosComponent :rentId="selectedRent.id" :team1="selectedRent.team_a" :team2="selectedRent.team_b" :result="selectedRent.result" :description="selectedRent.description"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -51,6 +71,9 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Button from 'primevue/button';
 import Toast from 'primevue/toast';
+
+import ResultadosComponent from '@/components/ResultadosComponent.vue';
+
 
 const cliente = ref([]);
 const rent = ref([]);
@@ -94,8 +117,10 @@ const selectedRent = ref({
 });
 
 const selectRent = (rent) => {
-  selectedRent.value = rent;
-};
+  selectedRent.value = { ...rent }
+  console.log(selectedRent.value)
+}
+
 
 const toast = useToast();
 

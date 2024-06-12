@@ -234,7 +234,7 @@
   </div>
 </div>
 
-<div class="row mt-5" id="alquileres" style="position: relative; z-index: 1;">
+<div class="row mt-5">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
     <h2 class="display-5">Historial de Alquileres y Resultados.</h2>
     <div class="">
@@ -729,104 +729,9 @@
       </div>
     </div>
 
-    <div class="modal fade" id="modalNewResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Registrar Resultado</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <Toast />
-            <div class="row justify-content-center m-3">
-              <form @submit.prevent="addResult" class="text-center">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h2>Deporte</h2>
-                  </div>
-                </div>
-                <div id="team-rows">
-                  <div v-for="player in players" :key="player.id" class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                      <div class="form-floating mb-3">
-                        <input type="text" class="form-control" v-model="player.teamA" :placeholder="'email'" />
-                        <label :for="'player' + player.id">jugador {{ player.id }} - Team A</label>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 align-self-center">
-                      <label>vs</label>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                      <div class="form-floating mb-3">
-                        <input type="text" class="form-control" v-model="player.teamB" :placeholder="'Nombre'" />
-                        <label :for="'player' + player.id">jugador {{ player.id }} - Team B</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-12">
-                    <button type="button" class="btn btn-secondary" @click="addPlayer">Añadir jugador</button>
-                  </div>
-                </div>
-                <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <h2>Resultado</h2>
-                </div>
-                <div class="row justify-content-center">
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 align-self-center">
-                    <label for="resultadoA">Team A</label>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <input type="text" class="form-control" v-model="resultadoA" placeholder="Resultado Team A" />
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <input type="text" class="form-control" v-model="resultadoB" placeholder="Resultado Team B" />
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 align-self-center">
-                    <label for="resultadoB">Team B</label>
-                  </div>
-                </div>
-                <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <h2>Descripción</h2>
-                </div>
-                <div class="row justify-content-center">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="form-control" v-model="description"></textarea>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <button type="submit" class="btn btn-primary btn-block w-100">Crear Resultado</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
-    <!-- Modal Editar Cliente -->
-    <div class="modal fade" id="modalEditResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row justify-content-center m-3">
-              <!-- Contenido de la edición del cliente -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
 </template>
 
 <script setup>
@@ -844,6 +749,8 @@ import Toast from 'primevue/toast';
 import NewSubComponent from '@/components/NewSubComponent.vue';
 import NewRentComponent from '@/components/NewRentComponent.vue';
 import MatchesComponent from '@/components/MatchesComponent.vue';
+import ResultadosComponent from '@/components/ResultadosComponent.vue';
+
 
 
 
@@ -939,6 +846,7 @@ const players = ref([{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB:
 const resultadoA = ref('');
 const resultadoB = ref('');
 const description = ref('');
+
 
 const props = defineProps({
   email: String,
@@ -1181,8 +1089,13 @@ const selectedRent = ref({
 });
 
 const selectRent = (rent) => {
-  selectedRent.value = {...rent}; // Aquí se debe asignar el alquiler seleccionado con el ID correcto
-};
+  selectedRent.value = { ...rent }
+  console.log(selectedRent.value)
+}
+
+
+
+
 const deleteRent = async () => {
   try {
     if (!selectedRent.value) {
