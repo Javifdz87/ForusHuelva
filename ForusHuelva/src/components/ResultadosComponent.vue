@@ -79,6 +79,7 @@ const resultadoA = ref('');
 const resultadoB = ref('');
 const description = ref('');
 
+
 // Recibir la propiedad rentId del componente padre
 const props = defineProps({
   rentId: String // Ajusta el tipo según sea necesario
@@ -122,7 +123,14 @@ const addResult = async () => {
     // Utilizar el ID del alquiler almacenado localmente
     const response = await api.put(`/rentfees/${localRentId.value}`, data);
     if (response.status === 200) {
+      // Limpiar campos después de crear el resultado
+      players.value = [{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }];
+      resultadoA.value = '';
+      resultadoB.value = '';
+      description.value = '';
+      
       showSuccess('Resultado actualizado correctamente.');
+      closeModalCreate();
     } else {
       showError('Error al actualizar el resultado.');
     }
@@ -131,4 +139,10 @@ const addResult = async () => {
     showError('Error al actualizar el resultado.');
   }
 };
+
+const closeModalCreate = async () => {
+  const borrarClienteModal = document.getElementById('modalNewResult')
+  const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
+  closeButton.click()
+}
 </script>

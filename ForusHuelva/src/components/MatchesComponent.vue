@@ -115,6 +115,24 @@
       </div>
     </div>
   </div>
+
+    <!-- Modal Eliminar Alquiler -->
+    <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Se va a eliminar toda la fila.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -162,6 +180,14 @@ const selectedRent = ref({
   description: ''
 });
 
+const showError = (message) => {
+  toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+};
+
+const showSuccess = (message) => {
+  toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+};
+
 const selectRent = (rent) => {
   selectedRent.value = { ...rent }
   console.log(selectedRent.value)
@@ -197,6 +223,37 @@ const getRents = async (clienteId) => {
     console.error('Error en getRents:', error);
   }
 };
+
+
+const deleteRent = async () => {
+  try {
+    if (!selectedRent.value) {
+      console.error('No hay alquiler seleccionado para eliminar.');
+      return;
+    }
+
+    const idRent = selectedRent.value.id;
+    const response = await api.delete(`/rentfees/${idRent}`);
+
+    if (response.status === 204) {
+      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
+      showSuccess('Alquiler eliminado correctamente.');
+      closeModalDelete();
+    } else {
+      showError('Error al eliminar el alquiler.');
+      console.error('Error al eliminar el alquiler.');
+    }
+  } catch (error) {
+    showError('Error al eliminar el alquiler');
+    console.error('Error al eliminar el alquiler:', error);
+  }
+};
+
+const closeModalDelete = async () => {
+  const borrarClienteModal = document.getElementById('modalDeleteResult')
+  const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
+  closeButton.click()
+}
 
 const splitByComma = (text) => {
   return text.split(',').map(item => item.trim());

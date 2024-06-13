@@ -219,45 +219,45 @@
 
     
     <div class="row mt-5">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4 ">
-        <h2 class="display-5">Historial de Alquileres, Resultados y Partidos Pendiente</h2>
+      <div class="d-flex justify-content-center">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4 ">
+    <h2 class="display-5">Historial de Alquileres, Resultados y Partidos Pendiente</h2>
 
-        <div v-if="selectedTable === 'pending'">
-          <DataTable :value="rent" stripedRows :paginator="true" :rows="5" tableStyle="min-width: 50rem">
-            <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
-            <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
-            <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
-            <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
-            <Column header="Operaciones" style="width: 20%">
+    <div v-if="selectedTable === 'pending'">
+      <DataTable :value="rent" stripedRows :paginator="true" :rows="5" tableStyle="min-width: 50rem">
+        <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
+        <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
+        <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
+        <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
+        <Column header="Operaciones" style="width: 18%">
               <template #body="slotProps">
-                <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#modalDeleteResult"
+                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editar"
                   @click="selectRent(slotProps.data)">
-                  X
+                  Modificar
                 </Button>
-                <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#edit"
-                  @click="selectRent(slotProps.data)">
-                  M
-                </Button>
+
               </template>
             </Column>
-            <template #empty>No se han encontrado resultados.</template>
+        <template #empty>No se han encontrado resultados.</template>
+      </DataTable>
+    </div>
 
-          </DataTable>
-          
-        </div>
-        <div v-else>
-          <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" />
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
-            v-model="selectedTable" value="history" checked>
-          <label class="btn btn-outline-secondary" for="btnradio1">Historial y resultados</label>
+    <div v-else>
+      <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" />
+    </div>
 
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-            v-model="selectedTable" value="pending">
-          <label class="btn btn-outline-secondary" for="btnradio2">Partidos Pendientes</label>
-        </div>
-      </div>
+    <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+        v-model="selectedTable" value="history" checked>
+      <label class="btn btn-outline-secondary" for="btnradio1">Historial y resultados</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+        v-model="selectedTable" value="pending">
+      <label class="btn btn-outline-secondary" for="btnradio2">Partidos Pendientes</label>
+    </div>
+  </div>
+</div>
+
     </div>
 
     <div class="row mt-5" id="calendario">
@@ -663,23 +663,7 @@
   </div>
 
 
-  <!-- Modal Eliminar Alquiler -->
-  <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-danger">
-          <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">Se va a eliminar toda la fila.</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 
 
@@ -1042,35 +1026,6 @@ const selectRent = (rent) => {
   selectedRent.value = { ...rent }
   console.log(selectedRent.value)
 }
-
-
-
-
-const deleteRent = async () => {
-  try {
-    if (!selectedRent.value) {
-      console.error('No hay alquiler seleccionado para eliminar.');
-      return;
-    }
-
-    const idRent = selectedRent.value.id;
-    const response = await api.delete(`/rentfees/${idRent}`);
-
-    if (response.status === 204) {
-      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
-      showSuccess('Alquiler eliminado correctamente.');
-    } else {
-      showError('Error al eliminar el alquiler.');
-      console.error('Error al eliminar el alquiler.');
-    }
-  } catch (error) {
-    showError('Error al eliminar el alquiler');
-    console.error('Error al eliminar el alquiler:', error);
-  }
-};
-
-
-
 
 onMounted(() => {
   getCourts();

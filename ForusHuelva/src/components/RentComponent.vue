@@ -30,6 +30,10 @@
                   @click="selectRent(slotProps.data)">
                   O
                 </Button>
+                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#modalEditRent"
+                  @click="selectRent(slotProps.data)">
+                  M
+                </Button>
               </template>
             </Column>
             <template #header>
@@ -139,6 +143,93 @@
   </div>
 </div>
 
+    <!-- Modal Editar Alquiler -->
+    <div class="modal fade" id="modalEditRent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Añadir Alquiler Cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-center m-3">
+            <form @submit.prevent="editRent">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="email_rent" placeholder="email" readonly />
+                            <label for="cliente">Email</label>
+                            <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nombre_rent" placeholder="Nombre" readonly />
+                            <label for="nombre">Nombre</label>
+                            <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-floating mb-3">
+                            <select id="sport" v-model="DeporteSeleccionado" @change="actualizarPistas" class="form-select">
+                                <option value="" disabled selected>Selecciona un deporte</option>
+                                <option v-for="sport in sports" :key="sport.id" :value="sport.id">
+                                    {{ sport.sport }}
+                                </option>
+                            </select>
+                            <label for="floatingInput">Deporte</label>
+                            <div v-if="errors.DeporteSeleccionado" class="text-danger">{{ errors.DeporteSeleccionado }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" @change="actualizarHorasDisponibles" placeholder="Elije el dia de juego" />
+                            <label for="fechaInicio">Elije el día de juego</label>
+                            <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-floating mb-3">
+                            <select id="pista" v-model="pistaSeleccionada" @change="actualizarHorasDisponibles" class="form-select">
+                                <option value="" disabled selected>Selecciona una pista</option>
+                                <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
+                                    {{ pista.name }}
+                                </option>
+                            </select>
+                            <label for="floatingInput">Pista</label>
+                            <div v-if="errors.pistaSeleccionada" class="text-danger">{{ errors.pistaSeleccionada }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-floating mb-3">
+                            <select id="time" v-model="timeSeleccionado" class="form-select">
+                                <option value="" disabled selected>Selecciona una hora</option>
+                                <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
+                                    {{ time.date_time }}
+                                </option>
+                            </select>
+                            <label for="floatingInput">Hora</label>
+                            <div v-if="errors.timeSeleccionado" class="text-danger">{{ errors.timeSeleccionado }}</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                        <button type="submit" class="btn btn-primary btn-block w-100">Modificar Alquiler</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </template>
@@ -222,6 +313,59 @@ const selectRent = (rent) => {
     selectedRentInfo.value.court = '';
   }
 };
+const editRent = async () => {
+
+try {
+  if (!selectedClient.value) {
+    console.error('No hay alquiler seleccionado para editar.');
+    return;
+  }
+
+  const idCliente = selectedClient.value.id;
+  const data = {
+    name: selectedClient.value.name,
+    last_Name: selectedClient.value.last_Name,
+    dni: selectedClient.value.dni,
+    email: selectedClient.value.email,
+    phone: phoneValue, // Usar el valor convertido
+    town: selectedClient.value.town,
+    postal_code: postalCodeValue, // Usar el valor convertido
+    province: selectedClient.value.province,
+    address: selectedClient.value.address,
+  };
+
+  console.log('Datos a enviar:', data);
+
+  const response = await api.put(`/clients/${idCliente}`, data); // Enviar `data` en la solicitud `PUT`
+
+  if (response.status === 200) {
+    console.log('Cliente actualizado correctamente.');
+
+    // Limpiar los campos del formulario
+    selectedClient.value = {
+      name: '',
+      last_Name: '',
+      dni: '',
+      email: '',
+      phone: '',
+      town: '',
+      postal_code: '',
+      province: '',
+      address: ''
+    };
+
+    closeModalEdit(); // Cerrar el modal de edición
+    showSuccess('Editado Correctamente'); // Mostrar mensaje de éxito
+    getClients(); // Actualizar la lista de clients
+  } else {
+    console.error('Error al editar el cliente.');
+    showError('Error al editar el cliente'); // Mostrar mensaje de error
+  }
+} catch (error) {
+  console.error('Error al editar el cliente:', error);
+  showError('Error al editar el cliente'); // Mostrar mensaje de error
+}
+};
 
 
 const deleteRent = async () => {
@@ -290,6 +434,56 @@ const getSports = async () => {
     console.log(error);
   }
 };
+
+
+const errors = ref({
+    email: '',
+    name: '',
+    DeporteSeleccionado: '',
+    date_day: '',
+    pistaSeleccionada: '',
+    timeSeleccionado: ''
+});
+
+const validarFormulario = () => {
+    let valid = true;
+    errors.value = {
+        email: '',
+        name: '',
+        DeporteSeleccionado: '',
+        date_day: '',
+        pistaSeleccionada: '',
+        timeSeleccionado: ''
+    };
+
+    if (!localEmail.value) {
+        errors.value.email = 'El campo Email no puede estar vacío.';
+        valid = false;
+    }
+    if (!localName.value) {
+        errors.value.name = 'El campo Nombre no puede estar vacío.';
+        valid = false;
+    }
+    if (!DeporteSeleccionado.value) {
+        errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
+        valid = false;
+    }
+    if (!date_day.value) {
+        errors.value.date_day = 'Debes seleccionar una fecha.';
+        valid = false;
+    }
+    if (!pistaSeleccionada.value) {
+        errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
+        valid = false;
+    }
+    if (!timeSeleccionado.value) {
+        errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
+        valid = false;
+    }
+
+    return valid;
+};
+
 
 
 onMounted(() => {
