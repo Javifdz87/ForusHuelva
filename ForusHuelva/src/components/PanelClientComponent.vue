@@ -36,7 +36,6 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAccount">Ver Perfil</a></li>
-              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalMyRent">Alquileres pendientes</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalBank">Cambiar Pago</a></li>
               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalPassword">Cambiar Contraseña</a>
               </li>
@@ -130,15 +129,21 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
               <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg" class="d-block w-100" alt="...">
-    </div>
+                <div class="carousel-item active">
+                  <img
+                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/padel.jpg"
+                    class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/sala.jpg"
+                    class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="https://daw2.ieslamarisma.net/proyectos/2024/javifernandez/forushuelva/laravel/public/img/tenis.jpg"
+                    class="d-block w-100" alt="...">
+                </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
                 data-bs-slide="prev">
@@ -212,37 +217,71 @@
       </div>
     </div>
 
-    <div class="row mt-5" id="calendario">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
-    <h2 class="display-5">Calendario.</h2>
-    <div class="dropdown">
-      <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Elige Deporte para ver los datos
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="selectSport">
-        <li><a class="dropdown-item" data-sport-id="1">Padel</a></li>
-        <li><a class="dropdown-item" data-sport-id="2">Tenis</a></li>
-        <li><a class="dropdown-item" data-sport-id="3">Futbol sala</a></li>
-        <li><a class="dropdown-item" data-sport-id="4">Futbol 7</a></li>
-      </ul>
-    </div>
-    <div class="d-flex justify-content-center mt-3">
-      <div class="calendar-container">
-        <FullCalendar :options="calendarOptions" />
+    
+    <div class="row mt-5">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4 ">
+        <h2 class="display-5">Historial de Alquileres, Resultados y Partidos Pendiente</h2>
+
+        <div v-if="selectedTable === 'pending'">
+          <DataTable :value="rent" stripedRows :paginator="true" :rows="5" tableStyle="min-width: 50rem">
+            <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
+            <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
+            <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
+            <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
+            <Column header="Operaciones" style="width: 20%">
+              <template #body="slotProps">
+                <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#modalDeleteResult"
+                  @click="selectRent(slotProps.data)">
+                  X
+                </Button>
+                <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#edit"
+                  @click="selectRent(slotProps.data)">
+                  M
+                </Button>
+              </template>
+            </Column>
+            <template #empty>No se han encontrado resultados.</template>
+
+          </DataTable>
+          
+        </div>
+        <div v-else>
+          <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" />
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+            v-model="selectedTable" value="history" checked>
+          <label class="btn btn-outline-secondary" for="btnradio1">Historial y resultados</label>
+
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+            v-model="selectedTable" value="pending">
+          <label class="btn btn-outline-secondary" for="btnradio2">Partidos Pendientes</label>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row mt-5">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
-    <h2 class="display-5">Historial de Alquileres y Resultados.</h2>
-    <div class="">
-      <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"/>
+    <div class="row mt-5" id="calendario">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
+        <h2 class="display-5">Calendario.</h2>
+        <div class="dropdown">
+          <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Elige Deporte para ver los datos
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="selectSport">
+            <li><a class="dropdown-item" data-sport-id="1">Padel</a></li>
+            <li><a class="dropdown-item" data-sport-id="2">Tenis</a></li>
+            <li><a class="dropdown-item" data-sport-id="3">Futbol sala</a></li>
+            <li><a class="dropdown-item" data-sport-id="4">Futbol 7</a></li>
+          </ul>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+          <div class="calendar-container">
+            <FullCalendar :options="calendarOptions" />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
 
     <div class="row mt-5" id="lugar">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4">
@@ -273,18 +312,18 @@
 
               </div>
             </div>
-            
 
 
+
+          </div>
+          <div class="d-flex justify-content-center mt-3 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6350.340466500009!2d-6.929387224559852!3d37.26739014122577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11cffddb41cb6d%3A0xc873cb6b6671193d!2sForus%20Huelva%20(C.D.%20El%20Saladillo)!5e0!3m2!1ses!2ses!4v1716971215139!5m2!1ses!2ses"
+              width="800" height="450" style="border:1;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
         </div>
-        <div class="d-flex justify-content-center mt-3 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6350.340466500009!2d-6.929387224559852!3d37.26739014122577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd11cffddb41cb6d%3A0xc873cb6b6671193d!2sForus%20Huelva%20(C.D.%20El%20Saladillo)!5e0!3m2!1ses!2ses!4v1716971215139!5m2!1ses!2ses"
-            width="800" height="450" style="border:1;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        </div>
-        
+
       </div>
     </div>
   </div>
@@ -355,7 +394,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <NewSubComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" @subscriptionCreated="handleSubscriptionCreated"/>
+          <NewSubComponent :id="clientes.id" :name="clientes.name" :email="clientes.email"
+            @subscriptionCreated="handleSubscriptionCreated" />
         </div>
       </div>
     </div>
@@ -600,8 +640,8 @@
     </div>
   </div>
 
-<!-- Modal código QR -->
-<div class="modal fade" id="modalQR" tabindex="-1" aria-labelledby="modalQR" aria-hidden="true" ref="modal">
+  <!-- Modal código QR -->
+  <div class="modal fade" id="modalQR" tabindex="-1" aria-labelledby="modalQR" aria-hidden="true" ref="modal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -614,120 +654,34 @@
               Necesitas una suscripción.
             </div>
             <div v-else>
-              <img :src="qrCodeUrl" alt="Código QR" v-if="qrCodeUrl"></div>
+              <img :src="qrCodeUrl" alt="Código QR" v-if="qrCodeUrl">
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal Gestion del Alquiler -->
-<div class="modal fade" id="modalMyRent" tabindex="-1" aria-labelledby="modalQR" aria-hidden="true" ref="modal">
-    <div class="modal-dialog modal-xl">
+
+  <!-- Modal Eliminar Alquiler -->
+  <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalSub">Tus Alquileres Pendientes</h5>
+        <div class="modal-header bg-danger">
+          <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <DataTable :value="rent" stripedRows :paginator="true" :rows="5"
-            tableStyle="min-width: 50rem" :filters="filters"
-      :globalFilterFields="['court.sport_id', 'date_day', 'date_time']">
-            <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
-            <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
-            <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
-            <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
-            <Column header="Operaciones" style="width: 20%">
-              <template #body="slotProps">
-                <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#eliminar"
-                  @click="selectRent(slotProps.data)">
-                  X
-                </Button>
-                <Button class="btn btn-info m-1" data-bs-toggle="modal" data-bs-target="#edit"
-                  @click="selectRent(slotProps.data)">
-                  M
-                </Button>
-              </template>
-            </Column>
-            <template #header>
-        <div class="flex justify-content-end">
-            <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
-        </div>
-      </template>
-      <template #empty>No hay alquileres encontrados.</template>
-          </DataTable>
-          </div>
+        <div class="modal-body">Se va a eliminar toda la fila.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
         </div>
       </div>
+    </div>
   </div>
 
-      <!-- Modal Eliminar Alquiler -->
-      <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-danger">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">Se va a eliminar toda la fila.</div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Modal Vista -->
-    <div class="modal fade" id="modalViewResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-info">
-            <h5 class="modal-title text-light" id="staticBackdropLabel">Ver resultado</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container">
-              <Toast />
-              <div class="row justify-content-center m-3">
-
-            <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <label for="email"><h2>Team 1</h2></label>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <label for="nombre"><h3>resultado</h3></label>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <label for="nombre"><h2>Team 2</h2></label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <label for="deporte">equipo 1</label>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <label for="fechaInicio">vs</label>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                  <label for="fechaInicio">Equipo 2</label>
-              </div>
-            </div>
-
-
-           
-
-          </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
 
 
@@ -832,6 +786,7 @@ const new_password = ref('');
 const password = ref('');
 const new_bank_account = ref('');
 const filters = ref({ global: { value: '' } });
+const selectedTable = ref('history'); // Estado para la tabla seleccionada
 
 const pistas = ref([]);
 const times = ref([]);
@@ -841,11 +796,6 @@ const subs = ref([]);
 const rent = ref([]);
 const rentSport = ref([]);
 const qrCodeUrl = ref('');
-
-const players = ref([{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }]);
-const resultadoA = ref('');
-const resultadoB = ref('');
-const description = ref('');
 
 
 const props = defineProps({
@@ -1120,37 +1070,6 @@ const deleteRent = async () => {
 };
 
 
-
-const addPlayer = () => {
-  if (players.value.length >= 7) {
-    return;
-  }
-
-  players.value.push({ id: players.value.length + 1, teamA: '', teamB: '' });
-};
-
-const addResult = async () => {
-  const teamA = players.value.map(player => player.teamA).join(', ');
-  const teamB = players.value.map(player => player.teamB).join(', ');
-  const result = `${resultadoA.value} - ${resultadoB.value}`;
-  
-  const data = {
-    team_a: teamA,
-    team_b: teamB,
-    result: result,
-    description: description.value,
-  };
-
-    const response = await api.put(`/rentfees/${selectedRent.value.id}`, data);
-
-    if (response.status === 200) {
-      showSuccess('Resultado actualizado correctamente.');
-      // Aquí puedes agregar la lógica para actualizar la vista o los datos locales
-    } else {
-      showError('Error al actualizar el resultado.');
-    }
-  
-};
 
 
 onMounted(() => {

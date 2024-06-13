@@ -10,7 +10,7 @@ import Nav from '@/views/NavView.vue';
 import Search from '@/views/SearchView.vue'
 import NewClient from '@/views/NewClientView.vue';
 import PanelClient from '@/views/PanelClientView.vue';
-import Matches from '@/views/MatchesView.vue';
+import Bienvenido from '@/views/BienvenidoView.vue';
 
 
 
@@ -79,9 +79,9 @@ const routes = [
 
   }, 
   {
-    path: '/matches',
-    name: 'matches',
-    component: Matches
+    path: '/bienvenido',
+    name: 'bienvenido',
+    component: Bienvenido
   }, 
   
 ];
