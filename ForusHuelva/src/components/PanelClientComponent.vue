@@ -1003,6 +1003,7 @@ const editRent = async () => {
     await api.put(`/rentfees/${selectedRent.value.id}`, data);
   
     showSuccess('Alquiler editado correctamente');
+    closeModalEditRent();
     getRents();
   } catch (error) {
     console.error(error);
@@ -1067,6 +1068,12 @@ const getCurrentDate = () => {
 
 const closeModalPassword = async () => {
   const editarRentModal = document.getElementById("modalPassword");
+  const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
+  closeButton.click();
+};
+
+const closeModalEditRent = async () => {
+  const editarRentModal = document.getElementById("modalEditRent");
   const closeButton = editarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
