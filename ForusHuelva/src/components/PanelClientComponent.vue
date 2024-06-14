@@ -217,46 +217,47 @@
       </div>
     </div>
 
-    
+
     <div class="row mt-5">
       <div class="d-flex justify-content-center">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4 ">
-    <h2 class="display-5">Historial de Alquileres, Resultados y Partidos Pendiente</h2>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-white p-3 rounded-4 ">
+          <h2 class="display-5">Historial de Alquileres, Resultados y Partidos Pendiente</h2>
 
-    <div v-if="selectedTable === 'pending'">
-      <DataTable :value="rent" stripedRows :paginator="true" :rows="5" tableStyle="min-width: 50rem">
-        <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
-        <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
-        <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
-        <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
-        <Column header="Operaciones" style="width: 18%">
-              <template #body="slotProps">
-                <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#editar"
-                  @click="selectRent(slotProps.data)">
-                  Modificar
-                </Button>
+          <div v-if="selectedTable === 'pending'">
+            <DataTable :value="rent" stripedRows :paginator="true" :rows="5" tableStyle="min-width: 50rem">
+              <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
+              <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
+              <Column field="date_day" header="Fecha de Juego" sortable style="width: 20%"></Column>
+              <Column field="date_time" header="Hora Alquiler" sortable style="width: 20%"></Column>
+              <Column header="Operaciones" style="width: 18%">
+                <template #body="slotProps">
+                  <Button class="btn btn-warning m-1" data-bs-toggle="modal" data-bs-target="#modalEditRent"
+                    @click="selectRent(slotProps.data)">
+                    Modificar
+                  </Button>
 
-              </template>
-            </Column>
-        <template #empty>No se han encontrado resultados.</template>
-      </DataTable>
-    </div>
+                </template>
+              </Column>
+              <template #empty>No se han encontrado resultados.</template>
+            </DataTable>
+          </div>
 
-    <div v-else>
-      <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" />
-    </div>
+          <div v-else>
+            <MatchesComponent :id="clientes.id" :name="clientes.name" :email="clientes.email" />
+          </div>
 
-    <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
-        v-model="selectedTable" value="history" checked>
-      <label class="btn btn-outline-secondary" for="btnradio1">Historial y resultados</label>
+          <div class="btn-group d-flex justify-content-center" role="group"
+            aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+              v-model="selectedTable" value="history" checked>
+            <label class="btn btn-outline-secondary" for="btnradio1">Historial y resultados</label>
 
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-        v-model="selectedTable" value="pending">
-      <label class="btn btn-outline-secondary" for="btnradio2">Partidos Pendientes</label>
-    </div>
-  </div>
-</div>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+              v-model="selectedTable" value="pending">
+            <label class="btn btn-outline-secondary" for="btnradio2">Partidos Pendientes</label>
+          </div>
+        </div>
+      </div>
 
     </div>
 
@@ -662,13 +663,74 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
+<!-- Modal Editar Alquiler -->
+<div class="modal fade" id="modalEditRent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Alquiler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center m-3">
+          <form @submit.prevent="editRent">
+            <!-- Deporte y Fecha de Juego -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="sport" v-model="selectedRent.sport_id" @change="actualizarPistas" class="form-select">
+                    <option value="" disabled selected>Selecciona un deporte</option>
+                    <option v-for="sport in sports" :key="sport.id" :value="sport.id">{{ sport.sport }}</option>
+                  </select>
+                  <label for="sport">Deporte</label>
+                  <div v-if="errors.DeporteSeleccionado" class="text-danger">{{ errors.DeporteSeleccionado }}</div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="date" class="form-control" id="fechaInicio" v-model="selectedRent.date_day" @change="actualizarHorasDisponibles" placeholder="Elije el día de juego" />
+                  <label for="fechaInicio">Elije el día de juego</label>
+                  <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Pista y Hora -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="pista" v-model="selectedRent.court.id" @change="actualizarHorasDisponibles" class="form-select">
+                    <option value="" disabled selected>Selecciona una pista</option>
+                    <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">{{ pista.name }}</option>
+                  </select>
+                  <label for="pista">Pista</label>
+                  <div v-if="errors.pistaSeleccionada" class="text-danger">{{ errors.pistaSeleccionada }}</div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="time" v-model="selectedRent.date_time" class="form-select">
+                    <option value="" disabled selected>Selecciona una hora</option>
+                    <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">{{ time.date_time }}</option>
+                  </select>
+                  <label for="time">Hora</label>
+                  <div v-if="errors.timeSeleccionado" class="text-danger">{{ errors.timeSeleccionado }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Botón para editar alquiler -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-floating mb-3">
+                  <button type="submit" class="btn btn-primary btn-block">Modificar Alquiler</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </template>
 
@@ -780,6 +842,13 @@ const subs = ref([]);
 const rent = ref([]);
 const rentSport = ref([]);
 const qrCodeUrl = ref('');
+const DeporteSeleccionado = ref('');
+const filteredPistas = ref([]);
+const filteredTimes = ref([]);
+const timeSeleccionado = ref('');
+const pistaSeleccionada = ref('');
+const date_day = ref('');
+
 
 
 const props = defineProps({
@@ -811,6 +880,26 @@ const getOccupiedSlots = () => {
   });
   return events;
 };
+
+const selectedRent = ref({
+  id: '', // Asegúrate de que este valor se actualice correctamente
+  team_a: '',
+  team_b: '',
+  result: '',
+  description: '',
+  client: {
+    email: '',
+    name: ''
+  },
+  court: {
+    id: '',
+    name: ''
+  },
+  date_day: '',
+  date_time: '',
+  importe: ''
+});
+
 
 const updateCalendarEvents = async () => {
   await nextTick();
@@ -894,6 +983,30 @@ const editPassword = async () => {
   } catch (error) {
     console.error('Error al editar la contraseña:', error.message);
     showError('No coinciden las contraseñas');
+  }
+};
+
+const editRent = async () => {
+  if (!validarFormulario()) {
+    showError('Por favor, corrige los errores del formulario.');
+    return;
+  }
+
+  try {
+    const data = {
+      date_day: selectedRent.value.date_day,
+      date_time: selectedRent.value.date_time,
+      court_id: selectedRent.value.court.id,
+      sport_id: selectedRent.value.sport_id,
+    };
+
+    await api.put(`/rentfees/${selectedRent.value.id}`, data);
+  
+    showSuccess('Alquiler editado correctamente');
+    getRents();
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al editar el alquiler.');
   }
 };
 
@@ -1007,27 +1120,76 @@ const getRentsSport = async (sportId) => {
   }
 };
 
-const selectedRent = ref({
-  id: '', // Asegúrate de que este valor se actualice correctamente
-  client: {
-    email: '',
-    name: ''
-  },
-  court: {
-    id: '',
-    name: ''
-  },
-  date_day: '',
-  date_time: '',
-  importe: ''
-});
 
 const selectRent = (rent) => {
-  selectedRent.value = { ...rent }
-  console.log(selectedRent.value)
-}
+  selectedRent.value = rent;
+  actualizarPistas();
+  actualizarHorasDisponibles();
+};
+
+const actualizarPistas = () => {
+  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === selectedRent.value.sport_id);
+  getHours(selectedRent.value.sport_id);
+};
+
+const actualizarHorasDisponibles = () => {
+  filteredTimes.value = times.value.filter(time => {
+    const horaDisponible = !rent.value.some(rentItem => {
+      return rentItem.date_day === selectedRent.value.date_day && rentItem.date_time === time.date_time && rentItem.court_id === selectedRent.value.court.id;
+    });
+    return horaDisponible;
+  });
+};
+const getHours = async (sportId) => {
+  try {
+    const respuesta = await api.get(`/times/${sportId}`);
+    times.value = respuesta.data;
+    actualizarHorasDisponibles(); // Actualizar las horas disponibles después de obtenerlas
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al cargar los horarios.');
+  }
+};
+
+const errors = ref({
+  DeporteSeleccionado: '',
+  date_day: '',
+  pistaSeleccionada: '',
+  timeSeleccionado: ''
+});
+
+const validarFormulario = () => {
+  let valid = true;
+  errors.value = {
+    DeporteSeleccionado: '',
+    date_day: '',
+    pistaSeleccionada: '',
+    timeSeleccionado: ''
+  };
+
+  if (!selectedRent.value.sport_id) {
+    errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
+    valid = false;
+  }
+  if (!selectedRent.value.date_day) {
+    errors.value.date_day = 'Debes seleccionar una fecha.';
+    valid = false;
+  }
+  if (!selectedRent.value.court.id) {
+    errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
+    valid = false;
+  }
+  if (!selectedRent.value.date_time) {
+    errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
+    valid = false;
+  }
+
+  return valid;
+};
+
 
 onMounted(() => {
+  
   getCourts();
   getSports();
   if (localEmail.value) {
@@ -1036,5 +1198,6 @@ onMounted(() => {
   const events = getOccupiedSlots();
   calendarOptions.value.events = events;
 });
+
 
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <Toast />
+
     <DataTable :value="rent" stripedRows :paginator="true" :rows="5">
       <Column field="court.name" header="Pista" sortable style="width: 20%"></Column>
       <Column field="sport.sport" header="Deporte" sortable style="width: 20%"></Column>
@@ -116,8 +117,8 @@
     </div>
   </div>
 
-    <!-- Modal Eliminar Alquiler -->
-    <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  <!-- Modal Eliminar Alquiler -->
+  <div class="modal fade" id="modalDeleteResult" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -133,6 +134,90 @@
       </div>
     </div>
   </div>
+
+
+<!-- Modal Editar Resultados -->
+<div class="modal fade" id="modalEditResult" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Resultado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <Toast />
+          <div class="row justify-content-center m-3">
+            <form @submit.prevent="editResult" class="text-center">
+              <!-- Sección Deporte -->
+              <div class="row">
+                <div class="col-lg-12">
+                  <h2>Editar Resultado</h2>
+                </div>
+              </div>
+              <div id="team-rows">
+                <div class="row mb-3">
+                  <div class="col-lg-4">
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="teamA" id="teamA" cols="30" rows="3"></textarea>
+                      <label for="teamA">Team A</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 align-self-center text-center">
+                    <label>vs</label>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-floating mb-3">
+                      <textarea class="form-control" name="teamB" id="teamB" cols="30" rows="3"></textarea>
+                      <label for="teamB">Team B</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <hr>
+              <!-- Sección Resultado -->
+              <div class="row justify-content-center mb-3">
+                <div class="col-lg-3 ">
+                  <label for="resultadoA">Team A</label>
+                </div>
+                <div class="col-lg-3">
+                  <input type="text" class="form-control" v-model="resultA" id="resultadoA" placeholder="" />
+                </div>
+                <div class="col-lg-3">
+                  <label for="resultadoB">Team B</label>
+                </div>
+                
+              </div>
+              <hr>
+              <!-- Sección Descripción -->
+              <div class="row justify-content-center mb-3">
+                <div class="col-lg-12">
+                  <h2>Descripción</h2>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-floating mb-3">
+                    <textarea class="form-control" v-model="description" id="description" cols="30" rows="5"></textarea>
+                    <label for="description">Descripción</label>
+                  </div>
+                </div>
+              </div>
+              <!-- Botón para crear resultado -->
+              <div class="row">
+                <div class="col-lg-12 mb-3">
+                  <button type="submit" class="btn btn-primary btn-block w-100">Editar Resultado</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </template>
 
 <script setup>
@@ -146,6 +231,9 @@ import Button from 'primevue/button';
 import Toast from 'primevue/toast';
 import ResultadosComponent from '@/components/ResultadosComponent.vue';
 
+const selectedTable = ref('history'); // Estado para la tabla seleccionada
+
+
 const cliente = ref([]);
 const rent = ref([]);
 
@@ -158,6 +246,17 @@ const props = defineProps({
 const localName = ref(props.name);
 const localId = ref(props.id);
 const localEmail = ref(props.email);
+
+const clientes = ref([]);
+const pistas = ref([]);
+const times = ref([]);
+const sports = ref([]);
+const DeporteSeleccionado = ref('');
+const filteredPistas = ref([]);
+const filteredTimes = ref([]);
+const timeSeleccionado = ref('');
+const pistaSeleccionada = ref('');
+const date_day = ref('');
 
 watch(() => props.name, (newVal) => {
   localName.value = newVal;
@@ -263,6 +362,170 @@ const hasComma = (text) => {
   if (!text) return false; // Si el texto es null, undefined o vacío, retornar falso
   return text.includes(',');
 };
+
+
+const editRent = async () => {
+  if (!validarFormulario()) {
+    showError('Por favor, corrige los errores del formulario.');
+    return;
+  }
+
+  try {
+    const data = {
+      date_day: selectedRent.value.date_day,
+      date_time: selectedRent.value.date_time,
+      court_id: selectedRent.value.court.id,
+      sport_id: DeporteSeleccionado.value,
+    };
+
+    await api.put(`/rentfees/${selectedRent.value.id}`, data);
+
+
+    showSuccess('Alquiler editado correctamente');
+    getRents();
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al editar el alquiler.');
+  }
+};
+
+
+const getCourts = async () => {
+  try {
+    const respuesta = await api.get('/courts');
+    pistas.value = respuesta.data;
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al cargar las pistas.');
+  }
+};
+
+const getHours = async (sportId) => {
+  try {
+    const respuesta = await api.get(`/times/${sportId}`);
+    times.value = respuesta.data;
+    actualizarHorasDisponibles(); // Actualizar las horas disponibles después de obtenerlas
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al cargar los horarios.');
+  }
+};
+
+const getSports = async () => {
+  try {
+    const respuesta = await api.get('/sports');
+    sports.value = respuesta.data;
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al cargar los deportes.');
+  }
+};
+
+const actualizarPistas = () => {
+  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
+  getHours(DeporteSeleccionado.value); // Obtener los horarios disponibles para el deporte seleccionado
+};
+
+const actualizarHorasDisponibles = () => {
+  filteredTimes.value = times.value.filter(time => {
+    const horaDisponible = !rent.value.some(rentItem => {
+      return rentItem.date_day === date_day.value && rentItem.date_time === time.date_time && rentItem.court_id === pistaSeleccionada.value;
+    });
+    return horaDisponible;
+  });
+};
+
+const errors = ref({
+  DeporteSeleccionado: '',
+  date_day: '',
+  pistaSeleccionada: '',
+  timeSeleccionado: ''
+});
+
+const validarFormulario = () => {
+  let valid = true;
+  errors.value = {
+    DeporteSeleccionado: '',
+    date_day: '',
+    pistaSeleccionada: '',
+    timeSeleccionado: ''
+  };
+
+  if (!DeporteSeleccionado.value) {
+    errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
+    valid = false;
+  }
+  if (!date_day.value) {
+    errors.value.date_day = 'Debes seleccionar una fecha.';
+    valid = false;
+  }
+  if (!pistaSeleccionada.value) {
+    errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
+    valid = false;
+  }
+  if (!timeSeleccionado.value) {
+    errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
+    valid = false;
+  }
+
+  return valid;
+};
+
+const players = ref([{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }]);
+const resultadoA = ref('');
+const resultadoB = ref('');
+const description = ref('');
+
+
+const addPlayer = () => {
+  const newPlayerId = players.value.length + 1;
+  players.value.push({ id: newPlayerId, teamA: '', teamB: '' });
+};
+
+const editResult = async () => {
+  const teamA = players.value.map(player => player.teamA).join(', ');
+  const teamB = players.value.map(player => player.teamB).join(', ');
+  const result = `${resultadoA.value} - ${resultadoB.value}`;
+
+  const data = {
+    team_a: teamA,
+    team_b: teamB,
+    result: result,
+    description: description.value,
+  };
+
+  try {
+    // Utilizar el ID del alquiler almacenado localmente
+    const response = await api.put(`/rentfees/${localRentId.value}`, data);
+    if (response.status === 200) {
+      // Limpiar campos después de crear el resultado
+      players.value = [{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }];
+      resultadoA.value = '';
+      resultadoB.value = '';
+      description.value = '';
+
+      showSuccess('Resultado actualizado correctamente.');
+      closeModalEdit();
+    } else {
+      showError('Error al actualizar el resultado.');
+    }
+  } catch (error) {
+    console.error('Error al actualizar el resultado:', error);
+    showError('Error al actualizar el resultado.');
+  }
+};
+
+const closeModalEdit = async () => {
+  const borrarClienteModal = document.getElementById('modalEditResult')
+  const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
+  closeButton.click()
+}
+
+onMounted(() => {
+  getRents();
+  getCourts();
+  getSports();
+});
 
 
 onMounted(() => {

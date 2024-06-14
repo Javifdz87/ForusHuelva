@@ -4,7 +4,7 @@
       <!-- Sección Deporte -->
       <div class="row">
         <div class="col-lg-12">
-          <h2>Deporte</h2>
+          <h2>Añadir Resultado</h2>
         </div>
       </div>
       <div id="team-rows">
@@ -49,7 +49,7 @@
       </div>
       <hr>
       <!-- Sección Descripción -->
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mb-3">
         <div class="col-lg-12">
           <h2>Descripción</h2>
         </div>
@@ -70,15 +70,14 @@
 <script setup>
 import api from '@/services/service';
 import { ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
 import { useToast } from 'primevue/usetoast';
 import { defineProps } from 'vue';
 
+// Estado inicial de los jugadores
 const players = ref([{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }]);
 const resultadoA = ref('');
 const resultadoB = ref('');
 const description = ref('');
-
 
 // Recibir la propiedad rentId del componente padre
 const props = defineProps({
@@ -104,7 +103,8 @@ const showSuccess = (message) => {
 };
 
 const addPlayer = () => {
-  // Lógica para añadir un jugador
+  const newPlayerId = players.value.length + 1;
+  players.value.push({ id: newPlayerId, teamA: '', teamB: '' });
 };
 
 const addResult = async () => {
@@ -128,7 +128,7 @@ const addResult = async () => {
       resultadoA.value = '';
       resultadoB.value = '';
       description.value = '';
-      
+
       showSuccess('Resultado actualizado correctamente.');
       closeModalCreate();
     } else {
@@ -141,8 +141,8 @@ const addResult = async () => {
 };
 
 const closeModalCreate = async () => {
-  const borrarClienteModal = document.getElementById('modalNewResult')
-  const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
-  closeButton.click()
-}
+  const borrarClienteModal = document.getElementById('modalNewResult');
+  const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]');
+  closeButton.click();
+};
 </script>

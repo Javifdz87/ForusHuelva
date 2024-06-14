@@ -143,92 +143,89 @@
   </div>
 </div>
 
-    <!-- Modal Editar Alquiler -->
-    <div class="modal fade" id="modalEditRent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Añadir Alquiler Cliente</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row justify-content-center m-3">
-            <form @submit.prevent="editRent">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="email_rent" placeholder="email" readonly />
-                            <label for="cliente">Email</label>
-                            <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nombre_rent" placeholder="Nombre" readonly />
-                            <label for="nombre">Nombre</label>
-                            <div v-if="errors.name" class="text-danger">{{ errors.name }}</div>
-                        </div>
-                    </div>
+<!-- Modal Editar Alquiler -->
+<div class="modal fade" id="modalEditRent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Alquiler</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center m-3">
+          <form @submit.prevent="editRent">
+            <!-- Email y Nombre del Cliente -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="email_rent" v-model="selectedRent.client.email" placeholder="Email" readonly />
+                  <label for="email_rent">Email</label>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="sport" v-model="DeporteSeleccionado" @change="actualizarPistas" class="form-select">
-                                <option value="" disabled selected>Selecciona un deporte</option>
-                                <option v-for="sport in sports" :key="sport.id" :value="sport.id">
-                                    {{ sport.sport }}
-                                </option>
-                            </select>
-                            <label for="floatingInput">Deporte</label>
-                            <div v-if="errors.DeporteSeleccionado" class="text-danger">{{ errors.DeporteSeleccionado }}</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" @change="actualizarHorasDisponibles" placeholder="Elije el dia de juego" />
-                            <label for="fechaInicio">Elije el día de juego</label>
-                            <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
-                        </div>
-                    </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="nombre_rent" v-model="selectedRent.client.name" placeholder="Nombre" readonly />
+                  <label for="nombre_rent">Nombre</label>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="pista" v-model="pistaSeleccionada" @change="actualizarHorasDisponibles" class="form-select">
-                                <option value="" disabled selected>Selecciona una pista</option>
-                                <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">
-                                    {{ pista.name }}
-                                </option>
-                            </select>
-                            <label for="floatingInput">Pista</label>
-                            <div v-if="errors.pistaSeleccionada" class="text-danger">{{ errors.pistaSeleccionada }}</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <div class="form-floating mb-3">
-                            <select id="time" v-model="timeSeleccionado" class="form-select">
-                                <option value="" disabled selected>Selecciona una hora</option>
-                                <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">
-                                    {{ time.date_time }}
-                                </option>
-                            </select>
-                            <label for="floatingInput">Hora</label>
-                            <div v-if="errors.timeSeleccionado" class="text-danger">{{ errors.timeSeleccionado }}</div>
-                        </div>
-                    </div>
-
+              </div>
+            </div>
+            <!-- Deporte y Fecha de Juego -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="sport" v-model="selectedRent.sport_id" @change="actualizarPistas" class="form-select">
+                    <option value="" disabled selected>Selecciona un deporte</option>
+                    <option v-for="sport in sports" :key="sport.id" :value="sport.id">{{ sport.sport }}</option>
+                  </select>
+                  <label for="sport">Deporte</label>
+                  <div v-if="errors.DeporteSeleccionado" class="text-danger">{{ errors.DeporteSeleccionado }}</div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                        <button type="submit" class="btn btn-primary btn-block w-100">Modificar Alquiler</button>
-                    </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <input type="date" class="form-control" id="fechaInicio" v-model="selectedRent.date_day" @change="actualizarHorasDisponibles" placeholder="Elije el día de juego" />
+                  <label for="fechaInicio">Elije el día de juego</label>
+                  <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
                 </div>
-            </form>
-        </div>
-          </div>
+              </div>
+            </div>
+            <!-- Pista y Hora -->
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="pista" v-model="selectedRent.court.id" @change="actualizarHorasDisponibles" class="form-select">
+                    <option value="" disabled selected>Selecciona una pista</option>
+                    <option v-for="pista in filteredPistas" :key="pista.id" :value="pista.id">{{ pista.name }}</option>
+                  </select>
+                  <label for="pista">Pista</label>
+                  <div v-if="errors.pistaSeleccionada" class="text-danger">{{ errors.pistaSeleccionada }}</div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-floating mb-3">
+                  <select id="time" v-model="selectedRent.date_time" class="form-select">
+                    <option value="" disabled selected>Selecciona una hora</option>
+                    <option v-for="time in filteredTimes" :key="time.id" :value="time.date_time">{{ time.date_time }}</option>
+                  </select>
+                  <label for="time">Hora</label>
+                  <div v-if="errors.timeSeleccionado" class="text-danger">{{ errors.timeSeleccionado }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- Botón para editar alquiler -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-floating mb-3">
+                  <button type="submit" class="btn btn-primary btn-block">Modificar Alquiler</button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
 
   </div>
@@ -242,23 +239,24 @@ import Column from 'primevue/column';
 import Button from 'primevue/button';
 import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
-import InputText from 'primevue/inputtext'
-
-import Tag from 'primevue/tag';
+import InputText from 'primevue/inputtext';
 import { useRouter } from 'vue-router';
+
 const toast = useToast();
+
 const importe = ref(12);
-const filters = ref({ global: { value: '' } })
-
-
+const filters = ref({ global: { value: '' } });
 
 const clientes = ref([]);
 const pistas = ref([]);
 const times = ref([]);
 const sports = ref([]);
-
-
-
+const DeporteSeleccionado = ref('');
+const filteredPistas = ref([]);
+const filteredTimes = ref([]);
+const timeSeleccionado = ref('');
+const pistaSeleccionada = ref('');
+const date_day = ref('');
 
 const selectedRentInfo = ref({
   name: '',
@@ -278,16 +276,16 @@ const selectedRent = ref({
   },
   date_day: '',
   date_time: '',
+  sport_id: '',
   importe: ''
 });
 
-
 const showError = (message) => {
-    toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
+  toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
 };
 
 const showSuccess = (message) => {
-    toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
+  toast.add({ severity: 'success', summary: 'Correcto', detail: message || 'Todo está en orden', life: 3000 });
 };
 
 const getRents = async () => {
@@ -296,82 +294,44 @@ const getRents = async () => {
     rent.value = respuesta.data;
   } catch (error) {
     console.error(error);
+    showError('Hubo un problema al cargar los alquileres.');
   }
 };
 
 const selectRent = (rent) => {
   selectedRent.value = rent;
-  if (rent.client && rent.client.name && rent.client.email && rent.sport && rent.sport.name && rent.court && rent.court.name) {
-    selectedRentInfo.value.name = rent.client.name;
-    selectedRentInfo.value.email = rent.client.email;
-    selectedRentInfo.value.sport = rent.sport.name;
-    selectedRentInfo.value.court = rent.court.name;
-  } else {
-    selectedRentInfo.value.name = '';
-    selectedRentInfo.value.email = '';
-    selectedRentInfo.value.sport = '';
-    selectedRentInfo.value.court = '';
-  }
+  actualizarPistas();
+  actualizarHorasDisponibles();
 };
-const editRent = async () => {
 
-try {
-  if (!selectedClient.value) {
-    console.error('No hay alquiler seleccionado para editar.');
+const editRent = async () => {
+  if (!validarFormulario()) {
+    showError('Por favor, corrige los errores del formulario.');
     return;
   }
 
-  const idCliente = selectedClient.value.id;
-  const data = {
-    name: selectedClient.value.name,
-    last_Name: selectedClient.value.last_Name,
-    dni: selectedClient.value.dni,
-    email: selectedClient.value.email,
-    phone: phoneValue, // Usar el valor convertido
-    town: selectedClient.value.town,
-    postal_code: postalCodeValue, // Usar el valor convertido
-    province: selectedClient.value.province,
-    address: selectedClient.value.address,
-  };
-
-  console.log('Datos a enviar:', data);
-
-  const response = await api.put(`/clients/${idCliente}`, data); // Enviar `data` en la solicitud `PUT`
-
-  if (response.status === 200) {
-    console.log('Cliente actualizado correctamente.');
-
-    // Limpiar los campos del formulario
-    selectedClient.value = {
-      name: '',
-      last_Name: '',
-      dni: '',
-      email: '',
-      phone: '',
-      town: '',
-      postal_code: '',
-      province: '',
-      address: ''
+  try {
+    const data = {
+      date_day: selectedRent.value.date_day,
+      date_time: selectedRent.value.date_time,
+      court_id: selectedRent.value.court.id,
+      sport_id: selectedRent.value.sport_id,
     };
 
-    closeModalEdit(); // Cerrar el modal de edición
-    showSuccess('Editado Correctamente'); // Mostrar mensaje de éxito
-    getClients(); // Actualizar la lista de clients
-  } else {
-    console.error('Error al editar el cliente.');
-    showError('Error al editar el cliente'); // Mostrar mensaje de error
+    await api.put(`/rentfees/${selectedRent.value.id}`, data);
+  
+    showSuccess('Alquiler editado correctamente');
+    getRents();
+  } catch (error) {
+    console.error(error);
+    showError('Hubo un problema al editar el alquiler.');
   }
-} catch (error) {
-  console.error('Error al editar el cliente:', error);
-  showError('Error al editar el cliente'); // Mostrar mensaje de error
-}
 };
-
 
 const deleteRent = async () => {
   try {
     if (!selectedRent.value) {
-      console.error('No hay cliente seleccionado para eliminar.');
+      console.error('No hay alquiler seleccionado para eliminar.');
       return;
     }
 
@@ -392,12 +352,11 @@ const deleteRent = async () => {
   }
 };
 
-const closeModalDelete = async () => {
+const closeModalDelete = () => {
   const borrarRentModal = document.getElementById("eliminar");
   const closeButton = borrarRentModal.querySelector('[data-bs-dismiss="modal"]');
   closeButton.click();
 };
-
 
 const getClients = async () => {
   try {
@@ -405,6 +364,7 @@ const getClients = async () => {
     clientes.value = respuesta.data;
   } catch (error) {
     console.error(error);
+    showError('Hubo un problema al cargar los clientes.');
   }
 };
 
@@ -413,16 +373,19 @@ const getCourts = async () => {
     const respuesta = await api.get('/courts');
     pistas.value = respuesta.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    showError('Hubo un problema al cargar las pistas.');
   }
 };
 
-const getHours = async () => {
+const getHours = async (sportId) => {
   try {
-    const respuesta = await api.get('/times');
+    const respuesta = await api.get(`/times/${sportId}`);
     times.value = respuesta.data;
+    actualizarHorasDisponibles();
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    showError('Hubo un problema al cargar los horarios.');
   }
 };
 
@@ -431,66 +394,64 @@ const getSports = async () => {
     const respuesta = await api.get('/sports');
     sports.value = respuesta.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    showError('Hubo un problema al cargar los deportes.');
   }
 };
 
+const actualizarPistas = () => {
+  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === selectedRent.value.sport_id);
+  getHours(selectedRent.value.sport_id);
+};
+
+const actualizarHorasDisponibles = () => {
+  filteredTimes.value = times.value.filter(time => {
+    const horaDisponible = !rent.value.some(rentItem => {
+      return rentItem.date_day === selectedRent.value.date_day && rentItem.date_time === time.date_time && rentItem.court_id === selectedRent.value.court.id;
+    });
+    return horaDisponible;
+  });
+};
 
 const errors = ref({
-    email: '',
-    name: '',
+  DeporteSeleccionado: '',
+  date_day: '',
+  pistaSeleccionada: '',
+  timeSeleccionado: ''
+});
+
+const validarFormulario = () => {
+  let valid = true;
+  errors.value = {
     DeporteSeleccionado: '',
     date_day: '',
     pistaSeleccionada: '',
     timeSeleccionado: ''
-});
+  };
 
-const validarFormulario = () => {
-    let valid = true;
-    errors.value = {
-        email: '',
-        name: '',
-        DeporteSeleccionado: '',
-        date_day: '',
-        pistaSeleccionada: '',
-        timeSeleccionado: ''
-    };
+  if (!selectedRent.value.sport_id) {
+    errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
+    valid = false;
+  }
+  if (!selectedRent.value.date_day) {
+    errors.value.date_day = 'Debes seleccionar una fecha.';
+    valid = false;
+  }
+  if (!selectedRent.value.court.id) {
+    errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
+    valid = false;
+  }
+  if (!selectedRent.value.date_time) {
+    errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
+    valid = false;
+  }
 
-    if (!localEmail.value) {
-        errors.value.email = 'El campo Email no puede estar vacío.';
-        valid = false;
-    }
-    if (!localName.value) {
-        errors.value.name = 'El campo Nombre no puede estar vacío.';
-        valid = false;
-    }
-    if (!DeporteSeleccionado.value) {
-        errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
-        valid = false;
-    }
-    if (!date_day.value) {
-        errors.value.date_day = 'Debes seleccionar una fecha.';
-        valid = false;
-    }
-    if (!pistaSeleccionada.value) {
-        errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
-        valid = false;
-    }
-    if (!timeSeleccionado.value) {
-        errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
-        valid = false;
-    }
-
-    return valid;
+  return valid;
 };
 
-
-
 onMounted(() => {
-  getClients();
   getRents();
   getCourts();
-  getHours();
   getSports();
 });
 </script>
