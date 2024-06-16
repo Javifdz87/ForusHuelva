@@ -23,7 +23,7 @@
             <router-link to="/search" class="nav-link">Filtrar Clientes</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/register" class="nav-link">Registrar</router-link>
+            <router-link to="/register" class="nav-link">Registrar Admin</router-link>
           </li>
           <li class="nav-item">
               <router-link to="/" class="nav-link text-danger">Cerrar Sesión</router-link>

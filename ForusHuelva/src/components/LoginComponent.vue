@@ -54,18 +54,22 @@
                 <div class="col-md-6 bg-white p-3 rounded-4">
                   <h2 class="card-title text-center mb-3">Iniciar sesión</h2>
                   <form @submit.prevent="login">
-                    <div class="mb-3">
-                      <div class="form-floating mb-3">
+                    <div class="mt-3">
+                      <div class="form-floating mb-4">
                         <input type="email" class="form-control" id="email" placeholder="name@example.com"
                           v-model="email"/>
                         <label for="floatingInput">Email</label>
+                        <div v-if="errors.email" class="text-danger">{{ errors.email }}</div>
+
                       </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-4">
                       <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="password" placeholder="name@example.com"
                           v-model="password"/>
                         <label for="floatingInput">Contraseña</label>
+                        <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
+
                       </div>
 
                     </div>
@@ -73,7 +77,6 @@
 
                       <button type="submit" class="btn btn-primary  btn-block w-100">Iniciar sesión</button>
                       <router-link to="/newclient" class="d-block mt-3 text-center">¿Aún no tienes cuenta?</router-link>
-                      <p class="text-muted">Credenciales de prueba:<br> Email: admin@gmail.com <br> Contraseña: admin</p>
 
                     </div>
 
@@ -322,6 +325,10 @@ const showSuccess = (message) => {
 };
 
 async function login() {
+  if (!validateForm()) {
+    showError('Por favor, corrige los errores del formulario.')
+    return
+  }
   try {
     // Hacemos una solicitud de inicio de sesión a la API
     const response = await api.post('/login', {
@@ -349,6 +356,52 @@ async function login() {
     // Mostramos un mensaje de error al usuario
     showError('El email o la contraseña no son correctas.');
   }
+}
+
+
+// Objeto reactivo para almacenar los mensajes de error de validación
+const errors = ref({
+  name: '',
+  last_Name: '',
+  dni: '',
+  email: '',
+  phone: '',
+  town: '',
+  postal_code: '',
+  province: '',
+  bank_account: '',
+  address: '',
+  password: ''
+})
+
+// Función para validar el formulario
+const validateForm = () => {
+  // Variable para determinar si el formulario es válido
+  let valid = true
+
+  // Reiniciar los mensajes de error
+  errors.value = {
+    email: '',
+    password: ''
+  }
+
+
+  if (!email.value) {
+    errors.value.email = 'El campo de correo electrónico no puede estar vacío.'
+    valid = false
+  } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+    errors.value.email = 'El correo electrónico debe ser una dirección de correo válida.'
+    valid = false
+  }
+
+
+  if (!password.value) {
+    errors.value.password = 'El campo Contraseña no puede estar vacío.'
+    valid = false
+  }
+
+  // Devolver si el formulario es válido o no
+  return valid
 }
 
 </script>

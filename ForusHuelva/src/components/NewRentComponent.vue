@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" @change="actualizarHorasDisponibles" placeholder="Elije el dia de juego" />
+                            <input type="date" class="form-control" id="fechaInicio" v-model="date_day" :min="today" @change="actualizarHorasDisponibles" placeholder="Elije el dia de juego" />
                             <label for="fechaInicio">Elije el día de juego</label>
                             <div v-if="errors.date_day" class="text-danger">{{ errors.date_day }}</div>
                         </div>
@@ -97,6 +97,8 @@ const props = defineProps({
 });
 
 const isActive = ref(false);
+
+const today = new Date().toISOString().split('T')[0];
 
 const localEmail = ref(props.email);
 const localName = ref(props.name);

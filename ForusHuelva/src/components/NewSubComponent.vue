@@ -40,6 +40,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" v-model="password" id="password" />
+                            <label for="floatingInput">Password</label>
+                            <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" v-model="date_end" />
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
@@ -51,9 +60,8 @@
     </div>
 </template>
 
-
 <script setup>
-import { ref, defineProps, watch } from 'vue';
+import { ref, defineProps, defineEmits, watch } from 'vue';
 import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
 import api from '@/services/service';
@@ -69,7 +77,6 @@ const localName = ref(props.name);
 const localId = ref(props.id);
 
 const emit = defineEmits(['subscriptionCreated']);
-
 
 watch(() => props.email, (newVal) => {
     localEmail.value = newVal;
@@ -87,48 +94,42 @@ const toast = useToast();
 const importe = ref('');
 const observation = ref('');
 const date_end = ref('');
+const password = ref('');
 
 const errors = ref({
     email: '',
     name: '',
     observation: '',
-    importe: ''
+    importe: '',
+    password: ''
 });
 
-// Función para actualizar el importe y calcular la fecha de vencimiento
 const updateImporte = () => {
-    // Obtener el tipo de suscripción seleccionado
     const subscription = observation.value;
 
-    // Según el tipo de suscripción seleccionado, asignar un valor al importe y calcular la fecha de vencimiento
     switch (subscription) {
         case "3 meses":
-            importe.value = 59.99; // Valor para 3 meses
-            calculateExpiryDate(3); // Calcular la fecha de vencimiento para 3 meses
+            importe.value = 59.99;
+            calculateExpiryDate(3);
             break;
         case "6 meses":
-            importe.value = 105.99; // Valor para 6 meses
-            calculateExpiryDate(6); // Calcular la fecha de vencimiento para 6 meses
+            importe.value = 105.99;
+            calculateExpiryDate(6);
             break;
         case "12 meses":
-            importe.value = 219.99; // Valor para 12 meses
-            calculateExpiryDate(12); // Calcular la fecha de vencimiento para 12 meses
+            importe.value = 219.99;
+            calculateExpiryDate(12);
             break;
         default:
-            importe.value = ""; // Valor predeterminado si no se selecciona nada
+            importe.value = "";
     }
 };
 
-// Función para calcular la fecha de vencimiento basada en el número de meses
 const calculateExpiryDate = (months) => {
-    // Obtener la fecha actual
     const currentDate = new Date();
-    // Sumar el número de meses a la fecha actual
     currentDate.setMonth(currentDate.getMonth() + months);
-    // Formatear la fecha de vencimiento como YYYY-MM-DD
     date_end.value = currentDate.toISOString().split('T')[0];
 };
-
 
 const showError = (message) => {
     toast.add({ severity: 'error', summary: 'Error', detail: message || 'Algo no ha salido como se esperaba', life: 3000 });
@@ -144,7 +145,8 @@ const validateForm = () => {
         email: '',
         name: '',
         observation: '',
-        importe: ''
+        importe: '',
+        password: ''
     };
 
     if (!localEmail.value) {
@@ -163,73 +165,65 @@ const validateForm = () => {
         errors.value.importe = 'El campo Importe no puede estar vacío.';
         valid = false;
     }
+    if (!password.value) {
+        errors.value.password = 'La contraseña es requerida';
+        valid = false;
+    }
 
     return valid;
 };
 
-// Función para crear una nueva suscripción
 const createSub = async () => {
-    // Validar el formulario antes de proceder
     if (!validateForm()) {
         showError('Por favor, corrige los errores del formulario.');
         return;
     }
     try {
-        // Obtener la fecha actual en formato YYYY-MM-DD
         const currentDate = new Date().toISOString().split('T')[0];
-        const status = "activa"; // Estado predeterminado para una nueva suscripción
+        const status = "activa";
 
-        // Verificar si el cliente ya tiene una suscripción existente
         const suscripcionExistente = await verifySub(localId.value);
 
-        // Si hay una suscripción existente
         if (suscripcionExistente) {
-            // Si la suscripción existente está activa, mostrar un mensaje de error
             if (suscripcionExistente.status === 'activa') {
                 showError('El cliente ya tiene una suscripción activa.');
                 return;
-            } 
-            // Si la suscripción existente está cancelada y aún no ha expirado, mostrar un mensaje de error
-            else if (suscripcionExistente.status === 'cancelada' && suscripcionExistente.date_end >= currentDate) {
+            } else if (suscripcionExistente.status === 'cancelada' && suscripcionExistente.date_end >= currentDate) {
                 showError('El cliente tiene una suscripción cancelada que aún no ha expirado.');
                 return;
             }
         }
-        // Datos de la nueva suscripción
+
         const subscriptionData = {
+            email: localEmail.value,
             importe: importe.value,
             date_pay: currentDate,
             date_end: date_end.value,
             observation: observation.value,
             client_id: localId.value,
-            status: status
+            status: status,
+            password: password.value
         };
 
-        // Si hay una suscripción existente cancelada que ya ha expirado, actualizarla en lugar de crear una nueva
         if (suscripcionExistente && suscripcionExistente.status === 'cancelada' && suscripcionExistente.date_end < currentDate) {
             await api.put(`/subfees/${localId.value}`, subscriptionData);
             showSuccess('Suscripción actualizada exitosamente.');
         } else {
-            // Crear una nueva suscripción
             await api.post('/subfees', subscriptionData);
             showSuccess('Suscripción creada exitosamente.');
         }
-        
-        // Emitir un evento para indicar que se ha creado una nueva suscripción
-        emit('subscriptionCreated'); 
 
-        // Cerrar el modal de creación de suscripción y limpiar los campos del formulario
+        emit('subscriptionCreated');
         closeModalCreate();
         importe.value = '';
         observation.value = '';
         date_end.value = '';
+        password.value = '';
     } catch (error) {
-        // Manejar cualquier error que ocurra durante la creación o actualización de la suscripción
         showError('Error al crear o actualizar la suscripción.');
         console.error('Error al crear o actualizar la suscripción:', error);
     }
 };
-
 
 const verifySub = async (client_id) => {
     try {

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClientsModel;
 use App\Models\SubscriptionFeesModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SubFeesController extends Controller
 {
@@ -19,12 +21,22 @@ class SubFeesController extends Controller
     // Método para crear una nueva suscripción
     public function store(Request $request)
     {
+        $cliente = ClientsModel::where('email', $request->email)->firstOrFail();
+        $data = $request->all();
+    
+        // Verificamos la contraseña
+        if (!Hash::check($data['password'], $cliente->password)) {
+            return response()->json(['error' => 'Contraseña incorrecta'], 401);
+        }
+    
         // Crear una nueva suscripción con los datos proporcionados
-        $sub = SubscriptionFeesModel::create($request->all());
-
+        $sub = SubscriptionFeesModel::create($data);
+    
         // Retornar la nueva suscripción junto con el código de estado 201
         return response()->json($sub, 201);
     }
+    
+    
 
     // Método para actualizar una suscripción existente por client_id en lugar de id
     public function update(Request $request, $clientId)

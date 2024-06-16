@@ -129,7 +129,7 @@
         <div class="modal-body">Se va a eliminar toda la fila.</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
+          <button type="button" class="btn btn-danger" @click="deleteResult">Si</button>
         </div>
       </div>
     </div>
@@ -289,22 +289,17 @@ const showSuccess = (message) => {
 
 const selectRent = (rent) => {
   selectedRent.value = { ...rent }
-  console.log(selectedRent.value)
 }
 
 const toast = useToast();
 
 const getClients = async (email) => {
   try {
-    console.log(`Buscando cliente con email: ${email}`);
     const respuesta = await api.get(`/clients/${email}`);
-    console.log('Respuesta de getClients:', respuesta.data);
     cliente.value = respuesta.data;
     if (cliente.value && cliente.value.id) {
-      console.log('Cliente encontrado:', cliente.value);
       getRents(cliente.value.id);
     } else {
-      console.log('No se encontró ningún cliente con ese email.');
     }
   } catch (error) {
     console.error('Error en getClients:', error);
@@ -313,40 +308,42 @@ const getClients = async (email) => {
 
 const getRents = async (clienteId) => {
   try {
-    console.log(`Buscando alquileres para el cliente con ID: ${clienteId}`);
     const respuesta = await api.get(`/rentfees/${clienteId}`);
-    console.log('Respuesta de getRents:', respuesta.data);
-    rent.value = respuesta.data;
-    console.log('Alquileres cargados:', rent.value);
+    
+    // Filter rents where date_day is before today
+    const today = new Date();
+    rent.value = respuesta.data.filter(rental => {
+      const rentDate = new Date(rental.date_day);
+      return rentDate < today;
+    });
+    
   } catch (error) {
     console.error('Error en getRents:', error);
   }
 };
 
 
-const deleteRent = async () => {
+
+const deleteResult = async () => {
   try {
-    if (!selectedRent.value) {
-      console.error('No hay alquiler seleccionado para eliminar.');
-      return;
-    }
+    const data = {
+      team_a: '',
+      team_b: '',
+      result: '',
+      description: ''
+    };
 
-    const idRent = selectedRent.value.id;
-    const response = await api.delete(`/rentfees/${idRent}`);
+    await api.put(`/rentfees/${selectedRent.value.id}`, data);
 
-    if (response.status === 204) {
-      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
-      showSuccess('Alquiler eliminado correctamente.');
-      closeModalDelete();
-    } else {
-      showError('Error al eliminar el alquiler.');
-      console.error('Error al eliminar el alquiler.');
-    }
+    showSuccess('Resultado eliminado correctamente');
+    getRents();
+    closeModalDelete();
   } catch (error) {
-    showError('Error al eliminar el alquiler');
-    console.error('Error al eliminar el alquiler:', error);
+    console.error(error);
+    showError('Hubo un problema al eliminar el resultado.');
   }
 };
+
 
 const closeModalDelete = async () => {
   const borrarClienteModal = document.getElementById('modalDeleteResult')
@@ -364,30 +361,6 @@ const hasComma = (text) => {
 };
 
 
-const editRent = async () => {
-  if (!validarFormulario()) {
-    showError('Por favor, corrige los errores del formulario.');
-    return;
-  }
-
-  try {
-    const data = {
-      date_day: selectedRent.value.date_day,
-      date_time: selectedRent.value.date_time,
-      court_id: selectedRent.value.court.id,
-      sport_id: DeporteSeleccionado.value,
-    };
-
-    await api.put(`/rentfees/${selectedRent.value.id}`, data);
-
-
-    showSuccess('Alquiler editado correctamente');
-    getRents();
-  } catch (error) {
-    console.error(error);
-    showError('Hubo un problema al editar el alquiler.');
-  }
-};
 
 
 const getCourts = async () => {
@@ -400,16 +373,7 @@ const getCourts = async () => {
   }
 };
 
-const getHours = async (sportId) => {
-  try {
-    const respuesta = await api.get(`/times/${sportId}`);
-    times.value = respuesta.data;
-    actualizarHorasDisponibles(); // Actualizar las horas disponibles después de obtenerlas
-  } catch (error) {
-    console.error(error);
-    showError('Hubo un problema al cargar los horarios.');
-  }
-};
+
 
 const getSports = async () => {
   try {
@@ -421,10 +385,6 @@ const getSports = async () => {
   }
 };
 
-const actualizarPistas = () => {
-  filteredPistas.value = pistas.value.filter(pista => pista.sport_id === DeporteSeleccionado.value);
-  getHours(DeporteSeleccionado.value); // Obtener los horarios disponibles para el deporte seleccionado
-};
 
 const actualizarHorasDisponibles = () => {
   filteredTimes.value = times.value.filter(time => {
@@ -435,41 +395,8 @@ const actualizarHorasDisponibles = () => {
   });
 };
 
-const errors = ref({
-  DeporteSeleccionado: '',
-  date_day: '',
-  pistaSeleccionada: '',
-  timeSeleccionado: ''
-});
 
-const validarFormulario = () => {
-  let valid = true;
-  errors.value = {
-    DeporteSeleccionado: '',
-    date_day: '',
-    pistaSeleccionada: '',
-    timeSeleccionado: ''
-  };
 
-  if (!DeporteSeleccionado.value) {
-    errors.value.DeporteSeleccionado = 'Debes seleccionar un deporte.';
-    valid = false;
-  }
-  if (!date_day.value) {
-    errors.value.date_day = 'Debes seleccionar una fecha.';
-    valid = false;
-  }
-  if (!pistaSeleccionada.value) {
-    errors.value.pistaSeleccionada = 'Debes seleccionar una pista.';
-    valid = false;
-  }
-  if (!timeSeleccionado.value) {
-    errors.value.timeSeleccionado = 'Debes seleccionar una hora.';
-    valid = false;
-  }
-
-  return valid;
-};
 
 const players = ref([{ id: 1, teamA: '', teamB: '' }, { id: 2, teamA: '', teamB: '' }]);
 const resultadoA = ref('');
@@ -477,10 +404,6 @@ const resultadoB = ref('');
 const description = ref('');
 
 
-const addPlayer = () => {
-  const newPlayerId = players.value.length + 1;
-  players.value.push({ id: newPlayerId, teamA: '', teamB: '' });
-};
 
 const editResult = async () => {
   const teamA = players.value.map(player => player.teamA).join(', ');

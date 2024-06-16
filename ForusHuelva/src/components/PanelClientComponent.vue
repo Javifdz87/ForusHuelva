@@ -235,6 +235,10 @@
                     @click="selectRent(slotProps.data)">
                     Modificar
                   </Button>
+                  <Button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#modalDeleteRent"
+                    @click="selectRent(slotProps.data)">
+                    Cancelar
+                  </Button>
 
                 </template>
               </Column>
@@ -584,7 +588,7 @@
             </div>
             <div class="row">
               <router-link to="#" class="d-block mt-3 text-center" data-bs-toggle="modal"
-                data-bs-target="#modalSub">Modificar suscripción</router-link>
+                data-bs-target="#modalEditPerfil">Modificar Perfil</router-link>
               <router-link to="#" class="d-block mt-3 text-center text-danger" data-bs-toggle="modal"
                 data-bs-target="#cancelar">Cancelar suscripción</router-link>
             </div>
@@ -593,7 +597,108 @@
       </div>
     </div>
   </div>
+  <!-- Modal Editar Perfil -->
+  <div class="modal fade" id="modalEditPerfil" tabindex="-1" aria-labelledby="modalEditPerfil" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditPerfil">Editar Perfil</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form @submit.prevent="editClient">
 
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="dni_account" placeholder="name@example.com"
+                    v-model="clientes.dni" maxlength="9"/>
+                  <label for="floatingInput">DNI</label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="name_account" placeholder="name@example.com"
+                    v-model="clientes.name" />
+                  <label for="floatingInput">Nombre</label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="last_Name_account" placeholder="name@example.com"
+                    v-model="clientes.last_Name" />
+                  <label for="floatingInput">Apellido</label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-1">
+                  <input type="text" class="form-control" id="email_account" placeholder="name@example.com"
+                    v-model="clientes.email" />
+                  <label for="floatingInput">Email</label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="form-floating mb-1">
+                  <input type="text" class="form-control" id="phone_account" placeholder="name@example.com"
+                    v-model="clientes.phone" maxlength="9"/>
+                  <label for="floatingInput">Telefóno</label>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="town_account" placeholder="name@example.com"
+                    v-model="clientes.town" />
+                  <label for="floatingInput">Localidad</label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="postal_code_account" placeholder="name@example.com"
+                    v-model="clientes.postal_code" maxlength="5"/>
+                  <label for="floatingInput">Codigo Postal</label>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="province_account" placeholder="name@example.com"
+                    v-model="clientes.province" />
+                  <label for="floatingInput">Provincia</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-floating mb-1">
+                  <input type="text" class="form-control" id="address_account" placeholder="name@example.com"
+                    v-model="clientes.address" />
+                  <label for="floatingInput">Dirección</label>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                    <button type="submit" class="btn btn-warning btn-block w-100">Guardar Cambios</button>
+                  </div>
+                </div>
+
+            </div>
+          </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Modal Bank account -->
   <div class="modal fade" id="modalBank" tabindex="-1" aria-labelledby="modalSub" aria-hidden="true">
     <div class="modal-dialog">
@@ -732,6 +837,24 @@
   </div>
 </div>
 
+  <!-- Modal Eliminar Alquiler -->
+  <div class="modal fade" id="modalDeleteRent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h5 class="modal-title text-light" id="staticBackdropLabel">¿Quieres Eliminar?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Se va a eliminar toda la fila.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" @click="deleteRent">Si</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script setup>
@@ -842,13 +965,8 @@ const subs = ref([]);
 const rent = ref([]);
 const rentSport = ref([]);
 const qrCodeUrl = ref('');
-const DeporteSeleccionado = ref('');
 const filteredPistas = ref([]);
 const filteredTimes = ref([]);
-const timeSeleccionado = ref('');
-const pistaSeleccionada = ref('');
-const date_day = ref('');
-
 
 
 const props = defineProps({
@@ -933,6 +1051,37 @@ const getCourts = async () => {
 const handleSubscriptionCreated = () => {
   getSub(clientes.value.id);
 };
+
+const deleteRent = async () => {
+  try {
+    if (!selectedRent.value) {
+      console.error('No hay alquiler seleccionado para eliminar.');
+      return;
+    }
+
+    const idRent = selectedRent.value.id;
+    const response = await api.delete(`/rentfees/${idRent}`);
+
+    if (response.status === 204) {
+      rent.value = rent.value.filter(alquiler => alquiler.id !== idRent);
+      showSuccess('Alquiler eliminado correctamente.');
+      closeModalDelete();
+    } else {
+      showError('Error al eliminar el alquiler.');
+      console.error('Error al eliminar el alquiler.');
+    }
+  } catch (error) {
+    showError('Error al eliminar el alquiler');
+    console.error('Error al eliminar el alquiler:', error);
+  }
+};
+
+const closeModalDelete = async () => {
+  const borrarClienteModal = document.getElementById('modalDeleteRent')
+  const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
+  closeButton.click()
+}
+
 
 const getSports = async () => {
   try {
@@ -1104,6 +1253,80 @@ const getRents = async (clienteId) => {
   }
 };
 
+const editClient = async () => {
+  try {
+    // Convertir phone y postal_code a números enteros
+    const phoneValue = parseInt(clientes.value.phone, 10);
+    const postalCodeValue = parseInt(clientes.value.postal_code, 10);
+
+    // Verificar si la conversión fue exitosa
+    if (isNaN(phoneValue) || isNaN(postalCodeValue)) {
+      throw new Error('El formato de phone o postal_code no es válido');
+    }
+
+    const idCliente = clientes.value.id;
+    const data = {
+      name: clientes.value.name,
+      last_Name: clientes.value.last_Name,
+      dni: clientes.value.dni,
+      email: clientes.value.email,
+      phone: phoneValue, // Usar el valor convertido
+      town: clientes.value.town,
+      postal_code: postalCodeValue, // Usar el valor convertido
+      province: clientes.value.province,
+      address: clientes.value.address,
+    };
+
+    console.log('Datos a enviar:', data);
+
+    const response = await api.put(`/clients/${idCliente}`, data); // Enviar `data` en la solicitud `PUT`
+
+    console.log('Respuesta del servidor:', response);
+
+    if (response.status === 200) {
+      console.log('Cliente actualizado correctamente.');
+
+      // Limpiar los campos del formulario
+      clientes.value = {
+        name: '',
+        last_Name: '',
+        dni: '',
+        email: '',
+        phone: '',
+        town: '',
+        postal_code: '',
+        province: '',
+        address: ''
+      };
+      watch(() => props.email, (newVal) => {
+  localEmail.value = newVal;
+  getClients(newVal);
+});
+      if (localEmail.value) {
+    getClients(localEmail.value);
+  }
+
+      closeModalEdit(); // Cerrar el modal de edición
+      showSuccess('Editado Correctamente'); // Mostrar mensaje de éxito
+      getClients(); // Actualizar la lista de clients
+    } else {
+      console.error('Error al editar el cliente. Código de estado:', response.status);
+      showError('Error al editar el cliente'); // Mostrar mensaje de error
+    }
+  } catch (error) {
+    console.error('Error al editar el cliente:', error);
+    showError('Error al editar el cliente'); // Mostrar mensaje de error
+  }
+};
+
+
+
+
+const closeModalEdit = async () => {
+const editClientModal = document.getElementById('modalEditPerfil')
+const closeButton = editClientModal.querySelector('[data-bs-dismiss="modal"]')
+closeButton.click()
+}
 
 const selectSport = async (event) => {
   const sportId = event.target.getAttribute('data-sport-id');
@@ -1114,7 +1337,6 @@ const getRentsSport = async (sportId) => {
   try {
     const respuesta = await api.get(`/calendar/${sportId}`);
     rentSport.value = respuesta.data;
-    console.log('Alquileres por deporte:', rentSport.value);
   } catch (error) {
     console.error(error);
   }
