@@ -30,10 +30,6 @@
                 <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalViewResult"
                   @click="selectRent(slotProps.data)">Ver resultado</button>
               </li>
-              <li>
-                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditResult"
-                  @click="selectRent(slotProps.data)">Modificar resultado</button>
-              </li>
             </ul>
           </div>
 
