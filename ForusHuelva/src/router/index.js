@@ -83,6 +83,10 @@ const routes = [
     name: 'bienvenido',
     component: Bienvenido
   }, 
+  {
+    path: '/:pathMatch(.*)*',  // Redirige cualquier ruta no conocida a home
+    redirect: '/'
+  }
   
 ];
 

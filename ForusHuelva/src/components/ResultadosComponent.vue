@@ -103,8 +103,12 @@ const showSuccess = (message) => {
 };
 
 const addPlayer = () => {
-  const newPlayerId = players.value.length + 1;
-  players.value.push({ id: newPlayerId, teamA: '', teamB: '' });
+  if (players.value.length >= 7) {
+    showError('No puedes agregar más de 7 jugadores por equipo.');
+    return;
+  }
+
+  players.value.push({ id: players.value.length + 1 });
 };
 
 const addResult = async () => {

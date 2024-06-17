@@ -685,13 +685,14 @@
                   <label for="floatingInput">Dirección</label>
                 </div>
               </div>
-              <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <button type="submit" class="btn btn-warning btn-block w-100">Guardar Cambios</button>
-                  </div>
-                </div>
+
 
             </div>
+            <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
+                  <button type="submit" class="btn btn-warning btn-block w-100">Modificar Alquiler</button>
+                  </div>
+                </div>
           </form>
 
           </div>
@@ -772,7 +773,7 @@
 <div class="modal fade" id="modalEditRent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-warning">
         <h5 class="modal-title" id="exampleModalLabel">Editar Alquiler</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -781,7 +782,7 @@
           <form @submit.prevent="editRent">
             <!-- Deporte y Fecha de Juego -->
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <select id="sport" v-model="selectedRent.sport_id" @change="actualizarPistas" class="form-select">
                     <option value="" disabled selected>Selecciona un deporte</option>
@@ -791,7 +792,7 @@
                   <div v-if="errors.DeporteSeleccionado" class="text-danger">{{ errors.DeporteSeleccionado }}</div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <input type="date" class="form-control" id="fechaInicio" v-model="selectedRent.date_day" @change="actualizarHorasDisponibles" placeholder="Elije el día de juego" />
                   <label for="fechaInicio">Elije el día de juego</label>
@@ -801,7 +802,7 @@
             </div>
             <!-- Pista y Hora -->
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <select id="pista" v-model="selectedRent.court.id" @change="actualizarHorasDisponibles" class="form-select">
                     <option value="" disabled selected>Selecciona una pista</option>
@@ -811,7 +812,7 @@
                   <div v-if="errors.pistaSeleccionada" class="text-danger">{{ errors.pistaSeleccionada }}</div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div class="form-floating mb-3">
                   <select id="time" v-model="selectedRent.date_time" class="form-select">
                     <option value="" disabled selected>Selecciona una hora</option>
@@ -825,9 +826,7 @@
             <!-- Botón para editar alquiler -->
             <div class="row">
               <div class="col-lg-12">
-                <div class="form-floating mb-3">
-                  <button type="submit" class="btn btn-primary btn-block">Modificar Alquiler</button>
-                </div>
+                  <button type="submit" class="btn btn-warning btn-block w-100">Modificar Alquiler</button>
               </div>
             </div>
           </form>
