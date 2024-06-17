@@ -1080,6 +1080,11 @@ const closeModalDelete = async () => {
   const closeButton = borrarClienteModal.querySelector('[data-bs-dismiss="modal"]')
   closeButton.click()
 }
+watch(selectedTable, (newValue) => {
+      if (newValue === 'pending') {
+        getRents(clientes.value.id);
+      }
+    });
 
 
 const getSports = async () => {
